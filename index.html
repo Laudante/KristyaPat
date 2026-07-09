@@ -131,6 +131,19 @@
   .mark.pass{color:var(--stamp-green);}
   .mark.flag{color:var(--stamp-red);}
 
+  /* Custom Box Colors */
+  .stamp.box-purple { background-color: #EFE7F7; border-color: #A384C4; }
+  .stamp.box-purple .label, .stamp.box-purple .target { color: #5B3E7A; }
+  .stamp.box-purple .mark.pass { color: #5B3E7A; border-color: #5B3E7A; }
+  
+  .stamp.box-brown { background-color: #F4ECE1; border-color: #C2A683; }
+  .stamp.box-brown .label, .stamp.box-brown .target { color: #6E5334; }
+  .stamp.box-brown .mark.pass { color: #6E5334; border-color: #6E5334; }
+
+  .stamp.box-green { background-color: #ECF3E6; border-color: #A3C995; }
+  .stamp.box-green .label, .stamp.box-green .target { color: #3E6634; }
+  .stamp.box-green .mark.pass { color: #3E6634; border-color: #3E6634; }
+
   .deck-total-banner{
     font-family:'IBM Plex Mono',monospace;
     font-size:12.5px;
@@ -276,6 +289,7 @@
 <script>
 const STORAGE_KEY = 'kristyasworn-deck-v1';
 
+// Ordine discendente strutturato secondo richiesta
 const ROLES = [
   {id:'starter', label:'Starter', min:11, max:13},
   {id:'extender', label:'Extender', min:12, max:14},
@@ -289,10 +303,9 @@ const ROLES = [
 
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
-// Pool curato di carte rilevanti per Edison Format (Lightsworn + i 7 matchup target + staple generici).
-// status: U = Unlimited(3), S = Semi-Limited(2), L = Limited(1), F = Forbidden(0)
+// Card Pool Esteso al massimo per Edison Format
 const CARD_POOL = [
-  // Lightsworn
+  // Lightsworn & Fata Core
   {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
   {name:'Aurkus, Lightsworn Druid', type:'Monster', atk:1400, fairy:false, status:'U'},
   {name:'Card Trooper', type:'Monster', atk:400, fairy:false, status:'L'},
@@ -301,6 +314,8 @@ const CARD_POOL = [
   {name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1900, fairy:false, status:'U'},
   {name:'Hecatrice', type:'Monster', atk:1500, fairy:true, status:'U'},
   {name:'Herald of Orange Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {name:'Herald of Green Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {name:'Herald of Purple Light', type:'Monster', atk:300, fairy:true, status:'U'},
   {name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
   {name:'Jain, Lightsworn Paladin', type:'Monster', atk:1800, fairy:false, status:'U'},
   {name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false, status:'S'},
@@ -311,85 +326,96 @@ const CARD_POOL = [
   {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:1300, fairy:false, status:'U'},
   {name:'Tragoedia', type:'Monster', atk:2000, fairy:false, status:'L'},
   {name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Shire, Lightsworn Spirit', type:'Monster', atk:400, fairy:false, status:'U'},
+  {name:'Ryna, Lightsworn Rogue', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Gellenduo', type:'Monster', atk:1700, fairy:true, status:'U'},
+  {name:'Tethys, Goddess of Light', type:'Monster', atk:2400, fairy:true, status:'U'},
+  {name:'Shining Angel', type:'Monster', atk:1400, fairy:false, status:'U'},
+  {name:'Nova Summoner', type:'Monster', atk:1400, fairy:true, status:'U'},
   {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Gold Sarcophagus', type:'Spell', atk:null, fairy:false, status:'S'},
-  {name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Realm of Light', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
-  // Staple generici
+  {name:'Lightsworn Barrier', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Glorious Illusion', type:'Trap', atk:null, fairy:false, status:'U'},
+
+  // Staples / Side Generiche
   {name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
   {name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
+  {name:'Raiza the Storm Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
   {name:'Kycoo the Ghost Destroyer', type:'Monster', atk:1800, fairy:false, status:'U'},
   {name:'D.D. Crow', type:'Monster', atk:100, fairy:false, status:'U'},
   {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  {name:'Consecrated Light', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
+  {name:'Chaos Sorcerer', type:'Monster', atk:2300, fairy:false, status:'S'},
+  {name:'Sangan', type:'Monster', atk:1000, fairy:false, status:'L'},
   {name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Lightning Vortex', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Reinforcement of the Army', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Cold Wave', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Gold Sarcophagus', type:'Spell', atk:null, fairy:false, status:'S'},
+  {name:'Cold Wave', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'Giant Trunade', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'The Shallow Grave', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'My Body as a Shield', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Scapegoat', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
   {name:'Mirror Force', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Torrential Tribute', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Solemn Judgment', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'S'},
   {name:'Royal Decree', type:'Trap', atk:null, fairy:false, status:'S'},
-  {name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Call of the Haunted', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'L'},
+  {name:'Call of the Haunted', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Treacherous Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Needlebug Nest', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Compulsory Evacuation Device', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'S'},
   {name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
-  // Blackwing
-  {name:'Blackwing - Gale the Whirlwind', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {name:'Starlight Road', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Compulsory Evacuation Device', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Needlebug Nest', type:'Trap', atk:null, fairy:false, status:'U'},
+
+  // Matchup Engines (Blackwing, Frog, Machina, Gladiator Beast, etc.)
+  {name:'Blackwing - Gale the Whirlwind', type:'Monster', atk:1300, fairy:false, status:'L'},
   {name:'Blackwing - Kalut the Moon Shadow', type:'Monster', atk:1700, fairy:false, status:'U'},
   {name:'Blackwing - Bora the Spear', type:'Monster', atk:1700, fairy:false, status:'U'},
   {name:'Blackwing - Shura the Blue Flame', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Blackwing - Vayu the Emblem of Honor', type:'Monster', atk:1600, fairy:false, status:'U'},
-  {name:'Blackwing - Sirocco the Dawn', type:'Monster', atk:1900, fairy:false, status:'U'},
-  {name:'Black Whirlwind', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Icarus Attack', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Delta Crow - Anti Reverse', type:'Trap', atk:null, fairy:false, status:'U'},
-  // Machina / Geartown
+  {name:'Blackwing - Vayu the Emblem of Honor', type:'Monster', atk:800, fairy:false, status:'U'},
+  {name:'Blackwing - Sirocco the Dawn', type:'Monster', atk:2000, fairy:false, status:'U'},
+  {name:'Blackwing - Blizzard the Far North', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {name:'Black Whirlwind', type:'Spell', atk:null, fairy:false, status:'S'},
+  {name:'Icarus Attack', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Treeborn Frog', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Ronintoadin', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {name:'Substitoad', type:'Monster', atk:1200, fairy:false, status:'U'},
+  {name:'Dupe Frog', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Swap Frog', type:'Monster', atk:1000, fairy:false, status:'U'},
   {name:'Machina Fortress', type:'Monster', atk:2500, fairy:false, status:'U'},
   {name:'Machina Gearframe', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Machina Peacekeeper', type:'Monster', atk:1600, fairy:false, status:'U'},
-  {name:'Machina Force', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {name:'Machina Peacekeeper', type:'Monster', atk:500, fairy:false, status:'U'},
+  {name:'Scrap Recycler', type:'Monster', atk:900, fairy:false, status:'U'},
   {name:'Geartown', type:'Spell', atk:null, fairy:false, status:'U'},
-  // Gladiator Beast
-  {name:'Gladiator Beast Bestiari', type:'Monster', atk:1500, fairy:false, status:'U'},
-  {name:'Gladiator Beast Laquari', type:'Monster', atk:1400, fairy:false, status:'U'},
-  {name:'Gladiator Beast Murmillo', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {name:'Gladiator Beast Bestiari', type:'Monster', atk:1500, fairy:false, status:'L'},
+  {name:'Gladiator Beast Laquari', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Gladiator Beast Equeste', type:'Monster', atk:1600, fairy:false, status:'U'},
   {name:'Gladiator Beast Darius', type:'Monster', atk:1700, fairy:false, status:'U'},
-  {name:'Gladiator Beast Equeste', type:'Monster', atk:1500, fairy:false, status:'U'},
+  {name:'Gladiator Beast Retiari', type:'Monster', atk:1200, fairy:false, status:'U'},
   {name:'Gladiator Beast Test Tiger', type:'Monster', atk:600, fairy:false, status:'U'},
-  {name:'Gyzarus', type:'Monster', atk:2400, fairy:false, status:'U'},
-  {name:'Heraklinos, Gladiator Beast God', type:'Monster', atk:2700, fairy:false, status:'U'},
-  // Frog
-  {name:'Treeborn Frog', type:'Monster', atk:100, fairy:false, status:'S'},
-  {name:'Ronintoadin', type:'Monster', atk:1000, fairy:false, status:'U'},
-  {name:'Des Frog', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Dupe Frog', type:'Monster', atk:900, fairy:false, status:'U'},
-  {name:'T.A.D.P.O.L.E.', type:'Monster', atk:1200, fairy:false, status:'U'},
-  {name:'Substitoad', type:'Monster', atk:1600, fairy:false, status:'U'},
-  // Vayu / Six Samurai (motore rogue veloce)
-  {name:'Kagemusha of the Six Samurai', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Shien\'s Squire', type:'Monster', atk:800, fairy:false, status:'U'},
-  {name:'Legendary Six Samurai - Shi En', type:'Monster', atk:2100, fairy:false, status:'U'},
-  {name:'Great Shogun Shien', type:'Monster', atk:2500, fairy:false, status:'U'},
-  // Quickdraw / synchro generico rogue
+  {name:'Gladiator Proving Ground', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Waboku', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Super Nimble Mega Hamster', type:'Monster', atk:1100, fairy:false, status:'U'},
+  {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false, status:'U'},
   {name:'Quickdraw Synchron', type:'Monster', atk:700, fairy:false, status:'U'},
-  {name:'Junk Synchron', type:'Monster', atk:1300, fairy:false, status:'U'},
-  {name:'Doppelwarrior', type:'Monster', atk:0, fairy:false, status:'U'},
-  {name:'Turbo Synchron', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Level Eater', type:'Monster', atk:600, fairy:false, status:'U'},
-  {name:'Debris Dragon', type:'Monster', atk:1900, fairy:false, status:'U'},
-  // Extra Deck comune
+  {name:'Debris Dragon', type:'Monster', atk:1000, fairy:false, status:'S'},
+  {name:'Dandylion', type:'Monster', atk:300, fairy:false, status:'S'},
+  {name:'Lonefire Blossom', type:'Monster', atk:500, fairy:false, status:'S'},
+  {name:'Tytannial, Princess of Camellias', type:'Monster', atk:2800, fairy:false, status:'U'},
+
+  // Extra Deck
   {name:'Stardust Dragon', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
   {name:'Black Rose Dragon', type:'ExtraMonster', atk:2400, fairy:false, status:'L'},
   {name:'Brionac, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2300, fairy:false, status:'L'},
@@ -398,45 +424,58 @@ const CARD_POOL = [
   {name:'Colossal Fighter', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
   {name:'Armory Arm', type:'ExtraMonster', atk:1800, fairy:false, status:'U'},
   {name:'Magical Android', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
-  {name:'Mist Wurm', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
-  {name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
-  {name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
-  {name:'XX-Saber Gottoms', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
+  {name:'Mist Wurm', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
+  {name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:true, status:'U'},
+  {name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2600, fairy:true, status:'U'},
+  {name:'XX-Saber Gottoms', type:'ExtraMonster', atk:3100, fairy:false, status:'U'},
   {name:'Chimeratech Fortress Dragon', type:'ExtraMonster', atk:0, fairy:false, status:'U'},
-  {name:'Trishula, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2700, fairy:false, status:'U'},
+  {name:'Gladiator Beast Gyzarus', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
+  {name:'Gladiator Beast Heraklinos', type:'ExtraMonster', atk:3000, fairy:false, status:'U'},
+  {name:'Blackwing Armed Wing', type:'ExtraMonster', atk:2300, fairy:false, status:'U'},
+  {name:'Blackwing Armor Master', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
+  {name:'Silverwind the Ascendant', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
+  {name:'Tempest Magician', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
 ];
+
 const STATUS_LABEL = {U:'Unlimited (3)', S:'Semi-Limited (2)', L:'Limited (1)', F:'Forbidden (0)'};
 const STATUS_MAX = {U:3, S:2, L:1, F:0};
 
 function defaultData(){
   return {
     main: [
-      {name:'Archlord Kristya', qty:3, type:'Monster', role:'bomb', atk:2800, fairy:true, ns:false},
-      {name:'Aurkus, Lightsworn Druid', qty:1, type:'Monster', role:'starter', atk:1400, fairy:false, ns:true},
-      {name:'Card Trooper', qty:1, type:'Monster', role:'starter', atk:400, fairy:false, ns:true},
-      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
-      {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
-      {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1900, fairy:false, ns:false},
-      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1300, fairy:true, ns:false},
-      {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
-      {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
-      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
-      {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'extender', atk:1400, fairy:false, ns:false},
-      {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
-      {name:'Necro Gardna', qty:1, type:'Monster', role:'defense', atk:800, fairy:false, ns:false},
-      {name:'Plaguespreader Zombie', qty:1, type:'Monster', role:'extender', atk:400, fairy:false, ns:false},
+      // Starter
       {name:'Ryko, Lightsworn Hunter', qty:3, type:'Monster', role:'starter', atk:1300, fairy:false, ns:true},
-      {name:'Tragoedia', qty:1, type:'Monster', role:'defense', atk:2000, fairy:false, ns:false},
-      {name:'Wulf, Lightsworn Beast', qty:3, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
+      {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
+      {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
+      {name:'Aurkus, Lightsworn Druid', qty:1, type:'Monster', role:'starter', atk:1400, fairy:false, ns:true},
+      {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
+      {name:'Card Trooper', qty:1, type:'Monster', role:'starter', atk:400, fairy:false, ns:true},
       {name:'Charge of the Light Brigade', qty:1, type:'Spell', role:'starter', atk:null, fairy:false, ns:false},
-      {name:'Foolish Burial', qty:1, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
-      {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
-      {name:'Monster Reincarnation', qty:2, type:'Spell', role:'reactive', atk:null, fairy:false, ns:false},
+      // Extender
+      {name:'Wulf, Lightsworn Beast', qty:3, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
       {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
-      {name:'Valhalla, Hall of the Fallen', qty:1, type:'Spell', role:'necessity', atk:null, fairy:false, ns:false},
-      {name:'Beckoning Light', qty:1, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
+      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
+      {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'extender', atk:1400, fairy:false, ns:false},
+      {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1900, fairy:false, ns:false},
+      {name:'Plaguespreader Zombie', qty:1, type:'Monster', role:'extender', atk:400, fairy:false, ns:false},
+      {name:'Foolish Burial', qty:1, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
+      // Removal
+      {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
       {name:'Mirror Force', qty:1, type:'Trap', role:'removal', atk:null, fairy:false, ns:false},
+      // Defense
+      {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
       {name:'Threatening Roar', qty:2, type:'Trap', role:'defense', atk:null, fairy:false, ns:false},
+      {name:'Necro Gardna', qty:1, type:'Monster', role:'defense', atk:800, fairy:false, ns:false},
+      {name:'Tragoedia', qty:1, type:'Monster', role:'defense', atk:2000, fairy:false, ns:false},
+      // Reactive
+      {name:'Monster Reincarnation', qty:2, type:'Spell', role:'reactive', atk:null, fairy:false, ns:false},
+      {name:'Beckoning Light', qty:1, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
+      // Bomb
+      {name:'Archlord Kristya', qty:3, type:'Monster', role:'bomb', atk:2800, fairy:true, ns:false},
+      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
+      // Necessity
+      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1500, fairy:true, ns:false},
+      {name:'Valhalla, Hall of the Fallen', qty:1, type:'Spell', role:'necessity', atk:null, fairy:false, ns:false},
     ],
     side: [
       {name:'Book of Moon', qty:1, matchups:[], replaces:''},
@@ -528,8 +567,17 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
+// Ordina dinamicamente le carte in base all'indice definito in ROLES
+function sortMainDeck(){
+  const roleOrder = ROLES.map(r => r.id);
+  DATA.main.sort((a, b) => {
+    return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
+  });
+}
+
 function render(){
   const app = document.getElementById('app');
+  sortMainDeck();
   const mainTotal = sumQty(DATA.main);
   const roleCounts = computeRoleCounts();
   const custom = computeCustomRules();
@@ -566,19 +614,25 @@ function render(){
             <div class="mark ${pass?'pass':'flag'}">${pass?'OK':'FUORI'}</div>
           </div>`;
         }).join('')}
-        <div class="stamp">
+        
+        <!-- Box DDV Target Personalizzato (Viola) -->
+        <div class="stamp box-purple">
           <div class="label">DDV Target (ATK≤1500)</div>
           <div class="value">${custom.ddv}</div>
           <div class="target">max 12</div>
           <div class="mark ${custom.ddv<=12?'pass':'flag'}">${custom.ddv<=12?'OK':'FUORI'}</div>
         </div>
-        <div class="stamp">
+        
+        <!-- Box Starter Normal Summon Personalizzato (Marrone) -->
+        <div class="stamp box-brown">
           <div class="label">Starter Normal Summon</div>
           <div class="value">${custom.ns}</div>
           <div class="target">max 9</div>
           <div class="mark ${custom.ns<=9?'pass':'flag'}">${custom.ns<=9?'OK':'FUORI'}</div>
         </div>
-        <div class="stamp">
+        
+        <!-- Box Fedeli/Fata Personalizzato (Verde) -->
+        <div class="stamp box-green">
           <div class="label">Fedeli (Fairy)</div>
           <div class="value">${custom.fairy}</div>
           <div class="target">8</div>
@@ -587,7 +641,7 @@ function render(){
       </div>
 
       <div class="section-title">Carte</div>
-      <div class="hint">Il ruolo determina in quale categoria della tabella conta la carta. Spunta "Fata" per il conteggio Fedeli, "NS" se è uno starter ad evocazione normale che rientra nel tetto dei 9. Digitando il nome compare un suggerimento dal pool Edison curato (Lightsworn + i 7 matchup target + staple generici): selezionandolo, ATK/Fata/Tipo si compilano da soli e la colonna Banlist mostra il limite di copie, segnalando ⚠ se lo superi.</div>
+      <div class="hint">Il ruolo determina in quale categoria della tabella conta la carta. Spunta "Fata" per il conteggio Fedeli, "NS" se è uno starter ad evocazione normale che rientra nel tetto dei 9. Digitando il nome compare un suggerimento dal pool Edison curato.</div>
       <table>
         <thead><tr>
           <th style="width:24%">Nome</th>
