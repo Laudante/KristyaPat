@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kristyasworn — Registro di Costruzione</title>
+<title>Kristyasworn — Registro di Costruzione Avanzato</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -83,7 +83,6 @@
   .panel{display:none;}
   .panel.active{display:block;}
 
-  /* stamp grid */
   .stamps{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -131,18 +130,18 @@
   .mark.pass{color:var(--stamp-green);}
   .mark.flag{color:var(--stamp-red);}
 
-  /* Custom Box Colors */
-  .stamp.box-purple { background-color: #EFE7F7; border-color: #A384C4; }
-  .stamp.box-purple .label, .stamp.box-purple .target { color: #5B3E7A; }
-  .stamp.box-purple .mark.pass { color: #5B3E7A; border-color: #5B3E7A; }
-  
-  .stamp.box-brown { background-color: #F4ECE1; border-color: #C2A683; }
-  .stamp.box-brown .label, .stamp.box-brown .target { color: #6E5334; }
-  .stamp.box-brown .mark.pass { color: #6E5334; border-color: #6E5334; }
+  /* Box Personalizzati Richiesti */
+  .stamp.box-purple { background-color: #F3EAF9; border-color: #B399D4; }
+  .stamp.box-purple .label, .stamp.box-purple .target { color: #6A449B; }
+  .stamp.box-purple .mark.pass { color: #6A449B; border-color: #6A449B; }
 
-  .stamp.box-green { background-color: #ECF3E6; border-color: #A3C995; }
-  .stamp.box-green .label, .stamp.box-green .target { color: #3E6634; }
-  .stamp.box-green .mark.pass { color: #3E6634; border-color: #3E6634; }
+  .stamp.box-brown { background-color: #F7EFE5; border-color: #CDA67F; }
+  .stamp.box-brown .label, .stamp.box-brown .target { color: #785129; }
+  .stamp.box-brown .mark.pass { color: #785129; border-color: #785129; }
+
+  .stamp.box-green { background-color: #EFF5E9; border-color: #A3C997; }
+  .stamp.box-green .label, .stamp.box-green .target { color: #436F37; }
+  .stamp.box-green .mark.pass { color: #436F37; border-color: #436F37; }
 
   .deck-total-banner{
     font-family:'IBM Plex Mono',monospace;
@@ -160,6 +159,7 @@
     border-collapse:collapse;
     background:var(--card);
     border:1px solid var(--rule);
+    margin-bottom:20px;
   }
   th{
     text-align:left;
@@ -199,22 +199,6 @@
   input[type=checkbox]{transform:scale(1.15);cursor:pointer;}
   td.center{text-align:center;}
 
-  .role-badge{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10px;
-    padding:2px 6px;
-    border-radius:2px;
-    display:inline-block;
-  }
-  select.role-select{cursor:pointer;}
-
-  .del-btn{
-    background:none;border:none;cursor:pointer;
-    color:var(--stamp-red);font-size:15px;
-    opacity:0.55;
-  }
-  .del-btn:hover{opacity:1;}
-
   .add-row{
     margin-top:12px;
     font-family:'IBM Plex Mono',monospace;
@@ -243,28 +227,20 @@
     line-height:1.5;
   }
 
-  .chip-row{display:flex;flex-wrap:wrap;gap:4px;max-width:260px;}
-  .chip{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:9.5px;
-    padding:3px 6px;
-    border:1px solid var(--rule);
-    border-radius:10px;
-    cursor:pointer;
-    color:var(--ink-soft);
-    background:transparent;
-    user-select:none;
+  .turn-selector {
+    display: flex; gap: 10px; margin: 6px 0 14px;
   }
-  .chip.on{
-    background:var(--ink);
-    color:var(--paper);
-    border-color:var(--ink);
+  .turn-btn {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 4px 10px; border: 1px solid var(--rule); background: transparent; cursor: pointer; border-radius: 2px;
   }
+  .turn-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
   .matrix-wrap{overflow-x:auto;margin-top:24px;}
-  table.matrix th, table.matrix td{text-align:center;font-size:11.5px;}
+  table.matrix th, table.matrix td{text-align:center;font-size:11.5px; padding:8px;}
   table.matrix th.rowhead, table.matrix td.rowhead{text-align:left;font-size:12.5px;}
-  table.matrix td.yes{background:#DCE3C8;color:var(--stamp-green);font-weight:700;}
+  table.matrix td.yes-1st{background:#E8DFF5;color:#6A449B;font-weight:700;}
+  table.matrix td.yes-2nd{background:#E1F0F5;color:#2A6378;font-weight:700;}
+  table.matrix td.yes-both{background:#E2F0D9;color:#386625;font-weight:700;}
 
   .reset-link{
     font-family:'IBM Plex Mono',monospace;
@@ -283,13 +259,12 @@
 </head>
 <body>
 <div class="wrap" id="app">
-  <div class="loading">Caricamento registro…</div>
+  <div class="loading">Inizializzazione database carte da YGOPRODeck (Edison Format)…</div>
 </div>
 
 <script>
-const STORAGE_KEY = 'kristyasworn-deck-v1';
+const STORAGE_KEY = 'kristyasworn-deck-v2';
 
-// Ordine discendente strutturato secondo richiesta
 const ROLES = [
   {id:'starter', label:'Starter', min:11, max:13},
   {id:'extender', label:'Extender', min:12, max:14},
@@ -298,221 +273,63 @@ const ROLES = [
   {id:'reactive', label:'Reactive Ext.', min:0, max:3},
   {id:'bomb', label:'Bomba', min:2, max:3},
   {id:'necessity', label:'Necessità', min:0, max:1},
-  {id:'other', label:'Altro', min:null, max:null},
+  {id:'other', label:'Altro', min:null, max:null}
 ];
 
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
-// Card Pool Esteso al massimo per Edison Format
-const CARD_POOL = [
-  // Lightsworn & Fata Core
-  {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
-  {name:'Aurkus, Lightsworn Druid', type:'Monster', atk:1400, fairy:false, status:'U'},
-  {name:'Card Trooper', type:'Monster', atk:400, fairy:false, status:'L'},
-  {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
-  {name:'Ehren, Lightsworn Monk', type:'Monster', atk:1000, fairy:false, status:'U'},
-  {name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1900, fairy:false, status:'U'},
-  {name:'Hecatrice', type:'Monster', atk:1500, fairy:true, status:'U'},
-  {name:'Herald of Orange Light', type:'Monster', atk:300, fairy:true, status:'U'},
-  {name:'Herald of Green Light', type:'Monster', atk:300, fairy:true, status:'U'},
-  {name:'Herald of Purple Light', type:'Monster', atk:300, fairy:true, status:'U'},
-  {name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
-  {name:'Jain, Lightsworn Paladin', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false, status:'S'},
-  {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1400, fairy:false, status:'L'},
-  {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
-  {name:'Necro Gardna', type:'Monster', atk:800, fairy:false, status:'L'},
-  {name:'Plaguespreader Zombie', type:'Monster', atk:400, fairy:false, status:'U'},
-  {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:1300, fairy:false, status:'U'},
-  {name:'Tragoedia', type:'Monster', atk:2000, fairy:false, status:'L'},
-  {name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Shire, Lightsworn Spirit', type:'Monster', atk:400, fairy:false, status:'U'},
-  {name:'Ryna, Lightsworn Rogue', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Gellenduo', type:'Monster', atk:1700, fairy:true, status:'U'},
-  {name:'Tethys, Goddess of Light', type:'Monster', atk:2400, fairy:true, status:'U'},
-  {name:'Shining Angel', type:'Monster', atk:1400, fairy:false, status:'U'},
-  {name:'Nova Summoner', type:'Monster', atk:1400, fairy:true, status:'U'},
-  {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Realm of Light', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Lightsworn Barrier', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Glorious Illusion', type:'Trap', atk:null, fairy:false, status:'U'},
+let API_CARD_POOL = []; 
+let DATA = null;
+let activeTab = 'main';
 
-  // Staples / Side Generiche
-  {name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
-  {name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
-  {name:'Raiza the Storm Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
-  {name:'Kycoo the Ghost Destroyer', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'D.D. Crow', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  {name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
-  {name:'Chaos Sorcerer', type:'Monster', atk:2300, fairy:false, status:'S'},
-  {name:'Sangan', type:'Monster', atk:1000, fairy:false, status:'L'},
-  {name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Lightning Vortex', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Reinforcement of the Army', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Gold Sarcophagus', type:'Spell', atk:null, fairy:false, status:'S'},
-  {name:'Cold Wave', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Giant Trunade', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'The Shallow Grave', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'My Body as a Shield', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Scapegoat', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Mirror Force', type:'Trap', atk:null, fairy:false, status:'L'},
-  {name:'Torrential Tribute', type:'Trap', atk:null, fairy:false, status:'L'},
-  {name:'Solemn Judgment', type:'Trap', atk:null, fairy:false, status:'L'},
-  {name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'S'},
-  {name:'Royal Decree', type:'Trap', atk:null, fairy:false, status:'S'},
-  {name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'L'},
-  {name:'Call of the Haunted', type:'Trap', atk:null, fairy:false, status:'L'},
-  {name:'Treacherous Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'S'},
-  {name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Starlight Road', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Compulsory Evacuation Device', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Needlebug Nest', type:'Trap', atk:null, fairy:false, status:'U'},
-
-  // Matchup Engines (Blackwing, Frog, Machina, Gladiator Beast, etc.)
-  {name:'Blackwing - Gale the Whirlwind', type:'Monster', atk:1300, fairy:false, status:'L'},
-  {name:'Blackwing - Kalut the Moon Shadow', type:'Monster', atk:1700, fairy:false, status:'U'},
-  {name:'Blackwing - Bora the Spear', type:'Monster', atk:1700, fairy:false, status:'U'},
-  {name:'Blackwing - Shura the Blue Flame', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Blackwing - Vayu the Emblem of Honor', type:'Monster', atk:800, fairy:false, status:'U'},
-  {name:'Blackwing - Sirocco the Dawn', type:'Monster', atk:2000, fairy:false, status:'U'},
-  {name:'Blackwing - Blizzard the Far North', type:'Monster', atk:1300, fairy:false, status:'U'},
-  {name:'Black Whirlwind', type:'Spell', atk:null, fairy:false, status:'S'},
-  {name:'Icarus Attack', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Treeborn Frog', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Ronintoadin', type:'Monster', atk:1000, fairy:false, status:'U'},
-  {name:'Substitoad', type:'Monster', atk:1200, fairy:false, status:'U'},
-  {name:'Dupe Frog', type:'Monster', atk:100, fairy:false, status:'U'},
-  {name:'Swap Frog', type:'Monster', atk:1000, fairy:false, status:'U'},
-  {name:'Machina Fortress', type:'Monster', atk:2500, fairy:false, status:'U'},
-  {name:'Machina Gearframe', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Machina Peacekeeper', type:'Monster', atk:500, fairy:false, status:'U'},
-  {name:'Scrap Recycler', type:'Monster', atk:900, fairy:false, status:'U'},
-  {name:'Geartown', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Gladiator Beast Bestiari', type:'Monster', atk:1500, fairy:false, status:'L'},
-  {name:'Gladiator Beast Laquari', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Gladiator Beast Equeste', type:'Monster', atk:1600, fairy:false, status:'U'},
-  {name:'Gladiator Beast Darius', type:'Monster', atk:1700, fairy:false, status:'U'},
-  {name:'Gladiator Beast Retiari', type:'Monster', atk:1200, fairy:false, status:'U'},
-  {name:'Gladiator Beast Test Tiger', type:'Monster', atk:600, fairy:false, status:'U'},
-  {name:'Gladiator Proving Ground', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Waboku', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Super Nimble Mega Hamster', type:'Monster', atk:1100, fairy:false, status:'U'},
-  {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false, status:'U'},
-  {name:'Quickdraw Synchron', type:'Monster', atk:700, fairy:false, status:'U'},
-  {name:'Debris Dragon', type:'Monster', atk:1000, fairy:false, status:'S'},
-  {name:'Dandylion', type:'Monster', atk:300, fairy:false, status:'S'},
-  {name:'Lonefire Blossom', type:'Monster', atk:500, fairy:false, status:'S'},
-  {name:'Tytannial, Princess of Camellias', type:'Monster', atk:2800, fairy:false, status:'U'},
-
-  // Extra Deck
-  {name:'Stardust Dragon', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
-  {name:'Black Rose Dragon', type:'ExtraMonster', atk:2400, fairy:false, status:'L'},
-  {name:'Brionac, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2300, fairy:false, status:'L'},
-  {name:'Goyo Guardian', type:'ExtraMonster', atk:2800, fairy:false, status:'L'},
-  {name:'Ally of Justice Catastor', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
-  {name:'Colossal Fighter', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
-  {name:'Armory Arm', type:'ExtraMonster', atk:1800, fairy:false, status:'U'},
-  {name:'Magical Android', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
-  {name:'Mist Wurm', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
-  {name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:true, status:'U'},
-  {name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2600, fairy:true, status:'U'},
-  {name:'XX-Saber Gottoms', type:'ExtraMonster', atk:3100, fairy:false, status:'U'},
-  {name:'Chimeratech Fortress Dragon', type:'ExtraMonster', atk:0, fairy:false, status:'U'},
-  {name:'Gladiator Beast Gyzarus', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
-  {name:'Gladiator Beast Heraklinos', type:'ExtraMonster', atk:3000, fairy:false, status:'U'},
-  {name:'Blackwing Armed Wing', type:'ExtraMonster', atk:2300, fairy:false, status:'U'},
-  {name:'Blackwing Armor Master', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
-  {name:'Silverwind the Ascendant', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
-  {name:'Tempest Magician', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
-];
-
-const STATUS_LABEL = {U:'Unlimited (3)', S:'Semi-Limited (2)', L:'Limited (1)', F:'Forbidden (0)'};
-const STATUS_MAX = {U:3, S:2, L:1, F:0};
+// Carica il pool in tempo reale tramite le API ufficiali di YGOPRODeck filtrato per Edison
+async function fetchEdisonPool() {
+  try {
+    const res = await fetch('https://db.ygoprodeck.com/api/v1/cardinfo.php?format=edison');
+    const json = await res.json();
+    API_CARD_POOL = json.data.map(c => {
+      let banStatus = 'U'; 
+      if(c.banlist_info) {
+        if(c.banlist_info.ban_edison === 'Limited') banStatus = 'L';
+        else if(c.banlist_info.ban_edison === 'Semi-Limited') banStatus = 'S';
+        else if(c.banlist_info.ban_edison === 'Banned') banStatus = 'F';
+      }
+      return {
+        name: c.name,
+        type: c.type.includes('Monster') ? (c.type.includes('Synchro') || c.type.includes('Fusion') ? 'ExtraMonster' : 'Monster') : (c.type.includes('Spell') ? 'Spell' : 'Trap'),
+        atk: c.atk !== undefined ? c.atk : null,
+        fairy: c.race === 'Fairy',
+        status: banStatus
+      };
+    });
+  } catch(e) {
+    console.error("Errore nel recupero delle API. Uso fallback locale.", e);
+    API_CARD_POOL = [];
+  }
+}
 
 function defaultData(){
   return {
     main: [
-      // Starter
-      {name:'Ryko, Lightsworn Hunter', qty:3, type:'Monster', role:'starter', atk:1300, fairy:false, ns:true},
+      {name:'Ryko, Lightsworn Hunter', qty:3, type:'Monster', role:'starter', atk:200, fairy:false, ns:true},
       {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
-      {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
-      {name:'Aurkus, Lightsworn Druid', qty:1, type:'Monster', role:'starter', atk:1400, fairy:false, ns:true},
-      {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
-      {name:'Card Trooper', qty:1, type:'Monster', role:'starter', atk:400, fairy:false, ns:true},
-      {name:'Charge of the Light Brigade', qty:1, type:'Spell', role:'starter', atk:null, fairy:false, ns:false},
-      // Extender
       {name:'Wulf, Lightsworn Beast', qty:3, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
-      {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
-      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
-      {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'extender', atk:1400, fairy:false, ns:false},
-      {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1900, fairy:false, ns:false},
-      {name:'Plaguespreader Zombie', qty:1, type:'Monster', role:'extender', atk:400, fairy:false, ns:false},
-      {name:'Foolish Burial', qty:1, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
-      // Removal
-      {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
-      {name:'Mirror Force', qty:1, type:'Trap', role:'removal', atk:null, fairy:false, ns:false},
-      // Defense
-      {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
-      {name:'Threatening Roar', qty:2, type:'Trap', role:'defense', atk:null, fairy:false, ns:false},
-      {name:'Necro Gardna', qty:1, type:'Monster', role:'defense', atk:800, fairy:false, ns:false},
-      {name:'Tragoedia', qty:1, type:'Monster', role:'defense', atk:2000, fairy:false, ns:false},
-      // Reactive
-      {name:'Monster Reincarnation', qty:2, type:'Spell', role:'reactive', atk:null, fairy:false, ns:false},
-      {name:'Beckoning Light', qty:1, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
-      // Bomb
       {name:'Archlord Kristya', qty:3, type:'Monster', role:'bomb', atk:2800, fairy:true, ns:false},
-      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
-      // Necessity
-      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1500, fairy:true, ns:false},
-      {name:'Valhalla, Hall of the Fallen', qty:1, type:'Spell', role:'necessity', atk:null, fairy:false, ns:false},
+      {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
+      {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false}
     ],
     side: [
-      {name:'Book of Moon', qty:1, matchups:[], replaces:''},
-      {name:'Brain Control', qty:1, matchups:[], replaces:''},
-      {name:'Consecrated Light', qty:2, matchups:['Blackwing','Gladiator Beast'], replaces:''},
-      {name:'Cyber Dragon', qty:2, matchups:['Machina'], replaces:''},
-      {name:'D.D. Crow', qty:2, matchups:['Blackwing','Frog','Machina'], replaces:''},
-      {name:'Gorz the Emissary of Darkness', qty:1, matchups:[], replaces:''},
-      {name:'Herald of Orange Light', qty:1, matchups:[], replaces:''},
-      {name:'Lightning Vortex', qty:1, matchups:['Gladiator Beast','Gigavise'], replaces:''},
-      {name:'Mystical Space Typhoon', qty:1, matchups:[], replaces:''},
-      {name:'Royal Decree', qty:2, matchups:[], replaces:''},
-      {name:'Treacherous Trap Hole', qty:1, matchups:[], replaces:''},
+      {name:'Consecrated Light', qty:2, matchup:'Blackwing', going1st:true, going2nd:true, replaces:'Wulf'},
+      {name:'Cyber Dragon', qty:2, matchup:'Machina', going1st:false, going2nd:true, replaces:'Ryko'}
     ],
     extra: [
-      {name:'Ally of Justice Catastor', qty:1},
-      {name:'Ancient Sacred Wyvern', qty:1},
-      {name:'Armory Arm', qty:1},
-      {name:'Avenging Knight Parshath', qty:1},
-      {name:'Black Rose Dragon', qty:1},
-      {name:'Brionac, Dragon of the Ice Barrier', qty:1},
-      {name:'Chimeratech Fortress Dragon', qty:2},
-      {name:'Colossal Fighter', qty:1},
-      {name:'Goyo Guardian', qty:1},
-      {name:'Magical Android', qty:1},
-      {name:'Mist Wurm', qty:1},
-      {name:'Stardust Dragon', qty:1},
-      {name:'Tempest Magician', qty:1},
-      {name:'XX-Saber Gottoms', qty:1},
+      {name:'Stardust Dragon', qty:1}
     ]
   };
 }
 
-let DATA = null;
-let activeTab = 'main';
-
-async function load(){
+async function init() {
+  await fetchEdisonPool();
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     DATA = raw ? JSON.parse(raw) : defaultData();
@@ -526,15 +343,12 @@ async function save(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
     const s = document.getElementById('save-status');
-    if(s){ s.textContent = 'salvato in questo browser'; s.classList.add('dot'); }
-  }catch(e){
-    const s = document.getElementById('save-status');
-    if(s){ s.textContent = 'salvataggio non riuscito'; s.classList.remove('dot'); }
-  }
+    if(s){ s.textContent = 'salvato nel browser'; s.classList.add('dot'); }
+  }catch(e){};
 }
 
 async function resetAll(){
-  if(!confirm('Ripristinare la lista di riferimento e cancellare tutte le modifiche?')) return;
+  if(!confirm('Ripristinare la lista iniziale?')) return;
   DATA = defaultData();
   await save();
   render();
@@ -567,12 +381,9 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
-// Ordina dinamicamente le carte in base all'indice definito in ROLES
 function sortMainDeck(){
   const roleOrder = ROLES.map(r => r.id);
-  DATA.main.sort((a, b) => {
-    return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
-  });
+  DATA.main.sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
 }
 
 function render(){
@@ -586,18 +397,18 @@ function render(){
     <header>
       <div>
         <h1>Kristyasworn — Registro di Costruzione</h1>
-        <div class="subtitle">Edison Format · Curve di Hoban + regole personali</div>
+        <div class="subtitle">Edison Format · Card Pool API YGOPRODeck Attivo</div>
       </div>
       <div class="save-status dot" id="save-status">salvato</div>
     </header>
 
     <nav class="tabs">
-      <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck</button>
-      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side Patterns</button>
+      <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck (40)</button>
+      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice Turno</button>
       <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck</button>
     </nav>
 
-    <div class="panel ${activeTab==='main'?'active':''}" id="panel-main">
+    <div class="panel ${activeTab==='main'?'active':''}">
       <div class="deck-total-banner ${mainTotal!==40?'bad':''}">
         <span>MAIN DECK TOTAL</span>
         <span>${mainTotal} / 40</span>
@@ -615,7 +426,6 @@ function render(){
           </div>`;
         }).join('')}
         
-        <!-- Box DDV Target Personalizzato (Viola) -->
         <div class="stamp box-purple">
           <div class="label">DDV Target (ATK≤1500)</div>
           <div class="value">${custom.ddv}</div>
@@ -623,7 +433,6 @@ function render(){
           <div class="mark ${custom.ddv<=12?'pass':'flag'}">${custom.ddv<=12?'OK':'FUORI'}</div>
         </div>
         
-        <!-- Box Starter Normal Summon Personalizzato (Marrone) -->
         <div class="stamp box-brown">
           <div class="label">Starter Normal Summon</div>
           <div class="value">${custom.ns}</div>
@@ -631,7 +440,6 @@ function render(){
           <div class="mark ${custom.ns<=9?'pass':'flag'}">${custom.ns<=9?'OK':'FUORI'}</div>
         </div>
         
-        <!-- Box Fedeli/Fata Personalizzato (Verde) -->
         <div class="stamp box-green">
           <div class="label">Fedeli (Fairy)</div>
           <div class="value">${custom.fairy}</div>
@@ -640,11 +448,10 @@ function render(){
         </div>
       </div>
 
-      <div class="section-title">Carte</div>
-      <div class="hint">Il ruolo determina in quale categoria della tabella conta la carta. Spunta "Fata" per il conteggio Fedeli, "NS" se è uno starter ad evocazione normale che rientra nel tetto dei 9. Digitando il nome compare un suggerimento dal pool Edison curato.</div>
+      <div class="section-title">Organizzazione Categorie (Ordine Discendente)</div>
       <table>
         <thead><tr>
-          <th style="width:24%">Nome</th>
+          <th style="width:25%">Nome Carta</th>
           <th>Qtà</th>
           <th>Tipo</th>
           <th>Ruolo</th>
@@ -659,45 +466,63 @@ function render(){
       <button class="add-row" id="add-main">+ aggiungi carta</button>
     </div>
 
-    <div class="panel ${activeTab==='side'?'active':''}" id="panel-side">
-      <div class="section-title">Side Deck — pattern per matchup</div>
-      <div class="hint">Clicca sui matchup per taggare in quali serie questa carta entra tipicamente, e indica cosa esce dal main al suo posto.</div>
+    <div class="panel ${activeTab==='side'?'active':''}">
+      <div class="section-title">Side Deck — Configurazione Strategica Turni</div>
+      <div class="hint">Imposta se inserire la carta andando Primo (Going 1st) o Secondo (Going 2nd) per configurare la doppia matrice sottostante.</div>
       <table>
         <thead><tr>
-          <th style="width:20%">Nome</th>
+          <th style="width:25%">Nome Carta</th>
           <th>Qtà</th>
-          <th>Matchup</th>
-          <th style="width:22%">Sostituisce (main)</th>
+          <th>Matchup Target</th>
+          <th class="center">Going 1st</th>
+          <th class="center">Going 2nd</th>
+          <th>Sostituisce</th>
           <th></th>
         </tr></thead>
         <tbody id="side-tbody"></tbody>
       </table>
-      <button class="add-row" id="add-side">+ aggiungi carta side</button>
+      <button class="add-row" id="add-side">+ aggiungi a Side</button>
 
       <div class="matrix-wrap">
-        <div class="section-title">Matrice matchup</div>
+        <div class="section-title">Matrice Matchup Sdoppiata (1st / 2nd)</div>
         <table class="matrix">
-          <thead><tr><th class="rowhead">Carta</th>${MATCHUPS.map(m=>`<th>${m}</th>`).join('')}</tr></thead>
+          <thead>
+            <tr>
+              <th class="rowhead">Carta</th>
+              ${MATCHUPS.map(m=>`<th>${m}</th>`).join('')}
+            </tr>
+          </thead>
           <tbody>
-            ${DATA.side.map(c=>`<tr><td class="rowhead">${c.name}</td>${MATCHUPS.map(m=>`<td class="${c.matchups.includes(m)?'yes':''}">${c.matchups.includes(m)?'●':''}</td>`).join('')}</tr>`).join('')}
+            ${DATA.side.map(c=>{
+              return `<tr>
+                <td class="rowhead"><strong>${c.name}</strong> <small style="color:var(--ink-soft)">(${c.qty})</small></td>
+                ${MATCHUPS.map(m=>{
+                  if (c.matchup !== m) return '<td>-</td>';
+                  if (c.going1st && c.going2nd) return '<td class="yes-both">1st & 2nd</td>';
+                  if (c.going1st) return '<td class="yes-1st">Going 1st</td>';
+                  if (c.going2nd) return '<td class="yes-2nd">Going 2nd</td>';
+                  return '<td>-</td>';
+                }).join('')}
+              </tr>`;
+            }).join('')}
           </tbody>
         </table>
       </div>
     </div>
 
-    <div class="panel ${activeTab==='extra'?'active':''}" id="panel-extra">
+    <div class="panel ${activeTab==='extra'?'active':''}">
       <div class="section-title">Extra Deck</div>
       <table>
-        <thead><tr><th style="width:70%">Nome</th><th>Qtà</th><th></th></tr></thead>
+        <thead><tr><th style="width:75%">Nome</th><th>Qtà</th><th></th></tr></thead>
         <tbody id="extra-tbody"></tbody>
       </table>
-      <button class="add-row" id="add-extra">+ aggiungi carta extra</button>
+      <button class="add-row" id="add-extra">+ aggiungi extra</button>
     </div>
 
-    <button class="reset-link" id="reset-btn">Ripristina lista di riferimento</button>
+    <button class="reset-link" id="reset-btn">Ripristina configurazione iniziale</button>
 
     <datalist id="cardpool-datalist">
-      ${CARD_POOL.map(c=>`<option value="${c.name}">`).join('')}
+      ${API_CARD_POOL.map(c=>`<option value="${c.name}">`).join('')}
     </datalist>
   `;
 
@@ -707,18 +532,16 @@ function render(){
   bindGlobal();
 }
 
-function findInPool(name){
-  const n = (name||'').trim().toLowerCase();
-  return CARD_POOL.find(c=>c.name.toLowerCase()===n);
+function findInApiPool(name){
+  return API_CARD_POOL.find(c=>c.name.toLowerCase()===(name||'').trim().toLowerCase());
 }
 
 function legalityBadge(c){
-  const pool = findInPool(c.name);
-  if(!pool) return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft)">non in pool</span>`;
-  const max = STATUS_MAX[pool.status];
+  const pool = findInApiPool(c.name);
+  if(!pool) return `<span style="font-size:10px;color:var(--ink-soft)">Edison Pool attivo</span>`;
+  const max = {U:3, S:2, L:1, F:0}[pool.status];
   const over = Number(c.qty||0) > max;
-  const color = over ? 'var(--stamp-red)' : 'var(--ink-soft)';
-  return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:${color}">${STATUS_LABEL[pool.status]}${over?' ⚠':''}</span>`;
+  return `<span style="font-size:10px;color:${over?'var(--stamp-red)':'var(--ink-soft)'}">${pool.status==='U'?'Unlim (3)':pool.status==='S'?'Semi (2)':'Limited (1)'}${over?' ⚠':''}</span>`;
 }
 
 function renderMainRows(){
@@ -737,7 +560,7 @@ function renderMainRows(){
           ${ROLES.map(r=>`<option value="${r.id}" ${c.role===r.id?'selected':''}>${r.label}</option>`).join('')}
         </select>
       </td>
-      <td><input type="number" placeholder="—" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" style="width:55px" ${c.type!=='Monster'?'disabled':''}></td>
+      <td><input type="number" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" style="width:55px" ${c.type!=='Monster'?'disabled':''}></td>
       <td class="center"><input type="checkbox" ${c.fairy?'checked':''} data-idx="${i}" data-field="fairy" class="main-field"></td>
       <td class="center"><input type="checkbox" ${c.ns?'checked':''} data-idx="${i}" data-field="ns" class="main-field"></td>
       <td>${legalityBadge(c)}</td>
@@ -753,11 +576,13 @@ function renderSideRows(){
       <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="side-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
       <td>
-        <div class="chip-row">
-          ${MATCHUPS.map(m=>`<button class="chip ${c.matchups.includes(m)?'on':''}" data-idx="${i}" data-matchup="${m}">${m}</button>`).join('')}
-        </div>
+        <select data-idx="${i}" data-field="matchup" class="side-field">
+          ${MATCHUPS.map(m=>`<option ${c.matchup===m?'selected':''}>${m}</option>`).join('')}
+        </select>
       </td>
-      <td><input type="text" placeholder="es. Wulf, Solar Recharge" value="${c.replaces}" data-idx="${i}" data-field="replaces" class="side-field"></td>
+      <td class="center"><input type="checkbox" ${c.going1st?'checked':''} data-idx="${i}" data-field="going1st" class="side-field"></td>
+      <td class="center"><input type="checkbox" ${c.going2nd?'checked':''} data-idx="${i}" data-field="going2nd" class="side-field"></td>
+      <td><input type="text" value="${c.replaces||''}" data-idx="${i}" data-field="replaces" class="side-field" placeholder="Cosa esce"></td>
       <td class="center"><button class="del-btn" data-idx="${i}" data-list="side">✕</button></td>
     </tr>
   `).join('');
@@ -767,8 +592,8 @@ function renderExtraRows(){
   const tbody = document.getElementById('extra-tbody');
   tbody.innerHTML = DATA.extra.map((c,i)=>`
     <tr>
-      <td><input type="text" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
-      <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="extra-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
+      <td class="center"><input type="number" min="0" value="${c.qty||1}" data-idx="${i}" data-field="qty" class="extra-field"></td>
       <td class="center"><button class="del-btn" data-idx="${i}" data-list="extra">✕</button></td>
     </tr>
   `).join('');
@@ -782,22 +607,21 @@ function bindGlobal(){
   document.getElementById('reset-btn').onclick = resetAll;
 
   document.getElementById('add-main').onclick = ()=>{
-    DATA.main.push({name:'Nuova carta', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
+    DATA.main.push({name:'', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
     save(); render();
   };
   document.getElementById('add-side').onclick = ()=>{
-    DATA.side.push({name:'Nuova carta', qty:1, matchups:[], replaces:''});
+    DATA.side.push({name:'', qty:1, matchup:'Vayu', going1st:true, going2nd:true, replaces:''});
     save(); render();
   };
   document.getElementById('add-extra').onclick = ()=>{
-    DATA.extra.push({name:'Nuova carta', qty:1});
+    DATA.extra.push({name:'', qty:1});
     save(); render();
   };
 
   document.querySelectorAll('.del-btn').forEach(b=>{
     b.onclick = ()=>{
-      const idx = Number(b.dataset.idx);
-      DATA[b.dataset.list].splice(idx,1);
+      DATA[b.dataset.list].splice(Number(b.dataset.idx), 1);
       save(); render();
     };
   });
@@ -808,9 +632,11 @@ function bindGlobal(){
       let val = el.type==='checkbox' ? el.checked : el.value;
       if(field==='qty') val = Number(val);
       if(field==='atk') val = val===''? null : Number(val);
+      
       DATA.main[idx][field] = val;
+
       if(field==='name'){
-        const pool = findInPool(val);
+        const pool = findInApiPool(val);
         if(pool){
           DATA.main[idx].type = pool.type==='ExtraMonster' ? 'Monster' : pool.type;
           DATA.main[idx].atk = pool.atk;
@@ -824,7 +650,7 @@ function bindGlobal(){
   document.querySelectorAll('.side-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      let val = el.value;
+      let val = el.type==='checkbox' ? el.checked : el.value;
       if(field==='qty') val = Number(val);
       DATA.side[idx][field] = val;
       save(); render();
@@ -834,24 +660,13 @@ function bindGlobal(){
   document.querySelectorAll('.extra-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      let val = field==='qty' ? Number(el.value) : el.value;
-      DATA.extra[idx][field] = val;
-      save(); render();
-    };
-  });
-
-  document.querySelectorAll('.chip').forEach(el=>{
-    el.onclick = ()=>{
-      const idx = Number(el.dataset.idx), m = el.dataset.matchup;
-      const arr = DATA.side[idx].matchups;
-      const pos = arr.indexOf(m);
-      if(pos>=0) arr.splice(pos,1); else arr.push(m);
+      DATA.extra[idx][field] = field==='qty' ? Number(el.value) : el.value;
       save(); render();
     };
   });
 }
 
-load();
+init();
 </script>
 </body>
 </html>
