@@ -185,15 +185,6 @@
   input[type=checkbox]{transform:scale(1.15);cursor:pointer;}
   td.center{text-align:center;}
 
-  .role-badge{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10px;
-    padding:2px 6px;
-    border-radius:2px;
-    display:inline-block;
-  }
-  select.role-select{cursor:pointer;}
-
   .del-btn{
     background:none;border:none;cursor:pointer;
     color:var(--stamp-red);font-size:15px;
@@ -292,7 +283,6 @@
   .pool-form button { background: var(--stamp-green); color: white; border: none; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; border-radius: 2px; height: 31px; }
   .pool-form button:hover { background: #4a5a2f; }
 
-  /* KDE Export Section Area */
   .kde-box {
     margin-top: 30px; background: var(--card); border: 1px solid var(--rule); padding: 16px; border-radius: 2px;
   }
@@ -848,7 +838,7 @@ function render(){
 
     <button class="reset-link" id="reset-btn">Ripristina lista di riferimento</button>
 
-    <!-- DATALIST FILTRATI PER IL MOTORE DI RICERCA -->
+    <!-- DATALIST FILTRATI E CORRETTI PER IL MOTORE DI RICERCA -->
     <datalist id="main-datalist">
       ${CARD_POOL.filter(c => c.type !== 'ExtraMonster').map(c=>`<option value="${c.name}">`).join('')}
     </datalist>
@@ -972,15 +962,15 @@ function bindGlobal(){
   });
 
   document.getElementById('add-main').onclick = ()=>{
-    DATA.main.push({name:'Nuova carta', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
+    DATA.main.push({name:'', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
     save(); render();
   };
   document.getElementById('add-side').onclick = ()=>{
-    DATA.side.push({name:'Nuova carta', qty:1, matchups:[], replaces:'', sideStatus:'both'});
+    DATA.side.push({name:'', qty:1, matchups:[], replaces:'', sideStatus:'both'});
     save(); render();
   };
   document.getElementById('add-extra').onclick = ()=>{
-    DATA.extra.push({name:'Nuova carta', qty:1, role:'none'});
+    DATA.extra.push({name:'', qty:1, role:'none'});
     save(); render();
   };
 
@@ -1012,7 +1002,14 @@ function bindGlobal(){
   document.querySelectorAll('.side-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      DATA.side[idx][field] = field==='qty' ? Number(el.value) : el.value;
+      let val = field==='qty' ? Number(el.value) : el.value;
+      DATA.side[idx][field] = val;
+      if(field==='name'){
+        const pool = findInPool(val);
+        if(pool){
+          DATA.side[idx].name = pool.name;
+        }
+      }
       save(); render();
     };
   });
@@ -1020,7 +1017,14 @@ function bindGlobal(){
   document.querySelectorAll('.extra-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      DATA.extra[idx][field] = field==='qty' ? Number(el.value) : el.value;
+      let val = field==='qty' ? Number(el.value) : el.value;
+      DATA.extra[idx][field] = val;
+      if(field==='name'){
+        const pool = findInPool(val);
+        if(pool){
+          DATA.extra[idx].name = pool.name;
+        }
+      }
       save(); render();
     };
   });
