@@ -389,7 +389,7 @@ function defaultData(){
       {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
       {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
       {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1900, fairy:false, ns:false},
-      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1300, fairy:true, ns:false},
+      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1500, fairy:true, ns:false},
       {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
       {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
       {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
@@ -536,6 +536,16 @@ function handleYdkImport(e) {
               targetArr.push({ name: poolCard.name, qty: 1, role: 'none' });
             }
           }
+        } else {
+          // Se la carta non è nel pool fisso, la inserisce comunque per non perdere l'importazione
+          let targetArr = currentSection === 'side' ? newSide : (currentSection === 'extra' ? newExtra : newMain);
+          if(currentSection === 'main') {
+            targetArr.push({ name: 'ID Fata/Carta: ' + clean, qty: 1, type: 'Monster', role: 'other', atk: null, fairy: false, ns: false });
+          } else if(currentSection === 'side') {
+            targetArr.push({ name: 'ID Fata/Carta: ' + clean, qty: 1, matchups: [], replaces: '', sideStatus: 'both' });
+          } else {
+            targetArr.push({ name: 'ID Fata/Carta: ' + clean, qty: 1, role: 'none' });
+          }
         }
       }
     });
@@ -545,6 +555,34 @@ function handleYdkImport(e) {
     }
   };
   reader.readAsText(file);
+}
+
+function downloadKdeOfficialDecklist() {
+  let output = "=== KONAMI OFFICIAL DECKLIST FORM ===\n";
+  output += `Data Export: ${new Date().toLocaleDateString('it-IT')}\n\n`;
+  
+  output += `MAIN DECK (${sumQty(DATA.main)} carte):\n`;
+  DATA.main.forEach(c => {
+    output += `${c.qty}x ${c.name}\n`;
+  });
+  
+  output += `\nSIDE DECK (${sumQty(DATA.side)} carte):\n`;
+  DATA.side.forEach(c => {
+    output += `${c.qty}x ${c.name}\n`;
+  });
+  
+  output += `\nEXTRA DECK (${sumQty(DATA.extra)} carte):\n`;
+  DATA.extra.forEach(c => {
+    output += `${c.qty}x ${c.name}\n`;
+  });
+
+  const blob = new Blob([output], { type: 'text/plain;charset=utf-8;' });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.setAttribute("download", "official_kde_decklist.txt");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 function downloadSideCSV(){
@@ -583,12 +621,15 @@ function render(){
         <h1>Kristyasworn — Registro di Costruzione</h1>
         <div class="subtitle">Edison Format · Pattern & Analisi Avanzata</div>
       </div>
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+      <div style="display: flex; flex-direction: row; align-items: flex-end; gap: 8px;">
         <div class="save-status dot" id="save-status">salvato</div>
         <label style="font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--ink); color:var(--paper); padding:4px 8px; border-radius:2px; cursor:pointer; text-transform:uppercase;">
           ↑ Importa .ydk
           <input type="file" id="ydk-file-input" accept=".ydk" style="display:none;">
         </label>
+        <button id="kde-export-btn" style="font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--stamp-red); color:white; padding:4px 8px; border:none; border-radius:2px; cursor:pointer; text-transform:uppercase;">
+          ↓ Export KDE (.txt)
+        </button>
       </div>
     </header>
 
@@ -805,6 +846,9 @@ function bindGlobal(){
   
   const ydkInput = document.getElementById('ydk-file-input');
   if (ydkInput) ydkInput.onchange = handleYdkImport;
+
+  const kdeExportBtn = document.getElementById('kde-export-btn');
+  if (kdeExportBtn) kdeExportBtn.onclick = downloadKdeOfficialDecklist;
 
   const addMatchupBtn = document.getElementById('add-matchup-btn');
   if(addMatchupBtn) addMatchupBtn.onclick = addNewMatchup;
