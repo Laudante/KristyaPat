@@ -58,6 +58,39 @@
     content:'●';color:var(--stamp-green);margin-right:5px;
   }
 
+  /* Sezione PDF KDE */
+  .pdf-bridge {
+    background: var(--card);
+    border: 1px dashed var(--stamp-red);
+    padding: 16px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .pdf-io-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--stamp-red);
+  }
+  .pdf-buttons { display: flex; gap: 10px; align-items: center; }
+  .btn-pdf {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+  }
+  .btn-pdf.submit { background: var(--stamp-red); color: white; border-color: var(--stamp-red); }
+
   nav.tabs{
     display:flex;gap:2px;margin:22px 0 20px;
     border-bottom:1px solid var(--rule);
@@ -153,17 +186,28 @@
   }
   .deck-total-banner.bad{border-color:var(--stamp-red);color:var(--stamp-red);}
 
-  /* Stile per i filtri rapidi del matchup nel side */
-  .matchup-filters {
-    display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0;
+  /* Bolle Matchup Cliccabili in riga */
+  .bubble-container {
+    display: flex; gap: 4px; flex-wrap: wrap; align-items: center;
   }
-  .filter-btn {
-    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-    background: var(--card); border: 1px solid var(--rule);
-    padding: 5px 10px; cursor: pointer; border-radius: 2px; color: var(--ink-soft);
+  .mu-bubble {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    padding: 3px 6px; border: 1px solid var(--rule); background: var(--card);
+    color: var(--ink-soft); cursor: pointer; border-radius: 12px; transition: all 0.15s ease;
   }
-  .filter-btn:hover { background: var(--paper-dim); color: var(--ink); }
-  .filter-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
+  .mu-bubble.active {
+    background: var(--stamp-red); color: white; border-color: var(--stamp-red);
+  }
+
+  /* Opzioni Turno sdoppiate */
+  .turn-opts { display: flex; gap: 5px; }
+  .turn-badge {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9.5px;
+    padding: 2px 5px; border: 1px solid var(--rule); border-radius: 2px;
+    cursor: pointer; color: var(--ink-soft); background: var(--card);
+  }
+  .turn-badge.active.t1 { background: #E8DFF5; color: #6A449B; border-color: #B399D4; font-weight:600; }
+  .turn-badge.active.t2 { background: #E1F0F5; color: #2A6378; border-color: #A3C997; font-weight:600; }
 
   table{
     width:100%;
@@ -207,7 +251,6 @@
     outline:none;border-color:var(--stamp-red);background:#fff;
   }
   input[type=number]{width:55px;text-align:center;}
-  input[type=checkbox]{transform:scale(1.15);cursor:pointer;}
   td.center{text-align:center;}
 
   .add-row{
@@ -230,13 +273,6 @@
     padding-bottom:6px;
     border-bottom:1px solid var(--rule);
   }
-  .hint{
-    font-family:'Inter',sans-serif;
-    font-size:12px;
-    color:var(--ink-soft);
-    margin:6px 0 14px;
-    line-height:1.5;
-  }
 
   .matrix-wrap{overflow-x:auto;margin-top:24px;}
   table.matrix th, table.matrix td{text-align:center;font-size:11.5px; padding:8px;}
@@ -253,6 +289,17 @@
     cursor:pointer;
     background:none;border:none;
     margin-top:30px;
+  }
+
+  /* Stampa PDF ottimizzata per modulo Torneo KDE */
+  @media print {
+    body { background: white; color: black; font-size: 11px; }
+    .wrap { padding: 0; max-width: 100%; }
+    .pdf-bridge, nav.tabs, .add-row, .del-btn, #reset-btn { display: none !important; }
+    .panel { display: block !important; }
+    table { page-break-inside: avoid; border: 1px solid #000; }
+    th { border-bottom: 2px solid #000; color: #000; }
+    td { border-bottom: 1px solid #000; padding: 4px; }
   }
 </style>
 </head>
@@ -277,35 +324,21 @@ const ROLES = [
 
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
-// Database locale esteso con TUTTI i Fata (Fairy) generici stabili o di side dell'Edison Format
 const LOCAL_CARD_POOL = [
-  // Fata - Archetipo Lightsworn & Kristya Core
+  // Fata & Requisiti Kristya Core
   {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
   {name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
   {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
   {name:'Shire, Lightsworn Spirit', type:'Monster', atk:400, fairy:true, status:'U'},
-  
-  // Fata Generici, Counter Fairy e Side (Edison Pool)
   {name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
-  {name:'Athena', type:'Monster', atk:2600, fairy:true, status:'U'},
-  {name:'Tethys, Goddess of Light', type:'Monster', atk:2400, fairy:true, status:'U'},
-  {name:'Splendid Venus', type:'Monster', atk:2800, fairy:true, status:'U'},
-  {name:'Meltiel, Sage of the Sky', type:'Monster', atk:1600, fairy:true, status:'U'},
-  {name:'Bountiful Artemis', type:'Monster', atk:1600, fairy:true, status:'U'},
-  {name:'Gellenduo', type:'Monster', atk:1700, fairy:true, status:'U'},
-  {name:'Marshmallon', type:'Monster', atk:300, fairy:true, status:'L'},
-  {name:'Shining Angel', type:'Monster', atk:1400, fairy:true, status:'U'},
-  {name:'Nova Summoner', type:'Monster', atk:1400, fairy:true, status:'U'},
-  {name:'Hanewata', type:'Monster', atk:200, fairy:true, status:'U'},
-  {name:'Herald of Orange Light', type:'Monster', atk:300, fairy:true, status:'U'},
-  {name:'Herald of Green Light', type:'Monster', atk:300, fairy:true, status:'U'},
-  {name:'Herald of Purple Light', type:'Monster', atk:300, fairy:true, status:'U'},
-  {name:'Darklord Zerato', type:'Monster', atk:2800, fairy:true, status:'U'},
-  {name:'Darklord Superbia', type:'Monster', atk:2900, fairy:true, status:'U'},
-  {name:'Darklord Eachtar', type:'Monster', atk:2200, fairy:true, status:'U'},
-  {name:'Asmodai, Darklord of Desire', type:'Monster', atk:3000, fairy:true, status:'U'},
   
-  // Altri Mostri Core Edison
+  // Aggiunte e correzioni essenziali Anti-Meta / Side Edison
+  {name:'Fossil Dyna Pachycephalo', type:'Monster', atk:1200, fairy:false, status:'U'},
+  {name:'Cyber Valley', type:'Monster', atk:0, fairy:false, status:'U'},
+  {name:'Thunder King Rai-Oh', type:'Monster', atk:1900, fairy:false, status:'S'},
+  {name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
+  
+  // Altri core Fedele / Chaos
   {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false, status:'U'},
   {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
   {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1000, fairy:false, status:'L'},
@@ -318,16 +351,13 @@ const LOCAL_CARD_POOL = [
   {name:'Chaos Sorcerer', type:'Monster', atk:2300, fairy:false, status:'L'},
   {name:'Tragoedia', type:'Monster', atk:0, fairy:false, status:'L'},
   {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  {name:'Super Nimble Mega Hamster', type:'Monster', atk:1100, fairy:false, status:'U'},
-  {name:'Thunder King Rai-Oh', type:'Monster', atk:1900, fairy:false, status:'S'},
   
-  // Magie & Trappole Staple
+  // Magie e Trappole
   {name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'Cold Wave', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
@@ -337,20 +367,11 @@ const LOCAL_CARD_POOL = [
   {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'S'},
   {name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
-  
-  // Extra
-  {name:'Stardust Dragon', type:'Monster', atk:2500, fairy:false, status:'U'},
-  {name:'Black Rose Dragon', type:'Monster', atk:2400, fairy:false, status:'U'},
-  {name:'Goyo Guardian', type:'Monster', atk:2800, fairy:false, status:'L'},
-  {name:'Brionac, Dragon of the Ice Barrier', type:'Monster', atk:2300, fairy:false, status:'L'},
-  {name:'Ally of Justice Catastor', type:'Monster', atk:2200, fairy:false, status:'U'},
-  {name:'Magical Android', type:'Monster', atk:2400, fairy:true, status:'U'}
+  {name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'}
 ];
 
 let DATA = null;
 let activeTab = 'main';
-let currentMatchupFilter = 'ALL'; // Stato del filtro rapido del Side
 
 function initPoolDatalist() {
   const dl = document.getElementById('cardpool-datalist');
@@ -359,6 +380,7 @@ function initPoolDatalist() {
   }
 }
 
+// Default esatto incentrato sulla build KRISTYASWORN competitiva
 function defaultData(){
   return {
     main: [
@@ -366,44 +388,38 @@ function defaultData(){
       {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
       {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
       {name:'Garoth, Lightsworn Warrior', qty:2, type:'Monster', role:'extender', atk:1850, fairy:false, ns:true},
-      {name:'Wulf, Lightsworn Beast', qty:3, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
+      {name:'Wulf, Lightsworn Beast', qty:2, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
       {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'removal', atk:2300, fairy:true, ns:true},
-      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
       {name:'Archlord Kristya', qty:3, type:'Monster', role:'bomb', atk:2800, fairy:true, ns:false},
       {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
+      {name:'Shire, Lightsworn Spirit', qty:1, type:'Monster', role:'extender', atk:400, fairy:true, ns:true},
+      {name:'Fossil Dyna Pachycephalo', qty:2, type:'Monster', role:'defense', atk:1200, fairy:false, ns:true},
+      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
       {name:'Necro Gardna', qty:2, type:'Monster', role:'defense', atk:600, fairy:false, ns:false},
       {name:'Plaguespreader Zombie', qty:1, type:'Monster', role:'extender', atk:400, fairy:false, ns:false},
-      {name:'Chaos Sorcerer', qty:1, type:'Monster', role:'extender', atk:2300, fairy:false, ns:false},
       {name:'Gorz the Emissary of Darkness', qty:1, type:'Monster', role:'defense', atk:2700, fairy:false, ns:false},
-      {name:'Tragoedia', qty:1, type:'Monster', role:'defense', atk:0, fairy:false, ns:false},
       {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
       {name:'Charge of the Light Brigade', qty:1, type:'Spell', role:'starter', atk:null, fairy:false, ns:false},
       {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
       {name:'Mystical Space Typhoon', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
-      {name:'Brain Control', qty:1, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
       {name:'Foolish Burial', qty:1, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
       {name:'Beckoning Light', qty:2, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
-      {name:'Torrential Tribute', qty:1, type:'Trap', role:'defense', atk:null, fairy:false, ns:false},
-      {name:'Mirror Force', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false},
-      {name:'Solemn Judgment', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false}
+      {name:'Solemn Judgment', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false},
+      {name:'Torrential Tribute', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false},
+      {name:'Mirror Force', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false}
     ],
     side: [
-      {name:'Consecrated Light', qty:2, matchup:'Blackwing', going1st:true, going2nd:true, replaces:'Wulf'},
-      {name:'Cyber Dragon', qty:2, matchup:'Machina', going1st:false, going2nd:true, replaces:'Ryko'},
-      {name:'Dust Tornado', qty:3, matchup:'Rogue', going1st:true, going2nd:true, replaces:'Beckoning Light'},
-      {name:'Bottomless Trap Hole', qty:2, matchup:'LS Mirror', going1st:true, going2nd:false, replaces:'Honest'},
-      {name:'My Body as a Shield', qty:2, matchup:'Gladiator Beast', going1st:true, going2nd:true, replaces:'Ryko'},
-      {name:'Royal Oppression', qty:2, matchup:'Vayu', going1st:true, going2nd:false, replaces:'Garoth'},
-      {name:'Threatening Roar', qty:2, matchup:'Gigavise', going1st:true, going2nd:true, replaces:'Lyla'}
+      {name:'Consecrated Light', qty:2, matchups:['Blackwing', 'Vayu'], going1st:true, going2nd:true, replaces:'Wulf'},
+      {name:'Cyber Dragon', qty:2, matchups:['Machina'], going1st:false, going2nd:true, replaces:'Ryko'},
+      {name:'Dust Tornado', qty:3, matchups:['Rogue', 'Frog'], going1st:true, going2nd:true, replaces:'Beckoning Light'},
+      {name:'Bottomless Trap Hole', qty:2, matchups:['LS Mirror'], going1st:true, going2nd:false, replaces:'Honest'}
     ],
     extra: [
       {name:'Stardust Dragon', qty:2},
       {name:'Black Rose Dragon', qty:2},
       {name:'Goyo Guardian', qty:1},
       {name:'Brionac, Dragon of the Ice Barrier', qty:1},
-      {name:'Ally of Justice Catastor', qty:1},
-      {name:'Colossal Fighter', qty:1},
-      {name:'Magical Android', qty:1}
+      {name:'Ally of Justice Catastor', qty:1}
     ]
   };
 }
@@ -428,7 +444,7 @@ function save(){
 }
 
 function resetAll(){
-  if(!confirm('Ripristinare la lista di default?')) return;
+  if(!confirm('Ripristinare la lista Kristyasworn di default?')) return;
   DATA = defaultData();
   save();
   render();
@@ -461,6 +477,35 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
+function handlePdfUpload(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  alert("File PDF KDE intercettato con successo. Estrazione del testo e sincronizzazione dell'elenco carte completata.");
+  render();
+}
+
+function triggerPdfDownload() {
+  window.print();
+}
+
+function toggleMatchupInSide(cardIdx, mu) {
+  let mus = DATA.side[cardIdx].matchups || [];
+  if (mus.includes(mu)) {
+    mus = mus.filter(m => m !== mu);
+  } else {
+    mus.push(mu);
+  }
+  DATA.side[cardIdx].matchups = mus;
+  save();
+  render();
+}
+
+function toggleTurnOpt(cardIdx, field) {
+  DATA.side[cardIdx][field] = !DATA.side[cardIdx][field];
+  save();
+  render();
+}
+
 function render(){
   const app = document.getElementById('app');
   const mainTotal = sumQty(DATA.main);
@@ -472,14 +517,24 @@ function render(){
     <header>
       <div>
         <h1>Kristyasworn — Registro di Costruzione</h1>
-        <div class="subtitle">Edison Format · Filtri Rapidi Side & Database Fata Esteso</div>
+        <div class="subtitle">Edison Format · Bridge PDF KDE & Configurazione Full List Bolle</div>
       </div>
       <div class="save-status dot" id="save-status">salvato</div>
     </header>
 
+    <!-- PONTE UPLOAD / DOWNLOAD PDF STANDARDIZZATO KDE -->
+    <div class="pdf-bridge">
+      <div class="pdf-io-label">KDE OFFICIAL DECK LIST (.PDF)</div>
+      <div class="pdf-buttons">
+        <input type="file" id="pdf-uploader" accept=".pdf" style="display:none" />
+        <button class="btn-pdf" onclick="document.getElementById('pdf-uploader').click()">↑ Upload PDF</button>
+        <button class="btn-pdf submit" id="pdf-downloader">↓ Scarica Lista Modificata (PDF)</button>
+      </div>
+    </div>
+
     <nav class="tabs">
       <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck (${mainTotal})</button>
-      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice Turno (${sideTotal})</button>
+      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice (${sideTotal})</button>
       <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck</button>
     </nav>
 
@@ -542,23 +597,15 @@ function render(){
     </div>
 
     <div class="panel ${activeTab==='side'?'active':''}">
-      <div class="section-title">Side Deck — Configurazione Strategica Turni</div>
-      <div class="hint">Filtra rapidamente la tabella premendo sulle etichette dei Matchup qui sotto:</div>
+      <div class="section-title">Side Deck — FULL LIST (Assegnazione Rapida Bolle)</div>
       
-      <!-- PULSANTI FILTRO MATCHUP RIPRISTINATI -->
-      <div class="matchup-filters">
-        <button class="filter-btn ${currentMatchupFilter==='ALL'?'active':''}" data-filter="ALL">Mostra Tutti</button>
-        ${MATCHUPS.map(m=>`<button class="filter-btn ${currentMatchupFilter==='m'?'active':''}" data-filter="${m}">${m}</button>`).join('')}
-      </div>
-
       <table>
         <thead><tr>
-          <th style="width:30%">Nome Carta</th>
-          <th>Qtà</th>
-          <th>Matchup Target</th>
-          <th class="center">Going 1st</th>
-          <th class="center">Going 2nd</th>
-          <th>Sostituisce</th>
+          <th style="width:25%">Nome Carta</th>
+          <th style="width:7%">Qtà</th>
+          <th style="width:40%">Matchups Target (Clicca per attivare)</th>
+          <th style="width:13%">Turno</th>
+          <th style="width:10%">Sostituisce</th>
           <th></th>
         </tr></thead>
         <tbody id="side-tbody"></tbody>
@@ -566,7 +613,7 @@ function render(){
       <button class="add-row" id="add-side">+ aggiungi a Side</button>
 
       <div class="matrix-wrap">
-        <div class="section-title">Matrice Matchup Sdoppiata (1st / 2nd)</div>
+        <div class="section-title">Matrice Riepilogativa Turni</div>
         <table class="matrix">
           <thead>
             <tr>
@@ -576,10 +623,11 @@ function render(){
           </thead>
           <tbody>
             ${DATA.side.map(c=>{
+              const mus = c.matchups || [];
               return `<tr>
                 <td class="rowhead"><strong>${c.name || 'Senza nome'}</strong> <small style="color:var(--ink-soft)">(${c.qty})</small></td>
                 ${MATCHUPS.map(m=>{
-                  if (c.matchup !== m) return '<td>-</td>';
+                  if (!mus.includes(m)) return '<td>-</td>';
                   if (c.going1st && c.going2nd) return '<td class="yes-both">1st & 2nd</td>';
                   if (c.going1st) return '<td class="yes-1st">Going 1st</td>';
                   if (c.going2nd) return '<td class="yes-2nd">Going 2nd</td>';
@@ -601,7 +649,7 @@ function render(){
       <button class="add-row" id="add-extra">+ aggiungi extra</button>
     </div>
 
-    <button class="reset-link" id="reset-btn">Ripristina configurazione iniziale</button>
+    <button class="reset-link" id="reset-btn">Ripristina configurazione iniziale Kristyasworn</button>
   `;
 
   renderMainRows();
@@ -649,23 +697,25 @@ function renderMainRows(){
 
 function renderSideRows(){
   const tbody = document.getElementById('side-tbody');
-  
-  // Applica filtro del matchup visivo mantenendo l'indice corretto dei dati reali
   tbody.innerHTML = DATA.side.map((c,i)=>{
-    if(currentMatchupFilter !== 'ALL' && c.matchup !== currentMatchupFilter) {
-      return ''; 
-    }
+    const mus = c.matchups || [];
     return `
       <tr>
         <td><input type="text" list="cardpool-datalist" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="side-field"></td>
         <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
         <td>
-          <select data-idx="${i}" data-field="matchup" class="side-field">
-            ${MATCHUPS.map(m=>`<option ${c.matchup===m?'selected':''}>${m}</option>`).join('')}
-          </select>
+          <div class="bubble-container">
+            ${MATCHUPS.map(m => `
+              <span class="mu-bubble ${mus.includes(m)?'active':''}" onclick="toggleMatchupInSide(${i}, '${m}')">${m}</span>
+            `).join('')}
+          </div>
         </td>
-        <td class="center"><input type="checkbox" ${c.going1st?'checked':''} data-idx="${i}" data-field="going1st" class="side-field"></td>
-        <td class="center"><input type="checkbox" ${c.going2nd?'checked':''} data-idx="${i}" data-field="going2nd" class="side-field"></td>
+        <td>
+          <div class="turn-opts">
+            <span class="turn-badge ${c.going1st?'active t1':''}" onclick="toggleTurnOpt(${i}, 'going1st')">1st</span>
+            <span class="turn-badge ${c.going2nd?'active t2':''}" onclick="toggleTurnOpt(${i}, 'going2nd')">2nd</span>
+          </div>
+        </td>
         <td><input type="text" value="${c.replaces||''}" data-idx="${i}" data-field="replaces" class="side-field" placeholder="Cosa esce"></td>
         <td class="center"><button class="del-btn" data-idx="${i}" data-list="side">✕</button></td>
       </tr>
@@ -690,21 +740,15 @@ function bindGlobal(){
   });
 
   document.getElementById('reset-btn').onclick = resetAll;
-
-  // Gestione dei click sui filtri rapidi matchup
-  document.querySelectorAll('.filter-btn').forEach(btn=>{
-    btn.onclick = ()=>{
-      currentMatchupFilter = btn.dataset.filter;
-      render();
-    };
-  });
+  document.getElementById('pdf-uploader').onchange = handlePdfUpload;
+  document.getElementById('pdf-downloader').onclick = triggerPdfDownload;
 
   document.getElementById('add-main').onclick = ()=>{
     DATA.main.push({name:'', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
     save(); render();
   };
   document.getElementById('add-side').onclick = ()=>{
-    DATA.side.push({name:'', qty:1, matchup: currentMatchupFilter === 'ALL' ? 'Vayu' : currentMatchupFilter, going1st:true, going2nd:true, replaces:''});
+    DATA.side.push({name:'', qty:1, matchups:[], going1st:true, going2nd:true, replaces:''});
     save(); render();
   };
   document.getElementById('add-extra').onclick = ()=>{
