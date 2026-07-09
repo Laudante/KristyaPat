@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kristyasworn — Registro di Costruzione</title>
+<title>Kristyasworn — Registro di Costruzione con DB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -290,6 +290,105 @@
 
 <script>
 const STORAGE_KEY = 'kristyasworn-deck-v2';
+const DB_NAME = 'YugiohKaggleDB';
+const DB_VERSION = 1;
+const STORE_NAME = 'cards';
+
+let db = null;
+
+// Inizializzazione IndexedDB locale
+function initDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onupgradeneeded = (e) => {
+      const database = e.target.result;
+      if (!database.objectStoreNames.contains(STORE_NAME)) {
+        database.createObjectStore(STORE_NAME, { keyPath: 'index' });
+      }
+    };
+    request.onsuccess = (e) => {
+      db = e.target.result;
+      resolve(db);
+    };
+    request.onerror = (e) => reject(e.target.error);
+  });
+}
+
+function getCardFromDB(cardIndex) {
+  return new Promise((resolve) => {
+    if (!db) return resolve(null);
+    const transaction = db.transaction([STORE_NAME], 'readonly');
+    const store = transaction.objectStore(STORE_NAME);
+    const request = store.get(String(cardIndex).trim());
+    request.onsuccess = (e) => resolve(e.target.result || null);
+    request.onerror = () => resolve(null);
+  });
+}
+
+function parseCSVLine(text) {
+  let p = '', r = []; e = false;
+  for (let i = 0; i < text.length; i++) {
+    let c = text[i];
+    if (c === '"') { e = !e; }
+    else if (c === ',' && !e) { r.push(p.trim()); p = ''; }
+    else { p += c; }
+  }
+  r.push(p.trim());
+  return r;
+}
+
+async function handleKaggleCSVImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const statusDiv = document.getElementById('save-status');
+  if(statusDiv) statusDiv.textContent = 'Importazione DB in corso...';
+  
+  const reader = new FileReader();
+  reader.onload = async function(evt) {
+    const lines = evt.target.result.split(/\r?\n/);
+    if(lines.length < 2) return;
+    
+    const headers = lines[0].split(',');
+    const idxIndex = headers.indexOf('index');
+    const nameIndex = headers.indexOf('name');
+    const typeIndex = headers.indexOf('type');
+    const subTypeIndex = headers.indexOf('sub_type');
+    const attackIndex = headers.indexOf('attack');
+    
+    if (idxIndex === -1 || attackIndex === -1) {
+      alert("Formato CSV non valido o colonne mancanti ('index', 'attack').");
+      return;
+    }
+    
+    const transaction = db.transaction([STORE_NAME], 'readwrite');
+    const store = transaction.objectStore(STORE_NAME);
+    
+    let count = 0;
+    for(let i = 1; i < lines.length; i++) {
+      if(!lines[i].trim()) continue;
+      const row = parseCSVLine(lines[i]);
+      if(row[idxIndex]) {
+        const cardObj = {
+          index: String(row[idxIndex]),
+          name: row[nameIndex] || 'Unknown',
+          type: row[typeIndex] || 'MONSTER',
+          sub_type: row[subTypeIndex] || '',
+          attack: row[attackIndex] ? Number(row[attackIndex]) : null
+        };
+        store.put(cardObj);
+        count++;
+      }
+    }
+    
+    transaction.oncomplete = () => {
+      alert(`Database caricato con successo! Importate ${count} varianti di carte.`);
+      if(statusDiv) { statusDiv.textContent = 'DB pronto localmente'; statusDiv.classList.add('dot'); }
+      render();
+    };
+  };
+  reader.readAsText(file);
+}
 
 const ROLES = [
   {id:'starter', label:'Starter', min:11, max:13},
@@ -335,45 +434,7 @@ const CARD_POOL = [
   {id:'74848038', name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
   {id:'81020646', name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
   {id:'48382417', name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:false, status:'U'},
-  {id:'27243130', name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'79856792', name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
-  {id:'04984320', name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
-  {id:'77387465', name:'Kycoo the Ghost Destroyer', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {id:'24508238', name:'D.D. Crow', type:'Monster', atk:100, fairy:false, status:'U'},
-  {id:'70781052', name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  {id:'11074235', name:'Consecrated Light', type:'Monster', atk:null, fairy:false, status:'U'},
-  {id:'87910632', name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'U'},
-  {id:'14087893', name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
-  {id:'53129443', name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
-  {id:'05318639', name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false, status:'L'},
-  {id:'69162521', name:'Lightning Vortex', type:'Spell', atk:null, fairy:false, status:'U'},
-  {id:'32807846', name:'Reinforcement of the Army', type:'Spell', atk:null, fairy:false, status:'L'},
-  {id:'46132583', name:'Cold Wave', type:'Spell', atk:null, fairy:false, status:'U'},
-  {id:'42524454', name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'44095762', name:'Mirror Force', type:'Trap', atk:null, fairy:false, status:'L'},
-  {id:'53582587', name:'Torrential Tribute', type:'Trap', atk:null, fairy:false, status:'L'},
-  {id:'20403120', name:'Solemn Judgment', type:'Trap', atk:null, fairy:false, status:'L'},
-  {id:'03045136', name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'S'},
-  {id:'51452091', name:'Royal Decree', type:'Trap', atk:null, fairy:false, status:'S'},
-  {id:'64697231', name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'97077563', name:'Call of the Haunted', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'99590524', name:'Treacherous Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'81434477', name:'Needlebug Nest', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'03580323', name:'Compulsory Evacuation Device', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'29401950', name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'74875003', name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
-  {id:'44508094', name:'Stardust Dragon', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
-  {id:'73580471', name:'Black Rose Dragon', type:'ExtraMonster', atk:2400, fairy:false, status:'L'},
-  {id:'26593852', name:'Brionac, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2300, fairy:false, status:'L'},
-  {id:'52038441', name:'Goyo Guardian', type:'ExtraMonster', atk:2800, fairy:false, status:'L'},
-  {id:'04773834', name:'Ally of Justice Catastor', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
-  {id:'63422098', name:'Colossal Fighter', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
-  {id:'26848413', name:'Armory Arm', type:'ExtraMonster', atk:1800, fairy:false, status:'U'},
-  {id:'43385557', name:'Magical Android', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
-  {id:'27125110', name:'Mist Wurm', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
-  {id:'25862681', name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
-  {id:'81439173', name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
-  {id:'52352005', name:'XX-Saber Gottoms', type:'ExtraMonster', atk:2600, fairy:false, status:'U'}
+  {id:'27243130', name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'}
 ];
 
 const STATUS_LABEL = {U:'Unlimited (3)', S:'Semi-Limited (2)', L:'Limited (1)', F:'Forbidden (0)'};
@@ -447,6 +508,7 @@ let activeTab = 'main';
 let activeSideFilter = 'all';
 
 async function load(){
+  await initDB();
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     DATA = raw ? JSON.parse(raw) : defaultData();
@@ -461,10 +523,10 @@ async function save(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
     const s = document.getElementById('save-status');
-    if(s){ s.textContent = 'salvato in questo browser'; s.classList.add('dot'); }
+    if(s){ s.textContent = 'salvato nel browser'; s.classList.add('dot'); }
   }catch(e){
     const s = document.getElementById('save-status');
-    if(s){ s.textContent = 'errore di salvataggio'; s.classList.remove('dot'); }
+    if(s){ s.textContent = 'errore salvataggio'; s.classList.remove('dot'); }
   }
 }
 
@@ -488,7 +550,7 @@ function computeCustomRules(){
   let ddv=0, ns=0, fairy=0;
   DATA.main.forEach(c=>{
     const q = Number(c.qty||0);
-    if(c.type==='Monster' && c.atk!==null && c.atk!=='' && Number(c.atk)<=1500) ddv+=q;
+    if(c.type==='Monster' && c.atk !== null && c.atk !== '' && Number(c.atk) <= 1500) ddv+=q;
     if(c.ns) ns+=q;
     if(c.fairy) fairy+=q;
   });
@@ -502,34 +564,54 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
-function handleYdkImport(e) {
+async function handleYdkImport(e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(evt) {
+  reader.onload = async function(evt) {
     const text = evt.target.result;
     const lines = text.split(/\r?\n/);
     const newMain = [], newSide = [], newExtra = [];
     let currentSection = null;
     const defaultMainRef = defaultData().main;
 
-    lines.forEach(line => {
+    for (let line of lines) {
       const clean = line.trim();
-      if (!clean) return;
-      if (clean === '#main') { currentSection = 'main'; return; }
-      if (clean === '#extra') { currentSection = 'extra'; return; }
-      if (clean === '!side') { currentSection = 'side'; return; }
+      if (!clean) continue;
+      if (clean === '#main') { currentSection = 'main'; continue; }
+      if (clean === '#extra') { currentSection = 'extra'; continue; }
+      if (clean === '!side') { currentSection = 'side'; continue; }
+      
       if (/^\d+$/.test(clean)) {
-        const poolCard = CARD_POOL.find(c => parseInt(c.id, 10) === parseInt(clean, 10));
+        // 1. Cerca nel pool base predefinito
+        let poolCard = CARD_POOL.find(c => parseInt(c.id, 10) === parseInt(clean, 10));
+        
+        // 2. Se non c'è, lo cerca nell'IndexedDB caricato da Kaggle
+        if(!poolCard) {
+          const dbCard = await getCardFromDB(clean);
+          if(dbCard) {
+            poolCard = {
+              id: dbCard.index,
+              name: dbCard.name,
+              type: dbCard.type.toUpperCase().includes('MONSTER') ? 'Monster' : (dbCard.type.toUpperCase().includes('TRAP')?'Trap':'Spell'),
+              atk: dbCard.attack,
+              fairy: dbCard.sub_type.toUpperCase().includes('FAIRY'),
+              status: 'U'
+            };
+          }
+        }
+
+        let targetArr = currentSection === 'side' ? newSide : (currentSection === 'extra' ? newExtra : newMain);
+        
         if (poolCard) {
-          let targetArr = currentSection === 'side' ? newSide : (currentSection === 'extra' ? newExtra : newMain);
           const existing = targetArr.find(c => c.name === poolCard.name);
           if (existing) { existing.qty++; } else {
             const refCard = defaultMainRef.find(c => c.name === poolCard.name);
             let role = refCard ? refCard.role : (poolCard.type==='Spell'?'extender':(poolCard.type==='Trap'?'defense':'other'));
             let ns = refCard ? refCard.ns : false;
+            
             if(currentSection === 'main'){
-              targetArr.push({ name: poolCard.name, qty: 1, type: poolCard.type==='ExtraMonster'?'Monster':poolCard.type, role, atk: poolCard.atk, fairy: poolCard.fairy||false, ns });
+              targetArr.push({ name: poolCard.name, qty: 1, type: poolCard.type, role, atk: poolCard.atk, fairy: poolCard.fairy||false, ns });
             } else if(currentSection === 'side'){
               targetArr.push({ name: poolCard.name, qty: 1, matchups: [], replaces: '', sideStatus: 'both' });
             } else {
@@ -537,18 +619,21 @@ function handleYdkImport(e) {
             }
           }
         } else {
-          // Se la carta non è nel pool fisso, la inserisce comunque per non perdere l'importazione
-          let targetArr = currentSection === 'side' ? newSide : (currentSection === 'extra' ? newExtra : newMain);
-          if(currentSection === 'main') {
-            targetArr.push({ name: 'ID Fata/Carta: ' + clean, qty: 1, type: 'Monster', role: 'other', atk: null, fairy: false, ns: false });
-          } else if(currentSection === 'side') {
-            targetArr.push({ name: 'ID Fata/Carta: ' + clean, qty: 1, matchups: [], replaces: '', sideStatus: 'both' });
-          } else {
-            targetArr.push({ name: 'ID Fata/Carta: ' + clean, qty: 1, role: 'none' });
+          // Fallback se non si trova da nessuna parte
+          const existing = targetArr.find(c => c.name === ('ID: ' + clean));
+          if (existing) { existing.qty++; } else {
+            if(currentSection === 'main') {
+              targetArr.push({ name: 'ID: ' + clean, qty: 1, type: 'Monster', role: 'other', atk: null, fairy: false, ns: false });
+            } else if(currentSection === 'side') {
+              targetArr.push({ name: 'ID: ' + clean, qty: 1, matchups: [], replaces: '', sideStatus: 'both' });
+            } else {
+              targetArr.push({ name: 'ID: ' + clean, qty: 1, role: 'none' });
+            }
           }
         }
       }
-    });
+    }
+    
     if (newMain.length || newSide.length || newExtra.length) {
       DATA.main = newMain; DATA.side = newSide; DATA.extra = newExtra;
       save(); render();
@@ -562,19 +647,13 @@ function downloadKdeOfficialDecklist() {
   output += `Data Export: ${new Date().toLocaleDateString('it-IT')}\n\n`;
   
   output += `MAIN DECK (${sumQty(DATA.main)} carte):\n`;
-  DATA.main.forEach(c => {
-    output += `${c.qty}x ${c.name}\n`;
-  });
+  DATA.main.forEach(c => { output += `${c.qty}x ${c.name}\n`; });
   
   output += `\nSIDE DECK (${sumQty(DATA.side)} carte):\n`;
-  DATA.side.forEach(c => {
-    output += `${c.qty}x ${c.name}\n`;
-  });
+  DATA.side.forEach(c => { output += `${c.qty}x ${c.name}\n`; });
   
   output += `\nEXTRA DECK (${sumQty(DATA.extra)} carte):\n`;
-  DATA.extra.forEach(c => {
-    output += `${c.qty}x ${c.name}\n`;
-  });
+  DATA.extra.forEach(c => { output += `${c.qty}x ${c.name}\n`; });
 
   const blob = new Blob([output], { type: 'text/plain;charset=utf-8;' });
   const link = document.createElement("a");
@@ -619,10 +698,14 @@ function render(){
     <header>
       <div>
         <h1>Kristyasworn — Registro di Costruzione</h1>
-        <div class="subtitle">Edison Format · Pattern & Analisi Avanzata</div>
+        <div class="subtitle">Edison Format · Supporto DB Kaggle & Analisi</div>
       </div>
       <div style="display: flex; flex-direction: row; align-items: flex-end; gap: 8px;">
         <div class="save-status dot" id="save-status">salvato</div>
+        <label style="font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--stamp-green); color:white; padding:4px 8px; border-radius:2px; cursor:pointer; text-transform:uppercase;">
+          📁 Carica CSV Kaggle
+          <input type="file" id="kaggle-csv-input" accept=".csv" style="display:none;">
+        </label>
         <label style="font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--ink); color:var(--paper); padding:4px 8px; border-radius:2px; cursor:pointer; text-transform:uppercase;">
           ↑ Importa .ydk
           <input type="file" id="ydk-file-input" accept=".ydk" style="display:none;">
@@ -639,7 +722,6 @@ function render(){
       <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck</button>
     </nav>
 
-    <!-- TAB MAIN -->
     <div class="panel ${activeTab==='main'?'active':''}">
       <div class="deck-total-banner ${mainTotal!==40?'bad':''}">
         <span>MAIN DECK TOTAL</span>
@@ -685,24 +767,8 @@ function render(){
         <tbody id="main-tbody"></tbody>
       </table>
       <button class="add-row" id="add-main">+ aggiungi carta</button>
-
-      <div class="preview-container">
-        <div class="preview-box">
-          <h3>Anteprima Side Deck (${sumQty(DATA.side)} / 15)</h3>
-          <ul class="preview-list">
-            ${DATA.side.map(c=>`<li><span>${c.qty}x <strong>${c.name}</strong> <small style="color:var(--ink-soft)">(${c.sideStatus})</small></span><span style="font-size:11px; color:var(--stamp-red)">${c.matchups.length ? c.matchups.join(', ') : 'Nessuno'}</span></li>`).join('')}
-          </ul>
-        </div>
-        <div class="preview-box">
-          <h3>Anteprima Extra Deck (${sumQty(DATA.extra)} / 15)</h3>
-          <ul class="preview-list">
-            ${DATA.extra.map(c=>`<li><span>${c.qty}x <strong>${c.name}</strong></span><span class="role-badge" style="background:var(--paper-dim); font-size:10px;">${EXTRA_ROLES.find(r=>r.id===(c.role||'none')).label}</span></li>`).join('')}
-          </ul>
-        </div>
-      </div>
     </div>
 
-    <!-- TAB SIDE -->
     <div class="panel ${activeTab==='side'?'active':''}">
       <div class="section-title">Filtri di Visualizzazione & Matchup</div>
       <div class="side-filter-bar">
@@ -733,7 +799,6 @@ function render(){
       </div>
     </div>
 
-    <!-- TAB EXTRA -->
     <div class="panel ${activeTab==='extra'?'active':''}">
       <div class="section-title">Extra Deck</div>
       <table>
@@ -762,7 +827,7 @@ function findInPool(name){
 
 function legalityBadge(c){
   const pool = findInPool(c.name);
-  if(!pool) return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft)">non in pool</span>`;
+  if(!pool) return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft)">Verificato via DB</span>`;
   const over = Number(c.qty||0) > STATUS_MAX[pool.status];
   return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:${over?'var(--stamp-red)':'var(--ink-soft)'}">${STATUS_LABEL[pool.status]}${over?' ⚠':''}</span>`;
 }
@@ -772,7 +837,7 @@ function renderMainRows(){
   if(!tbody) return;
   tbody.innerHTML = DATA.main.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
+      <td><input type="text" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="main-field"></td>
       <td><select data-idx="${i}" data-field="type" class="main-field">${['Monster','Spell','Trap'].map(t=>`<option ${c.type===t?'selected':''}>${t}</option>`).join('')}</select></td>
       <td><select data-idx="${i}" data-field="role" class="main-field role-select" style="color:${roleColor(c.role)}">${ROLES.map(r=>`<option value="${r.id}" ${c.role===r.id?'selected':''}>${r.label}</option>`).join('')}</select></td>
@@ -800,7 +865,7 @@ function renderSideRows(){
     const realIndex = DATA.side.indexOf(c);
     return `
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${realIndex}" data-field="name" class="side-field"></td>
+      <td><input type="text" value="${c.name}" data-idx="${realIndex}" data-field="name" class="side-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${realIndex}" data-field="qty" class="side-field"></td>
       <td>
         <select data-idx="${realIndex}" data-field="sideStatus" class="side-field">
@@ -825,7 +890,7 @@ function renderExtraRows(){
   if(!tbody) return;
   tbody.innerHTML = DATA.extra.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
+      <td><input type="text" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="extra-field"></td>
       <td>
         <select data-idx="${i}" data-field="role" class="extra-field">
@@ -844,6 +909,9 @@ function bindGlobal(){
 
   document.getElementById('reset-btn').onclick = resetAll;
   
+  const csvInput = document.getElementById('kaggle-csv-input');
+  if (csvInput) csvInput.onchange = handleKaggleCSVImport;
+
   const ydkInput = document.getElementById('ydk-file-input');
   if (ydkInput) ydkInput.onchange = handleYdkImport;
 
@@ -886,10 +954,6 @@ function bindGlobal(){
       let val = el.type==='checkbox' ? el.checked : el.value;
       if(field==='qty' || field==='atk') val = val===''? null : Number(val);
       DATA.main[idx][field] = val;
-      if(field==='name'){
-        const pool = findInPool(val);
-        if(pool){ DATA.main[idx].type = pool.type==='ExtraMonster'?'Monster':pool.type; DATA.main[idx].atk = pool.atk; DATA.main[idx].fairy = pool.fairy; }
-      }
       save(); render();
     };
   });
