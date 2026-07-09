@@ -153,6 +153,18 @@
   }
   .deck-total-banner.bad{border-color:var(--stamp-red);color:var(--stamp-red);}
 
+  /* Stile per i filtri rapidi del matchup nel side */
+  .matchup-filters {
+    display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0;
+  }
+  .filter-btn {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    background: var(--card); border: 1px solid var(--rule);
+    padding: 5px 10px; cursor: pointer; border-radius: 2px; color: var(--ink-soft);
+  }
+  .filter-btn:hover { background: var(--paper-dim); color: var(--ink); }
+  .filter-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
+
   table{
     width:100%;
     border-collapse:collapse;
@@ -247,11 +259,9 @@
 <body>
 <div class="wrap" id="app"></div>
 
-<!-- Datalist locale caricata all'avvio per evitare blocchi CORS -->
 <datalist id="cardpool-datalist"></datalist>
 
 <script>
-// RIPRISTINATA CHIAVE ORIGINARIA PER RECUPERARE I TUOI DATI SALVATI
 const STORAGE_KEY = 'kristyasworn-deck';
 
 const ROLES = [
@@ -267,27 +277,51 @@ const ROLES = [
 
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
-// Database Edison integrato localmente per far funzionare subito l'autocompletamento
+// Database locale esteso con TUTTI i Fata (Fairy) generici stabili o di side dell'Edison Format
 const LOCAL_CARD_POOL = [
-  {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false, status:'U'},
-  {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
-  {name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false, status:'U'},
-  {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1000, fairy:false, status:'L'},
-  {name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1850, fairy:false, status:'U'},
-  {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
-  {name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false, status:'S'},
+  // Fata - Archetipo Lightsworn & Kristya Core
   {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
   {name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
+  {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
+  {name:'Shire, Lightsworn Spirit', type:'Monster', atk:400, fairy:true, status:'U'},
+  
+  // Fata Generici, Counter Fairy e Side (Edison Pool)
+  {name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
+  {name:'Athena', type:'Monster', atk:2600, fairy:true, status:'U'},
+  {name:'Tethys, Goddess of Light', type:'Monster', atk:2400, fairy:true, status:'U'},
+  {name:'Splendid Venus', type:'Monster', atk:2800, fairy:true, status:'U'},
+  {name:'Meltiel, Sage of the Sky', type:'Monster', atk:1600, fairy:true, status:'U'},
+  {name:'Bountiful Artemis', type:'Monster', atk:1600, fairy:true, status:'U'},
+  {name:'Gellenduo', type:'Monster', atk:1700, fairy:true, status:'U'},
+  {name:'Marshmallon', type:'Monster', atk:300, fairy:true, status:'L'},
+  {name:'Shining Angel', type:'Monster', atk:1400, fairy:true, status:'U'},
+  {name:'Nova Summoner', type:'Monster', atk:1400, fairy:true, status:'U'},
+  {name:'Hanewata', type:'Monster', atk:200, fairy:true, status:'U'},
+  {name:'Herald of Orange Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {name:'Herald of Green Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {name:'Herald of Purple Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {name:'Darklord Zerato', type:'Monster', atk:2800, fairy:true, status:'U'},
+  {name:'Darklord Superbia', type:'Monster', atk:2900, fairy:true, status:'U'},
+  {name:'Darklord Eachtar', type:'Monster', atk:2200, fairy:true, status:'U'},
+  {name:'Asmodai, Darklord of Desire', type:'Monster', atk:3000, fairy:true, status:'U'},
+  
+  // Altri Mostri Core Edison
+  {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false, status:'U'},
+  {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1000, fairy:false, status:'L'},
+  {name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1850, fairy:false, status:'U'},
+  {name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false, status:'S'},
   {name:'Necro Gardna', type:'Monster', atk:600, fairy:false, status:'L'},
   {name:'Plaguespreader Zombie', type:'Monster', atk:400, fairy:false, status:'L'},
   {name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
   {name:'Chaos Sorcerer', type:'Monster', atk:2300, fairy:false, status:'L'},
   {name:'Tragoedia', type:'Monster', atk:0, fairy:false, status:'L'},
   {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  {name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
   {name:'Super Nimble Mega Hamster', type:'Monster', atk:1100, fairy:false, status:'U'},
   {name:'Thunder King Rai-Oh', type:'Monster', atk:1900, fairy:false, status:'S'},
   
+  // Magie & Trappole Staple
   {name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
@@ -295,36 +329,29 @@ const LOCAL_CARD_POOL = [
   {name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Cold Wave', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'L'},
-  {name:'My Body as a Shield', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Smashing Ground', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Lightning Vortex', type:'Spell', atk:null, fairy:false, status:'U'},
-  {name:'Noblecon of Crossout', type:'Spell', atk:null, fairy:false, status:'U'},
-  
   {name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
   {name:'Torrential Tribute', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Mirror Force', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Solemn Judgment', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'S'},
-  {name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'L'},
   {name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
-  {name:'Phoenix Wing Wind Blast', type:'Trap', atk:null, fairy:false, status:'U'},
   {name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
   
+  // Extra
   {name:'Stardust Dragon', type:'Monster', atk:2500, fairy:false, status:'U'},
   {name:'Black Rose Dragon', type:'Monster', atk:2400, fairy:false, status:'U'},
   {name:'Goyo Guardian', type:'Monster', atk:2800, fairy:false, status:'L'},
   {name:'Brionac, Dragon of the Ice Barrier', type:'Monster', atk:2300, fairy:false, status:'L'},
   {name:'Ally of Justice Catastor', type:'Monster', atk:2200, fairy:false, status:'U'},
-  {name:'Colossal Fighter', type:'Monster', atk:2800, fairy:false, status:'U'},
   {name:'Magical Android', type:'Monster', atk:2400, fairy:true, status:'U'}
 ];
 
 let DATA = null;
 let activeTab = 'main';
+let currentMatchupFilter = 'ALL'; // Stato del filtro rapido del Side
 
-// Caricamento del database locale nel datalist HTML
 function initPoolDatalist() {
   const dl = document.getElementById('cardpool-datalist');
   if(dl) {
@@ -332,7 +359,6 @@ function initPoolDatalist() {
   }
 }
 
-// Ripristinato l'elenco completo originale delle tue 40 carte e 15 di side
 function defaultData(){
   return {
     main: [
@@ -446,7 +472,7 @@ function render(){
     <header>
       <div>
         <h1>Kristyasworn — Registro di Costruzione</h1>
-        <div class="subtitle">Edison Format · Card Pool Locale Attivo</div>
+        <div class="subtitle">Edison Format · Filtri Rapidi Side & Database Fata Esteso</div>
       </div>
       <div class="save-status dot" id="save-status">salvato</div>
     </header>
@@ -517,7 +543,14 @@ function render(){
 
     <div class="panel ${activeTab==='side'?'active':''}">
       <div class="section-title">Side Deck — Configurazione Strategica Turni</div>
-      <div class="hint">Imposta se inserire la carta andando Primo (Going 1st) o Secondo (Going 2nd) per configurare la doppia matrice sottostante.</div>
+      <div class="hint">Filtra rapidamente la tabella premendo sulle etichette dei Matchup qui sotto:</div>
+      
+      <!-- PULSANTI FILTRO MATCHUP RIPRISTINATI -->
+      <div class="matchup-filters">
+        <button class="filter-btn ${currentMatchupFilter==='ALL'?'active':''}" data-filter="ALL">Mostra Tutti</button>
+        ${MATCHUPS.map(m=>`<button class="filter-btn ${currentMatchupFilter==='m'?'active':''}" data-filter="${m}">${m}</button>`).join('')}
+      </div>
+
       <table>
         <thead><tr>
           <th style="width:30%">Nome Carta</th>
@@ -616,21 +649,28 @@ function renderMainRows(){
 
 function renderSideRows(){
   const tbody = document.getElementById('side-tbody');
-  tbody.innerHTML = DATA.side.map((c,i)=>`
-    <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="side-field"></td>
-      <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
-      <td>
-        <select data-idx="${i}" data-field="matchup" class="side-field">
-          ${MATCHUPS.map(m=>`<option ${c.matchup===m?'selected':''}>${m}</option>`).join('')}
-        </select>
-      </td>
-      <td class="center"><input type="checkbox" ${c.going1st?'checked':''} data-idx="${i}" data-field="going1st" class="side-field"></td>
-      <td class="center"><input type="checkbox" ${c.going2nd?'checked':''} data-idx="${i}" data-field="going2nd" class="side-field"></td>
-      <td><input type="text" value="${c.replaces||''}" data-idx="${i}" data-field="replaces" class="side-field" placeholder="Cosa esce"></td>
-      <td class="center"><button class="del-btn" data-idx="${i}" data-list="side">✕</button></td>
-    </tr>
-  `).join('');
+  
+  // Applica filtro del matchup visivo mantenendo l'indice corretto dei dati reali
+  tbody.innerHTML = DATA.side.map((c,i)=>{
+    if(currentMatchupFilter !== 'ALL' && c.matchup !== currentMatchupFilter) {
+      return ''; 
+    }
+    return `
+      <tr>
+        <td><input type="text" list="cardpool-datalist" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="side-field"></td>
+        <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
+        <td>
+          <select data-idx="${i}" data-field="matchup" class="side-field">
+            ${MATCHUPS.map(m=>`<option ${c.matchup===m?'selected':''}>${m}</option>`).join('')}
+          </select>
+        </td>
+        <td class="center"><input type="checkbox" ${c.going1st?'checked':''} data-idx="${i}" data-field="going1st" class="side-field"></td>
+        <td class="center"><input type="checkbox" ${c.going2nd?'checked':''} data-idx="${i}" data-field="going2nd" class="side-field"></td>
+        <td><input type="text" value="${c.replaces||''}" data-idx="${i}" data-field="replaces" class="side-field" placeholder="Cosa esce"></td>
+        <td class="center"><button class="del-btn" data-idx="${i}" data-list="side">✕</button></td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function renderExtraRows(){
@@ -651,12 +691,20 @@ function bindGlobal(){
 
   document.getElementById('reset-btn').onclick = resetAll;
 
+  // Gestione dei click sui filtri rapidi matchup
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      currentMatchupFilter = btn.dataset.filter;
+      render();
+    };
+  });
+
   document.getElementById('add-main').onclick = ()=>{
     DATA.main.push({name:'', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
     save(); render();
   };
   document.getElementById('add-side').onclick = ()=>{
-    DATA.side.push({name:'', qty:1, matchup:'Vayu', going1st:true, going2nd:true, replaces:''});
+    DATA.side.push({name:'', qty:1, matchup: currentMatchupFilter === 'ALL' ? 'Vayu' : currentMatchupFilter, going1st:true, going2nd:true, replaces:''});
     save(); render();
   };
   document.getElementById('add-extra').onclick = ()=>{
