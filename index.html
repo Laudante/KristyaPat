@@ -289,6 +289,125 @@ const ROLES = [
 
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
+// Pool curato di carte rilevanti per Edison Format (Lightsworn + i 7 matchup target + staple generici).
+// status: U = Unlimited(3), S = Semi-Limited(2), L = Limited(1), F = Forbidden(0)
+const CARD_POOL = [
+  // Lightsworn
+  {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
+  {name:'Aurkus, Lightsworn Druid', type:'Monster', atk:1400, fairy:false, status:'U'},
+  {name:'Card Trooper', type:'Monster', atk:400, fairy:false, status:'L'},
+  {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
+  {name:'Ehren, Lightsworn Monk', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1900, fairy:false, status:'U'},
+  {name:'Hecatrice', type:'Monster', atk:1500, fairy:true, status:'U'},
+  {name:'Herald of Orange Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
+  {name:'Jain, Lightsworn Paladin', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false, status:'S'},
+  {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1400, fairy:false, status:'L'},
+  {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {name:'Necro Gardna', type:'Monster', atk:800, fairy:false, status:'L'},
+  {name:'Plaguespreader Zombie', type:'Monster', atk:400, fairy:false, status:'U'},
+  {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {name:'Tragoedia', type:'Monster', atk:2000, fairy:false, status:'L'},
+  {name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Gold Sarcophagus', type:'Spell', atk:null, fairy:false, status:'S'},
+  {name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
+  // Staple generici
+  {name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
+  {name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
+  {name:'Kycoo the Ghost Destroyer', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'D.D. Crow', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
+  {name:'Consecrated Light', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'Lightning Vortex', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Reinforcement of the Army', type:'Spell', atk:null, fairy:false, status:'L'},
+  {name:'Cold Wave', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Mirror Force', type:'Trap', atk:null, fairy:false, status:'L'},
+  {name:'Torrential Tribute', type:'Trap', atk:null, fairy:false, status:'L'},
+  {name:'Solemn Judgment', type:'Trap', atk:null, fairy:false, status:'L'},
+  {name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'S'},
+  {name:'Royal Decree', type:'Trap', atk:null, fairy:false, status:'S'},
+  {name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Call of the Haunted', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Treacherous Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Needlebug Nest', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Compulsory Evacuation Device', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
+  {name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
+  // Blackwing
+  {name:'Blackwing - Gale the Whirlwind', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {name:'Blackwing - Kalut the Moon Shadow', type:'Monster', atk:1700, fairy:false, status:'U'},
+  {name:'Blackwing - Bora the Spear', type:'Monster', atk:1700, fairy:false, status:'U'},
+  {name:'Blackwing - Shura the Blue Flame', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Blackwing - Vayu the Emblem of Honor', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {name:'Blackwing - Sirocco the Dawn', type:'Monster', atk:1900, fairy:false, status:'U'},
+  {name:'Black Whirlwind', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Icarus Attack', type:'Spell', atk:null, fairy:false, status:'U'},
+  {name:'Delta Crow - Anti Reverse', type:'Trap', atk:null, fairy:false, status:'U'},
+  // Machina / Geartown
+  {name:'Machina Fortress', type:'Monster', atk:2500, fairy:false, status:'U'},
+  {name:'Machina Gearframe', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {name:'Machina Peacekeeper', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {name:'Machina Force', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {name:'Geartown', type:'Spell', atk:null, fairy:false, status:'U'},
+  // Gladiator Beast
+  {name:'Gladiator Beast Bestiari', type:'Monster', atk:1500, fairy:false, status:'U'},
+  {name:'Gladiator Beast Laquari', type:'Monster', atk:1400, fairy:false, status:'U'},
+  {name:'Gladiator Beast Murmillo', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {name:'Gladiator Beast Darius', type:'Monster', atk:1700, fairy:false, status:'U'},
+  {name:'Gladiator Beast Equeste', type:'Monster', atk:1500, fairy:false, status:'U'},
+  {name:'Gladiator Beast Test Tiger', type:'Monster', atk:600, fairy:false, status:'U'},
+  {name:'Gyzarus', type:'Monster', atk:2400, fairy:false, status:'U'},
+  {name:'Heraklinos, Gladiator Beast God', type:'Monster', atk:2700, fairy:false, status:'U'},
+  // Frog
+  {name:'Treeborn Frog', type:'Monster', atk:100, fairy:false, status:'S'},
+  {name:'Ronintoadin', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {name:'Des Frog', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Dupe Frog', type:'Monster', atk:900, fairy:false, status:'U'},
+  {name:'T.A.D.P.O.L.E.', type:'Monster', atk:1200, fairy:false, status:'U'},
+  {name:'Substitoad', type:'Monster', atk:1600, fairy:false, status:'U'},
+  // Vayu / Six Samurai (motore rogue veloce)
+  {name:'Kagemusha of the Six Samurai', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Shien\'s Squire', type:'Monster', atk:800, fairy:false, status:'U'},
+  {name:'Legendary Six Samurai - Shi En', type:'Monster', atk:2100, fairy:false, status:'U'},
+  {name:'Great Shogun Shien', type:'Monster', atk:2500, fairy:false, status:'U'},
+  // Quickdraw / synchro generico rogue
+  {name:'Quickdraw Synchron', type:'Monster', atk:700, fairy:false, status:'U'},
+  {name:'Junk Synchron', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {name:'Doppelwarrior', type:'Monster', atk:0, fairy:false, status:'U'},
+  {name:'Turbo Synchron', type:'Monster', atk:100, fairy:false, status:'U'},
+  {name:'Level Eater', type:'Monster', atk:600, fairy:false, status:'U'},
+  {name:'Debris Dragon', type:'Monster', atk:1900, fairy:false, status:'U'},
+  // Extra Deck comune
+  {name:'Stardust Dragon', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
+  {name:'Black Rose Dragon', type:'ExtraMonster', atk:2400, fairy:false, status:'L'},
+  {name:'Brionac, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2300, fairy:false, status:'L'},
+  {name:'Goyo Guardian', type:'ExtraMonster', atk:2800, fairy:false, status:'L'},
+  {name:'Ally of Justice Catastor', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
+  {name:'Colossal Fighter', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
+  {name:'Armory Arm', type:'ExtraMonster', atk:1800, fairy:false, status:'U'},
+  {name:'Magical Android', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
+  {name:'Mist Wurm', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
+  {name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
+  {name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
+  {name:'XX-Saber Gottoms', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
+  {name:'Chimeratech Fortress Dragon', type:'ExtraMonster', atk:0, fairy:false, status:'U'},
+  {name:'Trishula, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2700, fairy:false, status:'U'},
+];
+const STATUS_LABEL = {U:'Unlimited (3)', S:'Semi-Limited (2)', L:'Limited (1)', F:'Forbidden (0)'};
+const STATUS_MAX = {U:3, S:2, L:1, F:0};
+
 function defaultData(){
   return {
     main: [
@@ -468,16 +587,17 @@ function render(){
       </div>
 
       <div class="section-title">Carte</div>
-      <div class="hint">Il ruolo determina in quale categoria della tabella conta la carta. Spunta "Fata" per il conteggio Fedeli, "NS" se è uno starter ad evocazione normale che rientra nel tetto dei 9.</div>
+      <div class="hint">Il ruolo determina in quale categoria della tabella conta la carta. Spunta "Fata" per il conteggio Fedeli, "NS" se è uno starter ad evocazione normale che rientra nel tetto dei 9. Digitando il nome compare un suggerimento dal pool Edison curato (Lightsworn + i 7 matchup target + staple generici): selezionandolo, ATK/Fata/Tipo si compilano da soli e la colonna Banlist mostra il limite di copie, segnalando ⚠ se lo superi.</div>
       <table>
         <thead><tr>
-          <th style="width:26%">Nome</th>
+          <th style="width:24%">Nome</th>
           <th>Qtà</th>
           <th>Tipo</th>
           <th>Ruolo</th>
           <th>ATK</th>
           <th>Fata</th>
           <th>NS</th>
+          <th>Banlist</th>
           <th></th>
         </tr></thead>
         <tbody id="main-tbody"></tbody>
@@ -521,6 +641,10 @@ function render(){
     </div>
 
     <button class="reset-link" id="reset-btn">Ripristina lista di riferimento</button>
+
+    <datalist id="cardpool-datalist">
+      ${CARD_POOL.map(c=>`<option value="${c.name}">`).join('')}
+    </datalist>
   `;
 
   renderMainRows();
@@ -529,11 +653,25 @@ function render(){
   bindGlobal();
 }
 
+function findInPool(name){
+  const n = (name||'').trim().toLowerCase();
+  return CARD_POOL.find(c=>c.name.toLowerCase()===n);
+}
+
+function legalityBadge(c){
+  const pool = findInPool(c.name);
+  if(!pool) return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft)">non in pool</span>`;
+  const max = STATUS_MAX[pool.status];
+  const over = Number(c.qty||0) > max;
+  const color = over ? 'var(--stamp-red)' : 'var(--ink-soft)';
+  return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:${color}">${STATUS_LABEL[pool.status]}${over?' ⚠':''}</span>`;
+}
+
 function renderMainRows(){
   const tbody = document.getElementById('main-tbody');
   tbody.innerHTML = DATA.main.map((c,i)=>`
     <tr>
-      <td><input type="text" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="main-field"></td>
       <td>
         <select data-idx="${i}" data-field="type" class="main-field">
@@ -548,6 +686,7 @@ function renderMainRows(){
       <td><input type="number" placeholder="—" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" style="width:55px" ${c.type!=='Monster'?'disabled':''}></td>
       <td class="center"><input type="checkbox" ${c.fairy?'checked':''} data-idx="${i}" data-field="fairy" class="main-field"></td>
       <td class="center"><input type="checkbox" ${c.ns?'checked':''} data-idx="${i}" data-field="ns" class="main-field"></td>
+      <td>${legalityBadge(c)}</td>
       <td class="center"><button class="del-btn" data-idx="${i}" data-list="main">✕</button></td>
     </tr>
   `).join('');
@@ -557,7 +696,7 @@ function renderSideRows(){
   const tbody = document.getElementById('side-tbody');
   tbody.innerHTML = DATA.side.map((c,i)=>`
     <tr>
-      <td><input type="text" value="${c.name}" data-idx="${i}" data-field="name" class="side-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="side-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
       <td>
         <div class="chip-row">
@@ -616,6 +755,14 @@ function bindGlobal(){
       if(field==='qty') val = Number(val);
       if(field==='atk') val = val===''? null : Number(val);
       DATA.main[idx][field] = val;
+      if(field==='name'){
+        const pool = findInPool(val);
+        if(pool){
+          DATA.main[idx].type = pool.type==='ExtraMonster' ? 'Monster' : pool.type;
+          DATA.main[idx].atk = pool.atk;
+          DATA.main[idx].fairy = pool.fairy;
+        }
+      }
       save(); render();
     };
   });
