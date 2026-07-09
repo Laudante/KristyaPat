@@ -130,7 +130,6 @@
   .mark.pass{color:var(--stamp-green);}
   .mark.flag{color:var(--stamp-red);}
 
-  /* Box Personalizzati Richiesti */
   .stamp.box-purple { background-color: #F3EAF9; border-color: #B399D4; }
   .stamp.box-purple .label, .stamp.box-purple .target { color: #6A449B; }
   .stamp.box-purple .mark.pass { color: #6A449B; border-color: #6A449B; }
@@ -227,14 +226,6 @@
     line-height:1.5;
   }
 
-  .turn-selector {
-    display: flex; gap: 10px; margin: 6px 0 14px;
-  }
-  .turn-btn {
-    font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 4px 10px; border: 1px solid var(--rule); background: transparent; cursor: pointer; border-radius: 2px;
-  }
-  .turn-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-
   .matrix-wrap{overflow-x:auto;margin-top:24px;}
   table.matrix th, table.matrix td{text-align:center;font-size:11.5px; padding:8px;}
   table.matrix th.rowhead, table.matrix td.rowhead{text-align:left;font-size:12.5px;}
@@ -262,8 +253,10 @@
   <div class="loading">Inizializzazione database carte da YGOPRODeck (Edison Format)…</div>
 </div>
 
+<datalist id="cardpool-datalist"></datalist>
+
 <script>
-const STORAGE_KEY = 'kristyasworn-deck-v2';
+const STORAGE_KEY = 'kristyasworn-deck-v3';
 
 const ROLES = [
   {id:'starter', label:'Starter', min:11, max:13},
@@ -282,7 +275,6 @@ let API_CARD_POOL = [];
 let DATA = null;
 let activeTab = 'main';
 
-// Carica il pool in tempo reale tramite le API ufficiali di YGOPRODeck filtrato per Edison
 async function fetchEdisonPool() {
   try {
     const res = await fetch('https://db.ygoprodeck.com/api/v1/cardinfo.php?format=edison');
@@ -302,9 +294,14 @@ async function fetchEdisonPool() {
         status: banStatus
       };
     });
+    
+    // Aggiorna il datalist globale una volta scaricate le API
+    const dl = document.getElementById('cardpool-datalist');
+    if(dl) {
+      dl.innerHTML = API_CARD_POOL.map(c => `<option value="${c.name.replace(/"/g, '&quot;')}">`).join('');
+    }
   } catch(e) {
-    console.error("Errore nel recupero delle API. Uso fallback locale.", e);
-    API_CARD_POOL = [];
+    console.error("Errore nel recupero delle API.", e);
   }
 }
 
@@ -381,14 +378,8 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
-function sortMainDeck(){
-  const roleOrder = ROLES.map(r => r.id);
-  DATA.main.sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
-}
-
 function render(){
   const app = document.getElementById('app');
-  sortMainDeck();
   const mainTotal = sumQty(DATA.main);
   const roleCounts = computeRoleCounts();
   const custom = computeCustomRules();
@@ -403,7 +394,7 @@ function render(){
     </header>
 
     <nav class="tabs">
-      <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck (40)</button>
+      <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck (${mainTotal})</button>
       <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice Turno</button>
       <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck</button>
     </nav>
@@ -448,10 +439,10 @@ function render(){
         </div>
       </div>
 
-      <div class="section-title">Organizzazione Categorie (Ordine Discendente)</div>
+      <div class="section-title">Elenco Carte Main Deck</div>
       <table>
         <thead><tr>
-          <th style="width:25%">Nome Carta</th>
+          <th style="width:30%">Nome Carta</th>
           <th>Qtà</th>
           <th>Tipo</th>
           <th>Ruolo</th>
@@ -471,7 +462,7 @@ function render(){
       <div class="hint">Imposta se inserire la carta andando Primo (Going 1st) o Secondo (Going 2nd) per configurare la doppia matrice sottostante.</div>
       <table>
         <thead><tr>
-          <th style="width:25%">Nome Carta</th>
+          <th style="width:30%">Nome Carta</th>
           <th>Qtà</th>
           <th>Matchup Target</th>
           <th class="center">Going 1st</th>
@@ -495,7 +486,7 @@ function render(){
           <tbody>
             ${DATA.side.map(c=>{
               return `<tr>
-                <td class="rowhead"><strong>${c.name}</strong> <small style="color:var(--ink-soft)">(${c.qty})</small></td>
+                <td class="rowhead"><strong>${c.name || 'Senza nome'}</strong> <small style="color:var(--ink-soft)">(${c.qty})</small></td>
                 ${MATCHUPS.map(m=>{
                   if (c.matchup !== m) return '<td>-</td>';
                   if (c.going1st && c.going2nd) return '<td class="yes-both">1st & 2nd</td>';
@@ -520,10 +511,6 @@ function render(){
     </div>
 
     <button class="reset-link" id="reset-btn">Ripristina configurazione iniziale</button>
-
-    <datalist id="cardpool-datalist">
-      ${API_CARD_POOL.map(c=>`<option value="${c.name}">`).join('')}
-    </datalist>
   `;
 
   renderMainRows();
@@ -538,17 +525,17 @@ function findInApiPool(name){
 
 function legalityBadge(c){
   const pool = findInApiPool(c.name);
-  if(!pool) return `<span style="font-size:10px;color:var(--ink-soft)">Edison Pool attivo</span>`;
+  if(!pool) return `<span style="font-size:10px;color:var(--ink-soft)">Pool Attivo</span>`;
   const max = {U:3, S:2, L:1, F:0}[pool.status];
   const over = Number(c.qty||0) > max;
-  return `<span style="font-size:10px;color:${over?'var(--stamp-red)':'var(--ink-soft)'}">${pool.status==='U'?'Unlim (3)':pool.status==='S'?'Semi (2)':'Limited (1)'}${over?' ⚠':''}</span>`;
+  return `<span style="font-size:10px;color:${over?'var(--stamp-red)':'var(--ink-soft)'}">${pool.status==='U'?'Unlim':pool.status==='S'?'Semi':'Lim'}${over?' ⚠':''}</span>`;
 }
 
 function renderMainRows(){
   const tbody = document.getElementById('main-tbody');
   tbody.innerHTML = DATA.main.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="main-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="main-field"></td>
       <td>
         <select data-idx="${i}" data-field="type" class="main-field">
@@ -573,7 +560,7 @@ function renderSideRows(){
   const tbody = document.getElementById('side-tbody');
   tbody.innerHTML = DATA.side.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="side-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="side-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
       <td>
         <select data-idx="${i}" data-field="matchup" class="side-field">
@@ -592,7 +579,7 @@ function renderExtraRows(){
   const tbody = document.getElementById('extra-tbody');
   tbody.innerHTML = DATA.extra.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="extra-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty||1}" data-idx="${i}" data-field="qty" class="extra-field"></td>
       <td class="center"><button class="del-btn" data-idx="${i}" data-list="extra">✕</button></td>
     </tr>
