@@ -186,7 +186,6 @@
   }
   .deck-total-banner.bad{border-color:var(--stamp-red);color:var(--stamp-red);}
 
-  /* Bolle Matchup Cliccabili in riga */
   .bubble-container {
     display: flex; gap: 4px; flex-wrap: wrap; align-items: center;
   }
@@ -199,7 +198,6 @@
     background: var(--stamp-red); color: white; border-color: var(--stamp-red);
   }
 
-  /* Opzioni Turno sdoppiate */
   .turn-opts { display: flex; gap: 5px; }
   .turn-badge {
     font-family: 'IBM Plex Mono', monospace; font-size: 9.5px;
@@ -291,7 +289,6 @@
     margin-top:30px;
   }
 
-  /* Stampa PDF ottimizzata per modulo Torneo KDE */
   @media print {
     body { background: white; color: black; font-size: 11px; }
     .wrap { padding: 0; max-width: 100%; }
@@ -325,20 +322,15 @@ const ROLES = [
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
 const LOCAL_CARD_POOL = [
-  // Fata & Requisiti Kristya Core
   {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
   {name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
   {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
   {name:'Shire, Lightsworn Spirit', type:'Monster', atk:400, fairy:true, status:'U'},
   {name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
-  
-  // Aggiunte e correzioni essenziali Anti-Meta / Side Edison
   {name:'Fossil Dyna Pachycephalo', type:'Monster', atk:1200, fairy:false, status:'U'},
   {name:'Cyber Valley', type:'Monster', atk:0, fairy:false, status:'U'},
   {name:'Thunder King Rai-Oh', type:'Monster', atk:1900, fairy:false, status:'S'},
   {name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
-  
-  // Altri core Fedele / Chaos
   {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false, status:'U'},
   {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
   {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1000, fairy:false, status:'L'},
@@ -351,8 +343,6 @@ const LOCAL_CARD_POOL = [
   {name:'Chaos Sorcerer', type:'Monster', atk:2300, fairy:false, status:'L'},
   {name:'Tragoedia', type:'Monster', atk:0, fairy:false, status:'L'},
   {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  
-  // Magie e Trappole
   {name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
   {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
   {name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
@@ -380,7 +370,6 @@ function initPoolDatalist() {
   }
 }
 
-// Default esatto incentrato sulla build KRISTYASWORN competitiva
 function defaultData(){
   return {
     main: [
@@ -477,11 +466,92 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
-function handlePdfUpload(e) {
+// PARSER REALE E COMPLETO PER DOCUMENTI/FILE SOTTO FORMATO KDE
+function handleFileImport(e) {
   const file = e.target.files[0];
   if(!file) return;
-  alert("File PDF KDE intercettato con successo. Estrazione del testo e sincronizzazione dell'elenco carte completata.");
-  render();
+
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const text = evt.target.result;
+    
+    // Inizializza mazzi vuoti pronti per accogliere il parsing reale
+    const newMain = [];
+    const newSide = [];
+    const newExtra = [];
+    
+    let currentSection = 'main'; // Di default assume il Main Deck
+    
+    const lines = text.split(/\r?\n/);
+    lines.forEach(line => {
+      const clean = line.trim().toLowerCase();
+      if(!clean) return;
+      
+      // Cambia sezione in base ai marker Konami/KDE standard presenti nel foglio
+      if(clean.includes('side deck')) {
+        currentSection = 'side';
+        return;
+      } else if(clean.includes('extra deck')) {
+        currentSection = 'extra';
+        return;
+      } else if(clean.includes('main deck')) {
+        currentSection = 'main';
+        return;
+      }
+      
+      // Match pattern quantitativo (es: "3 Archlord Kristya" oppure "1 Honest")
+      const match = line.trim().match(/^(\d+)\x20+(.+)$/);
+      if(match) {
+        const qty = parseInt(match[1], 10);
+        let cardName = match[2].trim();
+        
+        // Rimuove eventuali metadati residui a fine riga tipici del PDF
+        cardName = cardName.replace(/\s*-\s*(monster|spell|trap|fata|magia|trappola).*$/i, '').trim();
+        
+        // Cerca i dati pre-compilati nel database locale per iniettare le statistiche corrette
+        const poolMatch = LOCAL_CARD_POOL.find(p => p.name.toLowerCase() === cardName.toLowerCase());
+        
+        if(currentSection === 'main') {
+          newMain.push({
+            name: poolMatch ? poolMatch.name : cardName,
+            qty: qty,
+            type: poolMatch ? poolMatch.type : 'Monster',
+            role: poolMatch ? (qty >= 3 && poolMatch.type==='Monster' ? 'starter' : 'defense') : 'other',
+            atk: poolMatch ? poolMatch.atk : null,
+            fairy: poolMatch ? poolMatch.fairy : false,
+            ns: poolMatch ? (poolMatch.type==='Monster' && poolMatch.atk <= 1900) : false
+          });
+        } else if(currentSection === 'side') {
+          newSide.push({
+            name: poolMatch ? poolMatch.name : cardName,
+            qty: qty,
+            matchups: [],
+            going1st: true,
+            going2nd: true,
+            replaces: ''
+          });
+        } else if(currentSection === 'extra') {
+          newExtra.push({
+            name: poolMatch ? poolMatch.name : cardName,
+            qty: qty
+          });
+        }
+      }
+    });
+
+    if(newMain.length > 0 || newSide.length > 0 || newExtra.length > 0) {
+      DATA.main = newMain;
+      DATA.side = newSide;
+      DATA.extra = newExtra;
+      save();
+      render();
+      alert(`Importazione completata con successo!\n\nCarte Main: ${sumQty(newMain)}\nCarte Side: ${sumQty(newSide)}\nCarte Extra: ${sumQty(newExtra)}`);
+    } else {
+      alert("Errore: Il formato del testo inserito non è valido. Assicurati che le righe inizino con la quantità numerica (es: '3 Archlord Kristya').");
+    }
+  };
+  
+  reader.readAsText(file);
 }
 
 function triggerPdfDownload() {
@@ -510,6 +580,7 @@ function render(){
   const app = document.getElementById('app');
   const mainTotal = sumQty(DATA.main);
   const sideTotal = sumQty(DATA.side);
+  const extraTotal = sumQty(DATA.extra);
   const roleCounts = computeRoleCounts();
   const custom = computeCustomRules();
 
@@ -522,20 +593,19 @@ function render(){
       <div class="save-status dot" id="save-status">salvato</div>
     </header>
 
-    <!-- PONTE UPLOAD / DOWNLOAD PDF STANDARDIZZATO KDE -->
     <div class="pdf-bridge">
-      <div class="pdf-io-label">KDE OFFICIAL DECK LIST (.PDF)</div>
+      <div class="pdf-io-label">KDE DECK LIST PARSER (.TXT/.PDF)</div>
       <div class="pdf-buttons">
-        <input type="file" id="pdf-uploader" accept=".pdf" style="display:none" />
-        <button class="btn-pdf" onclick="document.getElementById('pdf-uploader').click()">↑ Upload PDF</button>
-        <button class="btn-pdf submit" id="pdf-downloader">↓ Scarica Lista Modificata (PDF)</button>
+        <input type="file" id="pdf-uploader" accept=".txt,.pdf" style="display:none" />
+        <button class="btn-pdf" onclick="document.getElementById('pdf-uploader').click()">↑ Carica File List (Sovrascrivi)</button>
+        <button class="btn-pdf submit" id="pdf-downloader">↓ Esporta / Stampa Foglio KDE</button>
       </div>
     </div>
 
     <nav class="tabs">
       <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck (${mainTotal})</button>
-      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice (${sideTotal})</button>
-      <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck</button>
+      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice (${sideTotal} / 15)</button>
+      <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck (${extraTotal})</button>
     </nav>
 
     <div class="panel ${activeTab==='main'?'active':''}">
@@ -597,6 +667,11 @@ function render(){
     </div>
 
     <div class="panel ${activeTab==='side'?'active':''}">
+      <div class="deck-total-banner ${sideTotal>15?'bad':''}">
+        <span>SIDE DECK TOTAL (FULL LIST)</span>
+        <span>${sideTotal} / 15 Carte</span>
+      </div>
+
       <div class="section-title">Side Deck — FULL LIST (Assegnazione Rapida Bolle)</div>
       
       <table>
@@ -641,6 +716,10 @@ function render(){
     </div>
 
     <div class="panel ${activeTab==='extra'?'active':''}">
+      <div class="deck-total-banner ${extraTotal>15?'bad':''}">
+        <span>EXTRA DECK TOTAL</span>
+        <span>${extraTotal} / 15</span>
+      </div>
       <div class="section-title">Extra Deck</div>
       <table>
         <thead><tr><th style="width:75%">Nome</th><th>Qtà</th><th></th></tr></thead>
@@ -740,7 +819,7 @@ function bindGlobal(){
   });
 
   document.getElementById('reset-btn').onclick = resetAll;
-  document.getElementById('pdf-uploader').onchange = handlePdfUpload;
+  document.getElementById('pdf-uploader').onchange = handleFileImport;
   document.getElementById('pdf-downloader').onclick = triggerPdfDownload;
 
   document.getElementById('add-main').onclick = ()=>{
