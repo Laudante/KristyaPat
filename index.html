@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kristyasworn — Registro di Costruzione Avanzato</title>
+<title>Kristyasworn — Registro di Costruzione</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -58,38 +58,6 @@
     content:'●';color:var(--stamp-green);margin-right:5px;
   }
 
-  .pdf-bridge {
-    background: var(--card);
-    border: 1px dashed var(--stamp-red);
-    padding: 16px;
-    margin: 15px 0;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-  .pdf-io-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--stamp-red);
-  }
-  .pdf-buttons { display: flex; gap: 10px; align-items: center; }
-  .btn-pdf {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    padding: 8px 12px;
-    border-radius: 2px;
-    cursor: pointer;
-    border: 1px solid var(--ink);
-    background: var(--card);
-    color: var(--ink);
-  }
-  .btn-pdf.submit { background: var(--stamp-red); color: white; border-color: var(--stamp-red); }
-
   nav.tabs{
     display:flex;gap:2px;margin:22px 0 20px;
     border-bottom:1px solid var(--rule);
@@ -115,6 +83,7 @@
   .panel{display:none;}
   .panel.active{display:block;}
 
+  /* stamp grid */
   .stamps{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -162,18 +131,6 @@
   .mark.pass{color:var(--stamp-green);}
   .mark.flag{color:var(--stamp-red);}
 
-  .stamp.box-purple { background-color: #F3EAF9; border-color: #B399D4; }
-  .stamp.box-purple .label, .stamp.box-purple .target { color: #6A449B; }
-  .stamp.box-purple .mark.pass { color: #6A449B; border-color: #6A449B; }
-
-  .stamp.box-brown { background-color: #F7EFE5; border-color: #CDA67F; }
-  .stamp.box-brown .label, .stamp.box-brown .target { color: #785129; }
-  .stamp.box-brown .mark.pass { color: #785129; border-color: #785129; }
-
-  .stamp.box-green { background-color: #EFF5E9; border-color: #A3C997; }
-  .stamp.box-green .label, .stamp.box-green .target { color: #436F37; }
-  .stamp.box-green .mark.pass { color: #436F37; border-color: #436F37; }
-
   .deck-total-banner{
     font-family:'IBM Plex Mono',monospace;
     font-size:12.5px;
@@ -185,33 +142,11 @@
   }
   .deck-total-banner.bad{border-color:var(--stamp-red);color:var(--stamp-red);}
 
-  .bubble-container {
-    display: flex; gap: 4px; flex-wrap: wrap; align-items: center;
-  }
-  .mu-bubble {
-    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-    padding: 3px 6px; border: 1px solid var(--rule); background: var(--card);
-    color: var(--ink-soft); cursor: pointer; border-radius: 12px; transition: all 0.15s ease;
-  }
-  .mu-bubble.active {
-    background: var(--stamp-red); color: white; border-color: var(--stamp-red);
-  }
-
-  .turn-opts { display: flex; gap: 5px; }
-  .turn-badge {
-    font-family: 'IBM Plex Mono', monospace; font-size: 9.5px;
-    padding: 2px 5px; border: 1px solid var(--rule); border-radius: 2px;
-    cursor: pointer; color: var(--ink-soft); background: var(--card);
-  }
-  .turn-badge.active.t1 { background: #E8DFF5; color: #6A449B; border-color: #B399D4; font-weight:600; }
-  .turn-badge.active.t2 { background: #E1F0F5; color: #2A6378; border-color: #A3C997; font-weight:600; }
-
   table{
     width:100%;
     border-collapse:collapse;
     background:var(--card);
     border:1px solid var(--rule);
-    margin-bottom:20px;
   }
   th{
     text-align:left;
@@ -248,7 +183,24 @@
     outline:none;border-color:var(--stamp-red);background:#fff;
   }
   input[type=number]{width:55px;text-align:center;}
+  input[type=checkbox]{transform:scale(1.15);cursor:pointer;}
   td.center{text-align:center;}
+
+  .role-badge{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    padding:2px 6px;
+    border-radius:2px;
+    display:inline-block;
+  }
+  select.role-select{cursor:pointer;}
+
+  .del-btn{
+    background:none;border:none;cursor:pointer;
+    color:var(--stamp-red);font-size:15px;
+    opacity:0.55;
+  }
+  .del-btn:hover{opacity:1;}
 
   .add-row{
     margin-top:12px;
@@ -270,13 +222,36 @@
     padding-bottom:6px;
     border-bottom:1px solid var(--rule);
   }
+  .hint{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin:6px 0 14px;
+    line-height:1.5;
+  }
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:4px;max-width:260px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    padding:3px 6px;
+    border:1px solid var(--rule);
+    border-radius:10px;
+    cursor:pointer;
+    color:var(--ink-soft);
+    background:transparent;
+    user-select:none;
+  }
+  .chip.on{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+  }
 
   .matrix-wrap{overflow-x:auto;margin-top:24px;}
-  table.matrix th, table.matrix td{text-align:center;font-size:11.5px; padding:8px;}
+  table.matrix th, table.matrix td{text-align:center;font-size:11.5px;}
   table.matrix th.rowhead, table.matrix td.rowhead{text-align:left;font-size:12.5px;}
-  table.matrix td.yes-1st{background:#E8DFF5;color:#6A449B;font-weight:700;}
-  table.matrix td.yes-2nd{background:#E1F0F5;color:#2A6378;font-weight:700;}
-  table.matrix td.yes-both{background:#E2F0D9;color:#386625;font-weight:700;}
+  table.matrix td.yes{background:#DCE3C8;color:var(--stamp-green);font-weight:700;}
 
   .reset-link{
     font-family:'IBM Plex Mono',monospace;
@@ -287,25 +262,19 @@
     background:none;border:none;
     margin-top:30px;
   }
-
-  @media print {
-    body { background: white; color: black; font-size: 11px; }
-    .wrap { padding: 0; max-width: 100%; }
-    .pdf-bridge, nav.tabs, .add-row, .del-btn, #reset-btn { display: none !important; }
-    .panel { display: block !important; }
-    table { page-break-inside: avoid; border: 1px solid #000; }
-    th { border-bottom: 2px solid #000; color: #000; }
-    td { border-bottom: 1px solid #000; padding: 4px; }
+  .loading{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;color:var(--ink-soft);padding:40px;text-align:center;
   }
 </style>
 </head>
 <body>
-<div class="wrap" id="app"></div>
-
-<datalist id="cardpool-datalist"></datalist>
+<div class="wrap" id="app">
+  <div class="loading">Caricamento registro…</div>
+</div>
 
 <script>
-const STORAGE_KEY = 'kristyasworn-deck-v3';
+const STORAGE_KEY = 'kristyasworn-deck-v1';
 
 const ROLES = [
   {id:'starter', label:'Starter', min:11, max:13},
@@ -315,103 +284,196 @@ const ROLES = [
   {id:'reactive', label:'Reactive Ext.', min:0, max:3},
   {id:'bomb', label:'Bomba', min:2, max:3},
   {id:'necessity', label:'Necessità', min:0, max:1},
-  {id:'other', label:'Altro', min:null, max:null}
+  {id:'other', label:'Altro', min:null, max:null},
 ];
 
 const MATCHUPS = ['Vayu','Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue'];
 
-// Database Codici Passaporto Carte Edison Format (Esteso)
-const YDK_DB = {
-  '28279543': {name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true},
-  '53183600': {name:'Honest', type:'Monster', atk:1400, fairy:true},
-  '59019082': {name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true},
-  '94192409': {name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1000, fairy:false},
-  '21698716': {name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false},
-  '30548775': {name:'Ryko, Lightsworn Hunter', type:'Monster', atk:200, fairy:false},
-  '30113681': {name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1850, fairy:false},
-  '58996430': {name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false},
-  '22624363': {name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false},
-  '33420078': {name:'Plaguespreader Zombie', type:'Monster', atk:400, fairy:false},
-  '09076207': {name:'Necro Gardna', type:'Monster', atk:600, fairy:false},
-  '16229315': {name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false},
-  '81020646': {name:'Solar Recharge', type:'Spell', atk:null, fairy:false},
-  '17658803': {name:'Shire, Lightsworn Spirit', type:'Monster', atk:400, fairy:true},
-  '00091568': {name:'Fossil Dyna Pachycephalo', type:'Monster', atk:1200, fairy:false},
-  '79856792': {name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false},
-  '53129443': {name:'Heavy Storm', type:'Spell', atk:null, fairy:false},
-  '05318639': {name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false},
-  '55144522': {name:'Foolish Burial', type:'Spell', atk:null, fairy:false},
-  '27243130': {name:'Beckoning Light', type:'Trap', atk:null, fairy:false},
-  '20403120': {name:'Solemn Judgment', type:'Trap', atk:null, fairy:false},
-  '53582587': {name:'Torrential Tribute', type:'Trap', atk:null, fairy:false},
-  '44095762': {name:'Mirror Force', type:'Trap', atk:null, fairy:false},
-  '11074235': {name:'Consecrated Light', type:'Monster', atk:0, fairy:true},
-  '70781052': {name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false},
-  '74875003': {name:'Dust Tornado', type:'Trap', atk:null, fairy:false},
-  '29401950': {name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false},
-  '44508094': {name:'Stardust Dragon', type:'Monster', atk:2500, fairy:false},
-  '73580471': {name:'Black Rose Dragon', type:'Monster', atk:2400, fairy:false},
-  '52038441': {name:'Goyo Guardian', type:'Monster', atk:2800, fairy:false},
-  '26593852': {name:'Brionac, Dragon of the Ice Barrier', type:'Monster', atk:2300, fairy:false},
-  '04773834': {name:'Ally of Justice Catastor', type:'Monster', atk:2200, fairy:false}
-};
-
-const LOCAL_CARD_POOL = Object.values(YDK_DB).map(c => ({...c, status: 'U'}));
-
-let DATA = null;
-let activeTab = 'main';
-
-function initPoolDatalist() {
-  const dl = document.getElementById('cardpool-datalist');
-  if(dl) {
-    dl.innerHTML = LOCAL_CARD_POOL.map(c => `<option value="${c.name}">`).join('');
-  }
-}
+// Pool curato completo di carte Edison Format con l'aggiunta degli ID reali per il parsing sicuro dei .ydk
+const CARD_POOL = [
+  // Lightsworn
+  {id:'28279543', name:'Archlord Kristya', type:'Monster', atk:2800, fairy:true, status:'U'},
+  {id:'05762438', name:'Aurkus, Lightsworn Druid', type:'Monster', atk:1400, fairy:false, status:'U'},
+  {id:'85087012', name:'Card Trooper', type:'Monster', atk:400, fairy:false, status:'L'},
+  {id:'59019082', name:'Celestia, Lightsworn Angel', type:'Monster', atk:2300, fairy:true, status:'U'},
+  {id:'04111114', name:'Ehren, Lightsworn Monk', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {id:'30113681', name:'Garoth, Lightsworn Warrior', type:'Monster', atk:1900, fairy:false, status:'U'},
+  {id:'60161439', name:'Hecatrice', type:'Monster', atk:1500, fairy:true, status:'U'},
+  {id:'17266660', name:'Herald of Orange Light', type:'Monster', atk:300, fairy:true, status:'U'},
+  {id:'53183600', name:'Honest', type:'Monster', atk:1400, fairy:true, status:'S'},
+  {id:'96216588', name:'Jain, Lightsworn Paladin', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {id:'22624363', name:'Judgment Dragon', type:'Monster', atk:3000, fairy:false, status:'S'},
+  {id:'94192409', name:'Lumina, Lightsworn Summoner', type:'Monster', atk:1400, fairy:false, status:'L'},
+  {id:'21698716', name:'Lyla, Lightsworn Sorceress', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {id:'09076207', name:'Necro Gardna', type:'Monster', atk:800, fairy:false, status:'L'},
+  {id:'33420078', name:'Plaguespreader Zombie', type:'Monster', atk:400, fairy:false, status:'U'},
+  {id:'30548775', name:'Ryko, Lightsworn Hunter', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {id:'98777036', name:'Tragoedia', type:'Monster', atk:2000, fairy:false, status:'L'},
+  {id:'58996430', name:'Wulf, Lightsworn Beast', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {id:'16229315', name:'Charge of the Light Brigade', type:'Spell', atk:null, fairy:false, status:'L'},
+  {id:'55144522', name:'Foolish Burial', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'41426862', name:'Gold Sarcophagus', type:'Spell', atk:null, fairy:false, status:'S'},
+  {id:'74848038', name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'81020646', name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'48382417', name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'27243130', name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
+  // Staple generici
+  {id:'79856792', name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
+  {id:'04984320', name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
+  {id:'77387465', name:'Kycoo the Ghost Destroyer', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {id:'24508238', name:'D.D. Crow', type:'Monster', atk:100, fairy:false, status:'U'},
+  {id:'70781052', name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
+  {id:'11074235', name:'Consecrated Light', type:'Monster', atk:null, fairy:false, status:'U'},
+  {id:'87910632', name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'14087893', name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'53129443', name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
+  {id:'05318639', name:'Mystical Space Typhoon', type:'Spell', atk:null, fairy:false, status:'L'},
+  {id:'69162521', name:'Lightning Vortex', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'32807846', name:'Reinforcement of the Army', type:'Spell', atk:null, fairy:false, status:'L'},
+  {id:'46132583', name:'Cold Wave', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'42524454', name:'Threatening Roar', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'44095762', name:'Mirror Force', type:'Trap', atk:null, fairy:false, status:'L'},
+  {id:'53582587', name:'Torrential Tribute', type:'Trap', atk:null, fairy:false, status:'L'},
+  {id:'20403120', name:'Solemn Judgment', type:'Trap', atk:null, fairy:false, status:'L'},
+  {id:'03045136', name:'Royal Oppression', type:'Trap', atk:null, fairy:false, status:'S'},
+  {id:'51452091', name:'Royal Decree', type:'Trap', atk:null, fairy:false, status:'S'},
+  {id:'64697231', name:'Trap Dustshoot', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'97077563', name:'Call of the Haunted', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'99590524', name:'Treacherous Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'81434477', name:'Needlebug Nest', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'03580323', name:'Compulsory Evacuation Device', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'29401950', name:'Bottomless Trap Hole', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'74875003', name:'Dust Tornado', type:'Trap', atk:null, fairy:false, status:'U'},
+  // Blackwing
+  {id:'02843947', name:'Blackwing - Gale the Whirlwind', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {id:'85215458', name:'Blackwing - Kalut the Moon Shadow', type:'Monster', atk:1700, fairy:false, status:'U'},
+  {id:'49046332', name:'Blackwing - Bora the Spear', type:'Monster', atk:1700, fairy:false, status:'U'},
+  {id:'58825559', name:'Blackwing - Shura the Blue Flame', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {id:'72714461', name:'Blackwing - Vayu the Emblem of Honor', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {id:'75498415', name:'Blackwing - Sirocco the Dawn', type:'Monster', atk:1900, fairy:false, status:'U'},
+  {id:'91351370', name:'Black Whirlwind', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'53239672', name:'Icarus Attack', type:'Trap', atk:null, fairy:false, status:'U'},
+  {id:'59744639', name:'Delta Crow - Anti Reverse', type:'Trap', atk:null, fairy:false, status:'U'},
+  // Machina / Geartown
+  {id:'55564994', name:'Machina Fortress', type:'Monster', atk:2500, fairy:false, status:'U'},
+  {id:'42110604', name:'Machina Gearframe', type:'Monster', atk:1800, fairy:false, status:'U'},
+  {id:'24415400', name:'Machina Peacekeeper', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {id:'50449846', name:'Machina Force', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {id:'37630732', name:'Geartown', type:'Spell', atk:null, fairy:false, status:'U'},
+  // Gladiator Beast
+  {id:'27354732', name:'Gladiator Beast Bestiari', type:'Monster', atk:1500, fairy:false, status:'U'},
+  {id:'78864369', name:'Gladiator Beast Laquari', type:'Monster', atk:1400, fairy:false, status:'U'},
+  {id:'04158738', name:'Gladiator Beast Murmillo', type:'Monster', atk:1600, fairy:false, status:'U'},
+  {id:'25924658', name:'Gladiator Beast Darius', type:'Monster', atk:1700, fairy:false, status:'U'},
+  {id:'78519391', name:'Gladiator Beast Equeste', type:'Monster', atk:1500, fairy:false, status:'U'},
+  {id:'92199852', name:'Gladiator Beast Test Tiger', type:'Monster', atk:600, fairy:false, status:'U'},
+  {id:'48156348', name:'Gyzarus', type:'Monster', atk:2400, fairy:false, status:'U'},
+  {id:'78378423', name:'Heraklinos, Gladiator Beast God', type:'Monster', atk:2700, fairy:false, status:'U'},
+  // Frog
+  {id:'12538374', name:'Treeborn Frog', type:'Monster', atk:100, fairy:false, status:'S'},
+  {id:'93570990', name:'Ronintoadin', type:'Monster', atk:1000, fairy:false, status:'U'},
+  {id:'84451804', name:'Des Frog', type:'Monster', atk:100, fairy:false, status:'U'},
+  {id:'46239604', name:'Dupe Frog', type:'Monster', atk:900, fairy:false, status:'U'},
+  {id:'56832966', name:'T.A.D.P.O.L.E.', type:'Monster', atk:1200, fairy:false, status:'U'},
+  {id:'82315772', name:'Substitoad', type:'Monster', atk:1600, fairy:false, status:'U'},
+  // Vayu / Six Samurai
+  {id:'14943837', name:'Kagemusha of the Six Samurai', type:'Monster', atk:100, fairy:false, status:'U'},
+  {id:'42158271', name:'Shien\'s Squire', type:'Monster', atk:800, fairy:false, status:'U'},
+  {id:'29981921', name:'Legendary Six Samurai - Shi En', type:'Monster', atk:2100, fairy:false, status:'U'},
+  {id:'63633694', name:'Great Shogun Shien', type:'Monster', atk:2500, fairy:false, status:'U'},
+  // Quickdraw / synchro generico rogue
+  {id:'02096034', name:'Quickdraw Synchron', type:'Monster', atk:700, fairy:false, status:'U'},
+  {id:'63977025', name:'Junk Synchron', type:'Monster', atk:1300, fairy:false, status:'U'},
+  {id:'53413628', name:'Doppelwarrior', type:'Monster', atk:0, fairy:false, status:'U'},
+  {id:'43232141', name:'Turbo Synchron', type:'Monster', atk:100, fairy:false, status:'U'},
+  {id:'91869203', name:'Level Eater', type:'Monster', atk:600, fairy:false, status:'U'},
+  {id:'14343484', name:'Debris Dragon', type:'Monster', atk:1900, fairy:false, status:'U'},
+  // Extra Deck comune
+  {id:'44508094', name:'Stardust Dragon', type:'ExtraMonster', atk:2500, fairy:false, status:'U'},
+  {id:'73580471', name:'Black Rose Dragon', type:'ExtraMonster', atk:2400, fairy:false, status:'L'},
+  {id:'26593852', name:'Brionac, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2300, fairy:false, status:'L'},
+  {id:'52038441', name:'Goyo Guardian', type:'ExtraMonster', atk:2800, fairy:false, status:'L'},
+  {id:'04773834', name:'Ally of Justice Catastor', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
+  {id:'63422098', name:'Colossal Fighter', type:'ExtraMonster', atk:2800, fairy:false, status:'U'},
+  {id:'26848413', name:'Armory Arm', type:'ExtraMonster', atk:1800, fairy:false, status:'U'},
+  {id:'43385557', name:'Magical Android', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
+  {id:'27125110', name:'Mist Wurm', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
+  {id:'25862681', name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
+  {id:'81439173', name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
+  {id:'52352005', name:'XX-Saber Gottoms', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
+  {id:'07922915', name:'Chimeratech Fortress Dragon', type:'ExtraMonster', atk:0, fairy:false, status:'U'},
+  {id:'52687916', name:'Trishula, Dragon of the Ice Barrier', type:'ExtraMonster', atk:2700, fairy:false, status:'U'},
+  {id:'11112287', name:'Tempest Magician', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
+];
+const STATUS_LABEL = {U:'Unlimited (3)', S:'Semi-Limited (2)', L:'Limited (1)', F:'Forbidden (0)'};
+const STATUS_MAX = {U:3, S:2, L:1, F:0};
 
 function defaultData(){
   return {
     main: [
-      {name:'Ryko, Lightsworn Hunter', qty:3, type:'Monster', role:'starter', atk:200, fairy:false, ns:true},
-      {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
-      {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
-      {name:'Garoth, Lightsworn Warrior', qty:2, type:'Monster', role:'extender', atk:1850, fairy:false, ns:true},
-      {name:'Wulf, Lightsworn Beast', qty:2, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
-      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'removal', atk:2300, fairy:true, ns:true},
       {name:'Archlord Kristya', qty:3, type:'Monster', role:'bomb', atk:2800, fairy:true, ns:false},
+      {name:'Aurkus, Lightsworn Druid', qty:1, type:'Monster', role:'starter', atk:1400, fairy:false, ns:true},
+      {name:'Card Trooper', qty:1, type:'Monster', role:'starter', atk:400, fairy:false, ns:true},
+      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
+      {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
+      {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1900, fairy:false, ns:false},
+      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1300, fairy:true, ns:false},
       {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
-      {name:'Shire, Lightsworn Spirit', qty:1, type:'Monster', role:'extender', atk:400, fairy:true, ns:true},
-      {name:'Fossil Dyna Pachycephalo', qty:2, type:'Monster', role:'defense', atk:1200, fairy:false, ns:true},
+      {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
       {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
-      {name:'Necro Gardna', qty:2, type:'Monster', role:'defense', atk:600, fairy:false, ns:false},
+      {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'extender', atk:1400, fairy:false, ns:false},
+      {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
+      {name:'Necro Gardna', qty:1, type:'Monster', role:'defense', atk:800, fairy:false, ns:false},
       {name:'Plaguespreader Zombie', qty:1, type:'Monster', role:'extender', atk:400, fairy:false, ns:false},
-      {name:'Gorz the Emissary of Darkness', qty:1, type:'Monster', role:'defense', atk:2700, fairy:false, ns:false},
-      {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
+      {name:'Ryko, Lightsworn Hunter', qty:3, type:'Monster', role:'starter', atk:1300, fairy:false, ns:true},
+      {name:'Tragoedia', qty:1, type:'Monster', role:'defense', atk:2000, fairy:false, ns:false},
+      {name:'Wulf, Lightsworn Beast', qty:3, type:'Monster', role:'extender', atk:1800, fairy:false, ns:false},
       {name:'Charge of the Light Brigade', qty:1, type:'Spell', role:'starter', atk:null, fairy:false, ns:false},
-      {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
-      {name:'Mystical Space Typhoon', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
       {name:'Foolish Burial', qty:1, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
-      {name:'Beckoning Light', qty:2, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
-      {name:'Solemn Judgment', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false},
-      {name:'Torrential Tribute', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false},
-      {name:'Mirror Force', type:'Trap', qty:1, role:'defense', atk:null, fairy:false, ns:false}
+      {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
+      {name:'Monster Reincarnation', qty:2, type:'Spell', role:'reactive', atk:null, fairy:false, ns:false},
+      {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
+      {name:'Valhalla, Hall of the Fallen', qty:1, type:'Spell', role:'necessity', atk:null, fairy:false, ns:false},
+      {name:'Beckoning Light', qty:1, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
+      {name:'Mirror Force', qty:1, type:'Trap', role:'removal', atk:null, fairy:false, ns:false},
+      {name:'Threatening Roar', qty:2, type:'Trap', role:'defense', atk:null, fairy:false, ns:false},
     ],
     side: [
-      {name:'Consecrated Light', qty:2, matchups:['Blackwing', 'Vayu'], going1st:true, going2nd:true, replaces:'Wulf'},
-      {name:'Cyber Dragon', qty:2, matchups:['Machina'], going1st:false, going2nd:true, replaces:'Ryko'},
-      {name:'Dust Tornado', qty:3, matchups:['Rogue', 'Frog'], going1st:true, going2nd:true, replaces:'Beckoning Light'},
-      {name:'Bottomless Trap Hole', qty:2, matchups:['LS Mirror'], going1st:true, going2nd:false, replaces:'Honest'}
+      {name:'Book of Moon', qty:1, matchups:[], replaces:''},
+      {name:'Brain Control', qty:1, matchups:[], replaces:''},
+      {name:'Consecrated Light', qty:2, matchups:['Blackwing','Gladiator Beast'], replaces:''},
+      {name:'Cyber Dragon', qty:2, matchups:['Machina'], replaces:''},
+      {name:'D.D. Crow', qty:2, matchups:['Blackwing','Frog','Machina'], replaces:''},
+      {name:'Gorz the Emissary of Darkness', qty:1, matchups:[], replaces:''},
+      {name:'Herald of Orange Light', qty:1, matchups:[], replaces:''},
+      {name:'Lightning Vortex', qty:1, matchups:['Gladiator Beast','Gigavise'], replaces:''},
+      {name:'Mystical Space Typhoon', qty:1, matchups:[], replaces:''},
+      {name:'Royal Decree', qty:2, matchups:[], replaces:''},
+      {name:'Treacherous Trap Hole', qty:1, matchups:[], replaces:''},
     ],
     extra: [
-      {name:'Stardust Dragon', qty:2},
-      {name:'Black Rose Dragon', qty:2},
-      {name:'Goyo Guardian', qty:1},
+      {name:'Ally of Justice Catastor', qty:1},
+      {name:'Ancient Sacred Wyvern', qty:1},
+      {name:'Armory Arm', qty:1},
+      {name:'Avenging Knight Parshath', qty:1},
+      {name:'Black Rose Dragon', qty:1},
       {name:'Brionac, Dragon of the Ice Barrier', qty:1},
-      {name:'Ally of Justice Catastor', qty:1}
+      {name:'Chimeratech Fortress Dragon', qty:2},
+      {name:'Colossal Fighter', qty:1},
+      {name:'Goyo Guardian', qty:1},
+      {name:'Magical Android', qty:1},
+      {name:'Mist Wurm', qty:1},
+      {name:'Stardust Dragon', qty:1},
+      {name:'Tempest Magician', qty:1},
+      {name:'XX-Saber Gottoms', qty:1},
     ]
   };
 }
 
-function init() {
+let DATA = null;
+let activeTab = 'main';
+
+async function load(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     DATA = raw ? JSON.parse(raw) : defaultData();
@@ -421,36 +483,37 @@ function init() {
   render();
 }
 
-function save(){
+async function save(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
     const s = document.getElementById('save-status');
-    if(s){ s.textContent = 'salvato nel browser'; s.classList.add('dot'); }
-  }catch(e){};
+    if(s){ s.textContent = 'salvato in questo browser'; s.classList.add('dot'); }
+  }catch(e){
+    const s = document.getElementById('save-status');
+    if(s){ s.textContent = 'salvataggio non riuscito'; s.classList.remove('dot'); }
+  }
 }
 
-function resetAll(){
-  if(!confirm('Ripristinare la lista Kristyasworn di default?')) return;
+async function resetAll(){
+  if(!confirm('Ripristinare la lista di riferimento e cancellare tutte le modifiche?')) return;
   DATA = defaultData();
-  save();
+  await save();
   render();
 }
 
-function sumQty(list){ 
-  return list.reduce((a,c)=> a + parseInt(c.qty || 0, 10), 0); 
-}
+function sumQty(list){ return list.reduce((a,c)=>a+Number(c.qty||0),0); }
 
 function computeRoleCounts(){
   const counts = {};
   ROLES.forEach(r=>counts[r.id]=0);
-  DATA.main.forEach(c=>{ counts[c.role] = (counts[c.role]||0) + parseInt(c.qty || 0, 10); });
+  DATA.main.forEach(c=>{ counts[c.role] = (counts[c.role]||0) + Number(c.qty||0); });
   return counts;
 }
 
 function computeCustomRules(){
   let ddv=0, ns=0, fairy=0;
   DATA.main.forEach(c=>{
-    const q = parseInt(c.qty || 0, 10);
+    const q = Number(c.qty||0);
     if(c.type==='Monster' && c.atk!==null && c.atk!=='' && Number(c.atk)<=1500) ddv+=q;
     if(c.ns) ns+=q;
     if(c.fairy) fairy+=q;
@@ -465,101 +528,100 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
-// PARSER STRITTO .YDK (PREVIENE COMPRENSIONI ERRATE DEL CONTEGGIO)
-function handleFileImport(e) {
+// LOGICA INTEGRATA PER LEGGERE I FILE .YDK PRESERVANDO I RUOLI E I FLAGS PRE-IMPOSTATI
+function handleYdkImport(e) {
   const file = e.target.files[0];
-  if(!file) return;
+  if (!file) return;
 
   const reader = new FileReader();
   reader.onload = function(evt) {
     const text = evt.target.result;
+    const lines = text.split(/\r?\n/);
     
     const newMain = [];
     const newSide = [];
     const newExtra = [];
     let currentSection = null;
-    
-    const lines = text.split(/\r?\n/);
+
+    const defaultMainRef = defaultData().main;
+
     lines.forEach(line => {
       const clean = line.trim();
-      if(!clean || clean.startsWith('#created by')) return;
+      if (!clean) return;
+      if (clean === '#main') { currentSection = 'main'; return; }
+      if (clean === '#extra') { currentSection = 'extra'; return; }
+      if (clean === '!side') { currentSection = 'side'; return; }
       
-      if(clean === '#main') { currentSection = 'main'; return; }
-      if(clean === '#extra') { currentSection = 'extra'; return; }
-      if(clean === '!side') { currentSection = 'side'; return; }
-      
-      if(/^\d+$/.test(clean)) {
-        const id = clean;
-        const info = YDK_DB[id] || {name: `ID: ${id}`, type:'Monster', atk:null, fairy:false};
+      if (/^\d+$/.test(clean)) {
+        const idStr = clean;
+        const poolCard = CARD_POOL.find(c => parseInt(c.id, 10) === parseInt(idStr, 10));
         
-        let targetArr = newMain;
-        if(currentSection === 'side') targetArr = newSide;
-        if(currentSection === 'extra') targetArr = newExtra;
-        
-        const existing = targetArr.find(c => c.name === info.name);
-        if(existing) {
-          existing.qty = parseInt(existing.qty, 10) + 1;
-        } else {
-          targetArr.push({
-            name: info.name,
-            qty: 1,
-            type: info.type,
-            role: info.fairy ? 'bomb' : (info.type === 'Spell' ? 'extender' : 'starter'),
-            atk: info.atk,
-            fairy: info.fairy,
-            ns: info.type === 'Monster' && info.atk <= 1900,
-            matchups: [],
-            going1st: true,
-            going2nd: true,
-            replaces: ''
-          });
+        if (poolCard) {
+          let targetArr = newMain;
+          if (currentSection === 'side') targetArr = newSide;
+          if (currentSection === 'extra') targetArr = newExtra;
+
+          const existing = targetArr.find(c => c.name === poolCard.name);
+          if (existing) {
+            existing.qty++;
+          } else {
+            const refCard = defaultMainRef.find(c => c.name === poolCard.name);
+            let role = 'other';
+            let ns = false;
+            let fairy = poolCard.fairy || false;
+
+            if (refCard) {
+              role = refCard.role;
+              ns = refCard.ns;
+              fairy = refCard.fairy;
+            } else {
+              if (poolCard.type === 'Spell') role = 'extender';
+              else if (poolCard.type === 'Trap') role = 'defense';
+              else if (poolCard.fairy) role = 'bomb';
+            }
+
+            if (currentSection === 'main') {
+              targetArr.push({
+                name: poolCard.name,
+                qty: 1,
+                type: poolCard.type === 'ExtraMonster' ? 'Monster' : poolCard.type,
+                role: role,
+                atk: poolCard.atk,
+                fairy: fairy,
+                ns: ns
+              });
+            } else if (currentSection === 'side') {
+              targetArr.push({
+                name: poolCard.name,
+                qty: 1,
+                matchups: [],
+                replaces: ''
+              });
+            } else {
+              targetArr.push({
+                name: poolCard.name,
+                qty: 1
+              });
+            }
+          }
         }
       }
     });
 
-    if(newMain.length > 0 || newSide.length > 0 || newExtra.length > 0) {
+    if (newMain.length > 0 || newSide.length > 0 || newExtra.length > 0) {
       DATA.main = newMain;
       DATA.side = newSide;
       DATA.extra = newExtra;
       save();
       render();
-      alert(`YDK Importato!\nMain: ${sumQty(newMain)}\nSide: ${sumQty(newSide)}\nExtra: ${sumQty(newExtra)}`);
-    } else {
-      alert("Il file non contiene un formato .ydk valido (#main, #extra, !side).");
     }
   };
   reader.readAsText(file);
 }
 
-function triggerPdfDownload() {
-  window.print();
-}
-
-function toggleMatchupInSide(cardIdx, mu) {
-  if (!DATA.side[cardIdx].matchups) DATA.side[cardIdx].matchups = [];
-  let mus = DATA.side[cardIdx].matchups;
-  if (mus.includes(mu)) {
-    DATA.side[cardIdx].matchups = mus.filter(m => m !== mu);
-  } else {
-    mus.push(mu);
-  }
-  save();
-  render();
-}
-
-function toggleTurnOpt(cardIdx, field) {
-  DATA.side[cardIdx][field] = !DATA.side[cardIdx][field];
-  save();
-  render();
-}
-
 function render(){
   const app = document.getElementById('app');
-  if(!app) return;
-  
   const mainTotal = sumQty(DATA.main);
-  const sideTotal = sumQty(DATA.side);
-  const extraTotal = sumQty(DATA.extra);
   const roleCounts = computeRoleCounts();
   const custom = computeCustomRules();
 
@@ -567,27 +629,24 @@ function render(){
     <header>
       <div>
         <h1>Kristyasworn — Registro di Costruzione</h1>
-        <div class="subtitle">Edison Format · Bridge Strutturato .YDK Completo</div>
+        <div class="subtitle">Edison Format · Curve di Hoban + regole personali</div>
       </div>
-      <div class="save-status dot" id="save-status">salvato</div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+        <div class="save-status dot" id="save-status">salvato</div>
+        <label style="font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--ink); color:var(--paper); padding:4px 8px; border-radius:2px; cursor:pointer; text-transform:uppercase;">
+          ↑ Importa .ydk
+          <input type="file" id="ydk-file-input" accept=".ydk" style="display:none;">
+        </label>
+      </div>
     </header>
 
-    <div class="pdf-bridge">
-      <div class="pdf-io-label">YGOPro DECK .YDK INPUT</div>
-      <div class="pdf-buttons">
-        <input type="file" id="pdf-uploader" accept=".ydk" style="display:none" />
-        <button class="btn-pdf" onclick="document.getElementById('pdf-uploader').click()">↑ Carica File .ydk (EDOPro)</button>
-        <button class="btn-pdf submit" id="pdf-downloader">↓ Stampa / Esporta Foglio</button>
-      </div>
-    </div>
-
     <nav class="tabs">
-      <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck (${mainTotal})</button>
-      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side & Matrice (${sideTotal} / 15)</button>
-      <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck (${extraTotal})</button>
+      <button data-tab="main" class="${activeTab==='main'?'active':''}">Main Deck</button>
+      <button data-tab="side" class="${activeTab==='side'?'active':''}">Side Patterns</button>
+      <button data-tab="extra" class="${activeTab==='extra'?'active':''}">Extra Deck</button>
     </nav>
 
-    <div class="panel ${activeTab==='main'?'active':''}">
+    <div class="panel ${activeTab==='main'?'active':''}" id="panel-main">
       <div class="deck-total-banner ${mainTotal!==40?'bad':''}">
         <span>MAIN DECK TOTAL</span>
         <span>${mainTotal} / 40</span>
@@ -604,22 +663,19 @@ function render(){
             <div class="mark ${pass?'pass':'flag'}">${pass?'OK':'FUORI'}</div>
           </div>`;
         }).join('')}
-        
-        <div class="stamp box-purple">
+        <div class="stamp">
           <div class="label">DDV Target (ATK≤1500)</div>
           <div class="value">${custom.ddv}</div>
           <div class="target">max 12</div>
           <div class="mark ${custom.ddv<=12?'pass':'flag'}">${custom.ddv<=12?'OK':'FUORI'}</div>
         </div>
-        
-        <div class="stamp box-brown">
+        <div class="stamp">
           <div class="label">Starter Normal Summon</div>
           <div class="value">${custom.ns}</div>
           <div class="target">max 9</div>
           <div class="mark ${custom.ns<=9?'pass':'flag'}">${custom.ns<=9?'OK':'FUORI'}</div>
         </div>
-        
-        <div class="stamp box-green">
+        <div class="stamp">
           <div class="label">Fedeli (Fairy)</div>
           <div class="value">${custom.fairy}</div>
           <div class="target">8</div>
@@ -627,16 +683,18 @@ function render(){
         </div>
       </div>
 
-      <div class="section-title">Elenco Carte Main Deck</div>
+      <div class="section-title">Carte</div>
+      <div class="hint">Il ruolo determina in quale categoria della tabella conta la carta. Spunta "Fata" per il conteggio Fedeli, "NS" se è uno starter ad evocazione normale che rientra nel tetto dei 9. Digitando il nome compare un suggerimento dal pool Edison curato (Lightsworn + i 7 matchup target + staple generici): selezionandolo, ATK/Fata/Tipo si compilano da soli e la colonna Banlist mostra il limite di copie, segnalando ⚠ se lo superi.</div>
       <table>
         <thead><tr>
-          <th style="width:30%">Nome Carta</th>
+          <th style="width:24%">Nome</th>
           <th>Qtà</th>
           <th>Tipo</th>
           <th>Ruolo</th>
           <th>ATK</th>
           <th>Fata</th>
           <th>NS</th>
+          <th>Banlist</th>
           <th></th>
         </tr></thead>
         <tbody id="main-tbody"></tbody>
@@ -644,87 +702,73 @@ function render(){
       <button class="add-row" id="add-main">+ aggiungi carta</button>
     </div>
 
-    <div class="panel ${activeTab==='side'?'active':''}">
-      <div class="deck-total-banner ${sideTotal>15?'bad':''}">
-        <span>SIDE DECK TOTAL</span>
-        <span>${sideTotal} / 15 Carte</span>
-      </div>
-
-      <div class="section-title">Side Deck — Assegnazione Rapida Matchup</div>
+    <div class="panel ${activeTab==='side'?'active':''}" id="panel-side">
+      <div class="section-title">Side Deck — pattern per matchup</div>
+      <div class="hint">Clicca sui matchup per taggare in quali serie questa carta entra tipicamente, e indica cosa esce dal main al suo posto.</div>
       <table>
         <thead><tr>
-          <th style="width:25%">Nome Carta</th>
-          <th style="width:7%">Qtà</th>
-          <th style="width:40%">Matchups Target</th>
-          <th style="width:13%">Turno</th>
-          <th style="width:10%">Sostituisce</th>
+          <th style="width:20%">Nome</th>
+          <th>Qtà</th>
+          <th>Matchup</th>
+          <th style="width:22%">Sostituisce (main)</th>
           <th></th>
         </tr></thead>
         <tbody id="side-tbody"></tbody>
       </table>
-      <button class="add-row" id="add-side">+ aggiungi a Side</button>
+      <button class="add-row" id="add-side">+ aggiungi carta side</button>
 
       <div class="matrix-wrap">
-        <div class="section-title">Matrice Riepilogativa Turni</div>
+        <div class="section-title">Matrice matchup</div>
         <table class="matrix">
-          <thead>
-            <tr>
-              <th class="rowhead">Carta</th>
-              ${MATCHUPS.map(m=>`<th>${m}</th>`).join('')}
-            </tr>
-          </thead>
+          <thead><tr><th class="rowhead">Carta</th>${MATCHUPS.map(m=>`<th>${m}</th>`).join('')}</tr></thead>
           <tbody>
-            ${DATA.side.map(c=>{
-              const mus = c.matchups || [];
-              return `<tr>
-                <td class="rowhead"><strong>${c.name || 'Senza nome'}</strong> <small style="color:var(--ink-soft)">(${c.qty})</small></td>
-                ${MATCHUPS.map(m=>{
-                  if (!mus.includes(m)) return '<td>-</td>';
-                  if (c.going1st && c.going2nd) return '<td class="yes-both">1st & 2nd</td>';
-                  if (c.going1st) return '<td class="yes-1st">Going 1st</td>';
-                  if (c.going2nd) return '<td class="yes-2nd">Going 2nd</td>';
-                  return '<td>-</td>';
-                }).join('')}
-              </tr>`;
-            }).join('')}
+            ${DATA.side.map(c=>`<tr><td class="rowhead">${c.name}</td>${MATCHUPS.map(m=>`<td class="${c.matchups.includes(m)?'yes':''}">${c.matchups.includes(m)?'●':''}</td>`).join('')}</tr>`).join('')}
           </tbody>
         </table>
       </div>
     </div>
 
-    <div class="panel ${activeTab==='extra'?'active':''}">
-      <div class="deck-total-banner ${extraTotal>15?'bad':''}">
-        <span>EXTRA DECK TOTAL</span>
-        <span>${extraTotal} / 15</span>
-      </div>
+    <div class="panel ${activeTab==='extra'?'active':''}" id="panel-extra">
       <div class="section-title">Extra Deck</div>
       <table>
-        <thead><tr><th style="width:75%">Nome</th><th>Qtà</th><th></th></tr></thead>
+        <thead><tr><th style="width:70%">Nome</th><th>Qtà</th><th></th></tr></thead>
         <tbody id="extra-tbody"></tbody>
       </table>
-      <button class="add-row" id="add-extra">+ aggiungi extra</button>
+      <button class="add-row" id="add-extra">+ aggiungi carta extra</button>
     </div>
 
-    <button class="reset-link" id="reset-btn">Ripristina configurazione iniziale Kristyasworn</button>
+    <button class="reset-link" id="reset-btn">Ripristina lista di riferimento</button>
+
+    <datalist id="cardpool-datalist">
+      ${CARD_POOL.map(c=>`<option value="${c.name}">`).join('')}
+    </datalist>
   `;
 
   renderMainRows();
   renderSideRows();
   renderExtraRows();
-  initPoolDatalist();
   bindGlobal();
 }
 
-function findInLocalPool(name){
-  return LOCAL_CARD_POOL.find(c=>c.name.toLowerCase()===(name||'').trim().toLowerCase());
+function findInPool(name){
+  const n = (name||'').trim().toLowerCase();
+  return CARD_POOL.find(c=>c.name.toLowerCase()===n);
+}
+
+function legalityBadge(c){
+  const pool = findInPool(c.name);
+  if(!pool) return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft)">non in pool</span>`;
+  const max = STATUS_MAX[pool.status];
+  const over = Number(c.qty||0) > max;
+  const color = over ? 'var(--stamp-red)' : 'var(--ink-soft)';
+  return `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:${color}">${STATUS_LABEL[pool.status]}${over?' ⚠':''}</span>`;
 }
 
 function renderMainRows(){
   const tbody = document.getElementById('main-tbody');
-  if(!tbody) return;
   tbody.innerHTML = DATA.main.map((c,i)=>`
     <tr>
-      <td><input type="text" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="main-field"></td>
+      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="main-field"></td>
       <td>
         <select data-idx="${i}" data-field="type" class="main-field">
@@ -736,9 +780,10 @@ function renderMainRows(){
           ${ROLES.map(r=>`<option value="${r.id}" ${c.role===r.id?'selected':''}>${r.label}</option>`).join('')}
         </select>
       </td>
-      <td><input type="number" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" style="width:55px" ${c.type!=='Monster'?'disabled':''}></td>
+      <td><input type="number" placeholder="—" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" style="width:55px" ${c.type!=='Monster'?'disabled':''}></td>
       <td class="center"><input type="checkbox" ${c.fairy?'checked':''} data-idx="${i}" data-field="fairy" class="main-field"></td>
       <td class="center"><input type="checkbox" ${c.ns?'checked':''} data-idx="${i}" data-field="ns" class="main-field"></td>
+      <td>${legalityBadge(c)}</td>
       <td class="center"><button class="del-btn" data-idx="${i}" data-list="main">✕</button></td>
     </tr>
   `).join('');
@@ -746,40 +791,27 @@ function renderMainRows(){
 
 function renderSideRows(){
   const tbody = document.getElementById('side-tbody');
-  if(!tbody) return;
-  tbody.innerHTML = DATA.side.map((c,i)=>{
-    const mus = c.matchups || [];
-    return `
-      <tr>
-        <td><input type="text" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="side-field"></td>
-        <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
-        <td>
-          <div class="bubble-container">
-            ${MATCHUPS.map(m => `
-              <span class="mu-bubble ${mus.includes(m)?'active':''}" onclick="toggleMatchupInSide(${i}, '${m}')">${m}</span>
-            `).join('')}
-          </div>
-        </td>
-        <td>
-          <div class="turn-opts">
-            <span class="turn-badge ${c.going1st?'active t1':''}" onclick="toggleTurnOpt(${i}, 'going1st')">1st</span>
-            <span class="turn-badge ${c.going2nd?'active t2':''}" onclick="toggleTurnOpt(${i}, 'going2nd')">2nd</span>
-          </div>
-        </td>
-        <td><input type="text" value="${c.replaces||''}" data-idx="${i}" data-field="replaces" class="side-field"></td>
-        <td class="center"><button class="del-btn" data-idx="${i}" data-list="side">✕</button></td>
-      </tr>
-    `;
-  }).join('');
+  tbody.innerHTML = DATA.side.map((c,i)=>`
+    <tr>
+      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="side-field"></td>
+      <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="side-field"></td>
+      <td>
+        <div class="chip-row">
+          ${MATCHUPS.map(m=>`<button class="chip ${c.matchups.includes(m)?'on':''}" data-idx="${i}" data-matchup="${m}">${m}</button>`).join('')}
+        </div>
+      </td>
+      <td><input type="text" placeholder="es. Wulf, Solar Recharge" value="${c.replaces}" data-idx="${i}" data-field="replaces" class="side-field"></td>
+      <td class="center"><button class="del-btn" data-idx="${i}" data-list="side">✕</button></td>
+    </tr>
+  `).join('');
 }
 
 function renderExtraRows(){
   const tbody = document.getElementById('extra-tbody');
-  if(!tbody) return;
   tbody.innerHTML = DATA.extra.map((c,i)=>`
     <tr>
-      <td><input type="text" value="${c.name.replace(/"/g, '&quot;')}" data-idx="${i}" data-field="name" class="extra-field"></td>
-      <td class="center"><input type="number" min="0" value="${c.qty||1}" data-idx="${i}" data-field="qty" class="extra-field"></td>
+      <td><input type="text" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
+      <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="extra-field"></td>
       <td class="center"><button class="del-btn" data-idx="${i}" data-list="extra">✕</button></td>
     </tr>
   `).join('');
@@ -791,25 +823,27 @@ function bindGlobal(){
   });
 
   document.getElementById('reset-btn').onclick = resetAll;
-  document.getElementById('pdf-uploader').onchange = handleFileImport;
-  document.getElementById('pdf-downloader').onclick = triggerPdfDownload;
 
-  document.getElementById('add-main').onclick = () => {
-    DATA.main.push({name:'', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
+  const ydkInput = document.getElementById('ydk-file-input');
+  if (ydkInput) ydkInput.onchange = handleYdkImport;
+
+  document.getElementById('add-main').onclick = ()=>{
+    DATA.main.push({name:'Nuova carta', qty:1, type:'Monster', role:'other', atk:null, fairy:false, ns:false});
     save(); render();
   };
-  document.getElementById('add-side').onclick = () => {
-    DATA.side.push({name:'', qty:1, matchups:[], going1st:true, going2nd:true, replaces:''});
+  document.getElementById('add-side').onclick = ()=>{
+    DATA.side.push({name:'Nuova carta', qty:1, matchups:[], replaces:''});
     save(); render();
   };
-  document.getElementById('add-extra').onclick = () => {
-    DATA.extra.push({name:'', qty:1});
+  document.getElementById('add-extra').onclick = ()=>{
+    DATA.extra.push({name:'Nuova carta', qty:1});
     save(); render();
   };
 
   document.querySelectorAll('.del-btn').forEach(b=>{
     b.onclick = ()=>{
-      DATA[b.dataset.list].splice(Number(b.dataset.idx), 1);
+      const idx = Number(b.dataset.idx);
+      DATA[b.dataset.list].splice(idx,1);
       save(); render();
     };
   });
@@ -818,14 +852,13 @@ function bindGlobal(){
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
       let val = el.type==='checkbox' ? el.checked : el.value;
-      if(field==='qty') val = parseInt(val || 0, 10);
+      if(field==='qty') val = Number(val);
       if(field==='atk') val = val===''? null : Number(val);
-      
       DATA.main[idx][field] = val;
       if(field==='name'){
-        const pool = findInLocalPool(val);
+        const pool = findInPool(val);
         if(pool){
-          DATA.main[idx].type = pool.type;
+          DATA.main[idx].type = pool.type==='ExtraMonster' ? 'Monster' : pool.type;
           DATA.main[idx].atk = pool.atk;
           DATA.main[idx].fairy = pool.fairy;
         }
@@ -837,7 +870,8 @@ function bindGlobal(){
   document.querySelectorAll('.side-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      let val = field==='qty' ? parseInt(el.value || 0, 10) : el.value;
+      let val = el.value;
+      if(field==='qty') val = Number(val);
       DATA.side[idx][field] = val;
       save(); render();
     };
@@ -846,13 +880,24 @@ function bindGlobal(){
   document.querySelectorAll('.extra-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      DATA.extra[idx][field] = field==='qty' ? parseInt(el.value || 0, 10) : el.value;
+      let val = field==='qty' ? Number(el.value) : el.value;
+      DATA.extra[idx][field] = val;
+      save(); render();
+    };
+  });
+
+  document.querySelectorAll('.chip').forEach(el=>{
+    el.onclick = ()=>{
+      const idx = Number(el.dataset.idx), m = el.dataset.matchup;
+      const arr = DATA.side[idx].matchups;
+      const pos = arr.indexOf(m);
+      if(pos>=0) arr.splice(pos,1); else arr.push(m);
       save(); render();
     };
   });
 }
 
-init();
+load();
 </script>
 </body>
 </html>
