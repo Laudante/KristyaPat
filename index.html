@@ -58,7 +58,6 @@
     content:'●';color:var(--stamp-green);margin-right:5px;
   }
 
-  /* Sezione PDF KDE */
   .pdf-bridge {
     background: var(--card);
     border: 1px dashed var(--stamp-red);
@@ -439,19 +438,19 @@ function resetAll(){
   render();
 }
 
-function sumQty(list){ return list.reduce((a,c)=>a+Number(c.qty||0),0); }
+function sumQty(list){ return list.reduce((a,c)=>a + parseInt(c.qty || 0, 10), 0); }
 
 function computeRoleCounts(){
   const counts = {};
   ROLES.forEach(r=>counts[r.id]=0);
-  DATA.main.forEach(c=>{ counts[c.role] = (counts[c.role]||0) + Number(c.qty||0); });
+  DATA.main.forEach(c=>{ counts[c.role] = (counts[c.role]||0) + parseInt(c.qty || 0, 10); });
   return counts;
 }
 
 function computeCustomRules(){
   let ddv=0, ns=0, fairy=0;
   DATA.main.forEach(c=>{
-    const q = Number(c.qty||0);
+    const q = parseInt(c.qty || 0, 10);
     if(c.type==='Monster' && c.atk!==null && c.atk!=='' && Number(c.atk)<=1500) ddv+=q;
     if(c.ns) ns+=q;
     if(c.fairy) fairy+=q;
@@ -466,7 +465,6 @@ function roleColor(roleId){
   }[roleId] || '#999';
 }
 
-// PARSER REALE E COMPLETO PER DOCUMENTI/FILE SOTTO FORMATO KDE
 function handleFileImport(e) {
   const file = e.target.files[0];
   if(!file) return;
@@ -475,40 +473,34 @@ function handleFileImport(e) {
   reader.onload = function(evt) {
     const text = evt.target.result;
     
-    // Inizializza mazzi vuoti pronti per accogliere il parsing reale
     const newMain = [];
     const newSide = [];
     const newExtra = [];
     
-    let currentSection = 'main'; // Di default assume il Main Deck
+    let currentSection = 'main';
     
     const lines = text.split(/\r?\n/);
     lines.forEach(line => {
       const clean = line.trim().toLowerCase();
       if(!clean) return;
       
-      // Cambia sezione in base ai marker Konami/KDE standard presenti nel foglio
-      if(clean.includes('side deck')) {
+      if(clean.includes('side deck') || clean === 'side' || clean.includes('side:')) {
         currentSection = 'side';
         return;
-      } else if(clean.includes('extra deck')) {
+      } else if(clean.includes('extra deck') || clean === 'extra' || clean.includes('extra:')) {
         currentSection = 'extra';
         return;
-      } else if(clean.includes('main deck')) {
+      } else if(clean.includes('main deck') || clean === 'main' || clean.includes('main:')) {
         currentSection = 'main';
         return;
       }
       
-      // Match pattern quantitativo (es: "3 Archlord Kristya" oppure "1 Honest")
       const match = line.trim().match(/^(\d+)\x20+(.+)$/);
       if(match) {
         const qty = parseInt(match[1], 10);
         let cardName = match[2].trim();
         
-        // Rimuove eventuali metadati residui a fine riga tipici del PDF
         cardName = cardName.replace(/\s*-\s*(monster|spell|trap|fata|magia|trappola).*$/i, '').trim();
-        
-        // Cerca i dati pre-compilati nel database locale per iniettare le statistiche corrette
         const poolMatch = LOCAL_CARD_POOL.find(p => p.name.toLowerCase() === cardName.toLowerCase());
         
         if(currentSection === 'main') {
@@ -547,7 +539,7 @@ function handleFileImport(e) {
       render();
       alert(`Importazione completata con successo!\n\nCarte Main: ${sumQty(newMain)}\nCarte Side: ${sumQty(newSide)}\nCarte Extra: ${sumQty(newExtra)}`);
     } else {
-      alert("Errore: Il formato del testo inserito non è valido. Assicurati che le righe inizino con la quantità numerica (es: '3 Archlord Kristya').");
+      alert("Errore: Il formato del file non è stato riconosciuto. Assicurati che ogni riga inizi con la quantità numerica (es: '3 Archlord Kristya').");
     }
   };
   
@@ -745,7 +737,7 @@ function legalityBadge(c){
   const pool = findInLocalPool(c.name);
   if(!pool) return `<span style="font-size:10px;color:var(--ink-soft)">Pool</span>`;
   const max = {U:3, S:2, L:1, F:0}[pool.status];
-  const over = Number(c.qty||0) > max;
+  const over = parseInt(c.qty || 0, 10) > max;
   return `<span style="font-size:10px;color:${over?'var(--stamp-red)':'var(--ink-soft)'}">${pool.status==='U'?'Unlim':pool.status==='S'?'Semi':'Lim'}${over?' ⚠':''}</span>`;
 }
 
@@ -846,7 +838,7 @@ function bindGlobal(){
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
       let val = el.type==='checkbox' ? el.checked : el.value;
-      if(field==='qty') val = Number(val);
+      if(field==='qty') val = parseInt(val || 0, 10);
       if(field==='atk') val = val===''? null : Number(val);
       
       DATA.main[idx][field] = val;
@@ -867,7 +859,7 @@ function bindGlobal(){
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
       let val = el.type==='checkbox' ? el.checked : el.value;
-      if(field==='qty') val = Number(val);
+      if(field==='qty') val = parseInt(val || 0, 10);
       DATA.side[idx][field] = val;
       save(); render();
     };
@@ -876,7 +868,7 @@ function bindGlobal(){
   document.querySelectorAll('.extra-field').forEach(el=>{
     el.onchange = ()=>{
       const idx = Number(el.dataset.idx), field = el.dataset.field;
-      DATA.extra[idx][field] = field==='qty' ? Number(el.value) : el.value;
+      DATA.extra[idx][field] = field==='qty' ? parseInt(el.value || 0, 10) : el.value;
       save(); render();
     };
   });
