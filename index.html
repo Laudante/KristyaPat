@@ -282,7 +282,6 @@
   .preview-list li { padding: 4px 0; border-bottom: 1px dashed var(--rule); display: flex; justify-content: space-between; }
   .preview-list li:last-child { border-bottom: none; }
 
-  /* Pool Manager Styles */
   .pool-manager-box {
     margin-top: 40px; padding: 16px; background: var(--paper-dim); border: 1px dashed var(--rule); border-radius: 2px;
   }
@@ -292,6 +291,15 @@
   .pool-form input, .pool-form select { background: var(--card); border: 1px solid var(--rule); padding: 6px; }
   .pool-form button { background: var(--stamp-green); color: white; border: none; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; border-radius: 2px; height: 31px; }
   .pool-form button:hover { background: #4a5a2f; }
+
+  /* KDE Export Section Area */
+  .kde-box {
+    margin-top: 30px; background: var(--card); border: 1px solid var(--rule); padding: 16px; border-radius: 2px;
+  }
+  .kde-textarea {
+    width: 100%; height: 160px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;
+    background: #fff; border: 1px solid var(--rule); padding: 10px; margin-top: 10px; resize: vertical;
+  }
 </style>
 </head>
 <body>
@@ -346,14 +354,14 @@ const DEFAULT_CARD_POOL = [
   {id:'41426862', name:'Gold Sarcophagus', type:'Spell', atk:null, fairy:false, status:'S'},
   {id:'74848038', name:'Monster Reincarnation', type:'Spell', atk:null, fairy:false, status:'U'},
   {id:'81020646', name:'Solar Recharge', type:'Spell', atk:null, fairy:false, status:'U'},
-  {id:'48382417', name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:false, status:'U'},
+  {id:'48382417', name:'Valhalla, Hall of the Fallen', type:'Spell', atk:null, fairy:true, status:'U'},
   {id:'27243130', name:'Beckoning Light', type:'Trap', atk:null, fairy:false, status:'U'},
   {id:'79856792', name:'Gorz the Emissary of Darkness', type:'Monster', atk:2700, fairy:false, status:'L'},
   {id:'04984320', name:'Caius the Shadow Monarch', type:'Monster', atk:2400, fairy:false, status:'U'},
   {id:'77387465', name:'Kycoo the Ghost Destroyer', type:'Monster', atk:1800, fairy:false, status:'U'},
   {id:'24508238', name:'D.D. Crow', type:'Monster', atk:100, fairy:false, status:'U'},
   {id:'70781052', name:'Cyber Dragon', type:'Monster', atk:2100, fairy:false, status:'S'},
-  {id:'11074235', name:'Consecrated Light', type:'Monster', atk:null, fairy:false, status:'U'},
+  {id:'11074235', name:'Consecrated Light', type:'Monster', atk:0, fairy:true, status:'U'},
   {id:'87910632', name:'Brain Control', type:'Spell', atk:null, fairy:false, status:'U'},
   {id:'14087893', name:'Book of Moon', type:'Spell', atk:null, fairy:false, status:'U'},
   {id:'53129443', name:'Heavy Storm', type:'Spell', atk:null, fairy:false, status:'L'},
@@ -383,9 +391,11 @@ const DEFAULT_CARD_POOL = [
   {id:'26848413', name:'Armory Arm', type:'ExtraMonster', atk:1800, fairy:false, status:'U'},
   {id:'43385557', name:'Magical Android', type:'ExtraMonster', atk:2400, fairy:false, status:'U'},
   {id:'27125110', name:'Mist Wurm', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
-  {id:'25862681', name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:false, status:'U'},
-  {id:'81439173', name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2200, fairy:false, status:'U'},
-  {id:'52352005', name:'XX-Saber Gottoms', type:'ExtraMonster', atk:2600, fairy:false, status:'U'}
+  {id:'25862681', name:'Ancient Sacred Wyvern', type:'ExtraMonster', atk:2100, fairy:true, status:'U'},
+  {id:'81439173', name:'Avenging Knight Parshath', type:'ExtraMonster', atk:2200, fairy:true, status:'U'},
+  {id:'52352005', name:'XX-Saber Gottoms', type:'ExtraMonster', atk:2600, fairy:false, status:'U'},
+  {id:'15461234', name:'Chimeratech Fortress Dragon', type:'ExtraMonster', atk:0, fairy:false, status:'U'},
+  {id:'01546122', name:'Tempest Magician', type:'ExtraMonster', atk:2200, fairy:false, status:'U'}
 ];
 
 let CARD_POOL = [...DEFAULT_CARD_POOL];
@@ -403,7 +413,7 @@ function defaultData(){
       {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
       {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1000, fairy:false, ns:true},
       {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1900, fairy:false, ns:false},
-      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1300, fairy:true, ns:false},
+      {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1500, fairy:true, ns:false},
       {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1400, fairy:true, ns:false},
       {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
       {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
@@ -419,7 +429,7 @@ function defaultData(){
       {name:'Heavy Storm', qty:1, type:'Spell', role:'removal', atk:null, fairy:false, ns:false},
       {name:'Monster Reincarnation', qty:2, type:'Spell', role:'reactive', atk:null, fairy:false, ns:false},
       {name:'Solar Recharge', qty:3, type:'Spell', role:'extender', atk:null, fairy:false, ns:false},
-      {name:'Valhalla, Hall of the Fallen', qty:1, type:'Spell', role:'necessity', atk:null, fairy:false, ns:false},
+      {name:'Valhalla, Hall of the Fallen', qty:1, type:'Spell', role:'necessity', atk:null, fairy:true, ns:false},
       {name:'Beckoning Light', qty:1, type:'Trap', role:'reactive', atk:null, fairy:false, ns:false},
       {name:'Mirror Force', qty:1, type:'Trap', role:'removal', atk:null, fairy:false, ns:false},
       {name:'Threatening Roar', qty:2, type:'Trap', role:'defense', atk:null, fairy:false, ns:false},
@@ -482,6 +492,7 @@ async function save(){
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
     const s = document.getElementById('save-status');
     if(s){ s.textContent = 'salvato in questo browser'; s.classList.add('dot'); }
+    generateKdeExport();
   }catch(e){
     const s = document.getElementById('save-status');
     if(s){ s.textContent = 'errore di salvataggio'; s.classList.remove('dot'); }
@@ -522,6 +533,39 @@ function roleColor(roleId){
     starter:'#5B6E3A', extender:'#2F5A6B', removal:'#A8402F', defense:'#9A7A1E',
     reactive:'#7A5A9A', bomb:'#B23A2E', necessity:'#6B6B6B', other:'#999'
   }[roleId] || '#999';
+}
+
+function generateKdeExport() {
+  const kdeArea = document.getElementById('kde-output');
+  if(!kdeArea) return;
+  
+  let text = "=== DECKLIST UFFICIALE (FORMATO KDE) ===\n\n";
+  
+  text += `MAIN DECK (${sumQty(DATA.main)} carte):\n`;
+  const monsters = DATA.main.filter(c => c.type === 'Monster');
+  const spells = DATA.main.filter(c => c.type === 'Spell');
+  const traps = DATA.main.filter(c => c.type === 'Trap');
+  
+  if(monsters.length) {
+    text += "  -- Mostri:\n";
+    monsters.forEach(c => text += `  ${c.qty}x ${c.name}\n`);
+  }
+  if(spells.length) {
+    text += "  -- Magie:\n";
+    spells.forEach(c => text += `  ${c.qty}x ${c.name}\n`);
+  }
+  if(traps.length) {
+    text += "  -- Trappole:\n";
+    traps.forEach(c => text += `  ${c.qty}x ${c.name}\n`);
+  }
+  
+  text += `\nEXTRA DECK (${sumQty(DATA.extra)} carte):\n`;
+  DATA.extra.forEach(c => text += `  ${c.qty}x ${c.name}\n`);
+  
+  text += `\nSIDE DECK (${sumQty(DATA.side)} carte):\n`;
+  DATA.side.forEach(c => text += `  ${c.qty}x ${c.name}\n`);
+  
+  kdeArea.value = text;
 }
 
 function handleYdkImport(e) {
@@ -753,6 +797,13 @@ function render(){
       <button class="add-row" id="add-extra">+ aggiungi carta extra</button>
     </div>
 
+    <!-- EXPORT FORMATO KDE -->
+    <div class="kde-box">
+      <div style="font-family:'Fraunces',serif; font-size:16px; font-weight:600;">Esportazione Elenco Ufficiale (KDE format)</div>
+      <p style="font-size:12px; color:var(--ink-soft); margin:4px 0 10px;">Copia il blocco di testo sottostante per compilare la tua decklist cartacea da torneo.</p>
+      <textarea id="kde-output" class="kde-textarea" readonly></textarea>
+    </div>
+
     <!-- POOL MANAGER INTEGRATO -->
     <div class="pool-manager-box">
       <div style="font-family:'Fraunces',serif; font-size:16px; font-weight:600; margin-bottom:12px;">Inserisci una Nuova Carta nella Lista Globale (Cardpool)</div>
@@ -797,8 +848,15 @@ function render(){
 
     <button class="reset-link" id="reset-btn">Ripristina lista di riferimento</button>
 
-    <datalist id="cardpool-datalist">
+    <!-- DATALIST FILTRATI PER IL MOTORE DI RICERCA -->
+    <datalist id="main-datalist">
+      ${CARD_POOL.filter(c => c.type !== 'ExtraMonster').map(c=>`<option value="${c.name}">`).join('')}
+    </datalist>
+    <datalist id="side-datalist">
       ${CARD_POOL.map(c=>`<option value="${c.name}">`).join('')}
+    </datalist>
+    <datalist id="extra-datalist">
+      ${CARD_POOL.filter(c => c.type === 'ExtraMonster').map(c=>`<option value="${c.name}">`).join('')}
     </datalist>
   `;
 
@@ -806,6 +864,7 @@ function render(){
   renderSideRows();
   renderExtraRows();
   bindGlobal();
+  generateKdeExport();
 }
 
 function findInPool(name){
@@ -824,7 +883,7 @@ function renderMainRows(){
   if(!tbody) return;
   tbody.innerHTML = DATA.main.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
+      <td><input type="text" list="main-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="main-field"></td>
       <td><select data-idx="${i}" data-field="type" class="main-field">${['Monster','Spell','Trap'].map(t=>`<option ${c.type===t?'selected':''}>${t}</option>`).join('')}</select></td>
       <td><select data-idx="${i}" data-field="role" class="main-field role-select" style="color:${roleColor(c.role)}">${ROLES.map(r=>`<option value="${r.id}" ${c.role===r.id?'selected':''}>${r.label}</option>`).join('')}</select></td>
@@ -852,7 +911,7 @@ function renderSideRows(){
     const realIndex = DATA.side.indexOf(c);
     return `
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${realIndex}" data-field="name" class="side-field"></td>
+      <td><input type="text" list="side-datalist" value="${c.name}" data-idx="${realIndex}" data-field="name" class="side-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${realIndex}" data-field="qty" class="side-field"></td>
       <td>
         <select data-idx="${realIndex}" data-field="sideStatus" class="side-field">
@@ -877,7 +936,7 @@ function renderExtraRows(){
   if(!tbody) return;
   tbody.innerHTML = DATA.extra.map((c,i)=>`
     <tr>
-      <td><input type="text" list="cardpool-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
+      <td><input type="text" list="extra-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="extra-field"></td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="extra-field"></td>
       <td>
         <select data-idx="${i}" data-field="role" class="extra-field">
