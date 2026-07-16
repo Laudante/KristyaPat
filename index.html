@@ -160,8 +160,8 @@
   tr.type-trap:hover td{background:#D4C0E5;}
   tr.type-synchro td{background:#FFFFFF; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
   tr.type-synchro:hover td{background:#F3F3F3;}
-  tr.type-fusion td, tr.type-xyz td{background:#EAEAEA;}
-  tr.type-fusion:hover td, tr.type-xyz:hover td{background:#DCDCDC;}
+  tr.type-fusion td, tr.type-xyz td{background:#E8DCC0;}
+  tr.type-fusion:hover td, tr.type-xyz:hover td{background:#DCCCA0;}
 
   /* Colori etichette matchup: vedi blocco dopo .chip.on per garantire priorità CSS */
 
@@ -479,7 +479,6 @@ const DEFAULT_CARD_POOL = [
 {id:'98444741',name:'Accumulated Fortune',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'21323861',name:'Acid Rain',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'41356845',name:'Acid Trap Hole',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'41356846',name:'Acid Trap Hole',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'35956022',name:'Acidic Downpour',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'47372349',name:'Acrobat Monkey',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'62325062',name:'Adhesion Trap Hole',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -604,7 +603,6 @@ const DEFAULT_CARD_POOL = [
 {id:'97452817',name:'Arcana Force XVIII - The Moon',type:'Monster',atk:2800,fairy:true,status:'U',subtype:null},
 {id:'23846921',name:'Arcana Force XXI - The World',type:'Monster',atk:3100,fairy:true,status:'U',subtype:null},
 {id:'06150044',name:'Arcana Knight Joker',type:'ExtraMonster',atk:3800,fairy:false,status:'U',subtype:'Fusion'},
-{id:'06150045',name:'Arcana Knight Joker',type:'ExtraMonster',atk:3800,fairy:false,status:'U',subtype:'Fusion'},
 {id:'40048324',name:'Arcane Apprentice',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'55001420',name:'Arcane Archer of the Forest',type:'Monster',atk:900,fairy:false,status:'U',subtype:null},
 {id:'17896384',name:'Arcane Barrier',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -668,8 +666,6 @@ const DEFAULT_CARD_POOL = [
 {id:'91989718',name:'Attack Reflector Unit',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'07183277',name:'Aurkus, Lightsworn Druid',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'37970940',name:'Aussa the Earth Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'37970941',name:'Aussa the Earth Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'37970942',name:'Aussa the Earth Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'58990631',name:'Automatic Laser',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'71453557',name:'Autonomous Action Unit',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'29139104',name:'Avalanching Aussa',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
@@ -772,15 +768,12 @@ const DEFAULT_CARD_POOL = [
 {id:'41426869',name:'Black Illusion Ritual',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'55761792',name:'Black Luster Ritual',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'05405694',name:'Black Luster Soldier',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
-{id:'10000100',name:'Black Luster Soldier',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'72989439',name:'Black Luster Soldier - Envoy of the Beginning',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
-{id:'72989440',name:'Black Luster Soldier - Envoy of the Beginning',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'76792184',name:'Black Magic Ritual',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'65169794',name:'Black Pendant',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'76218643',name:'Black Potan',type:'Monster',atk:200,fairy:false,status:'U',subtype:null},
 {id:'90654356',name:'Black Ptera',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'73580471',name:'Black Rose Dragon',type:'ExtraMonster',atk:2400,fairy:false,status:'L',subtype:'Synchro'},
-{id:'73580472',name:'Black Rose Dragon',type:'ExtraMonster',atk:2400,fairy:false,status:'L',subtype:'Synchro'},
 {id:'88671720',name:'Black Salvo',type:'Monster',atk:100,fairy:false,status:'U',subtype:null},
 {id:'79409334',name:'Black Stego',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'38670435',name:'Black Tyranno',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
@@ -831,8 +824,6 @@ const DEFAULT_CARD_POOL = [
 {id:'53347303',name:'Blue-Eyes Shining Dragon',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'53183600',name:'Blue-Eyes Toon Dragon',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'23995346',name:'Blue-Eyes Ultimate Dragon',type:'ExtraMonster',atk:4500,fairy:false,status:'U',subtype:'Fusion'},
-{id:'23995347',name:'Blue-Eyes Ultimate Dragon',type:'ExtraMonster',atk:4500,fairy:false,status:'U',subtype:'Fusion'},
-{id:'23995348',name:'Blue-Eyes Ultimate Dragon',type:'ExtraMonster',atk:4500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'89631133',name:'Blue-Eyes White Dragon',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'41396436',name:'Blue-Winged Crown',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'21340051',name:'Boar Soldier',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
@@ -865,7 +856,6 @@ const DEFAULT_CARD_POOL = [
 {id:'30548775',name:'Branch!',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'63851864',name:'Break! Draw!',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'71413901',name:'Breaker the Magical Warrior',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
-{id:'71413902',name:'Breaker the Magical Warrior',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'96218085',name:'Breakthrough!',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'20101223',name:'Breath of Light',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'50321796',name:'Brionac, Dragon of the Ice Barrier',type:'ExtraMonster',atk:2300,fairy:false,status:'L',subtype:'Synchro'},
@@ -891,8 +881,6 @@ const DEFAULT_CARD_POOL = [
 {id:'27191436',name:'Burst Return',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'17655904',name:'Burst Stream of Destruction',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'78193831',name:'Buster Blader',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
-{id:'78193832',name:'Buster Blader',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
-{id:'78193833',name:'Buster Blader',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'84740193',name:'Buster Rancher',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'69243953',name:'Butterfly Dagger - Elma',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'35011819',name:'By Order of the Emperor',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -905,7 +893,6 @@ const DEFAULT_CARD_POOL = [
 {id:'65743242',name:'Call of the Earthbound',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'16970158',name:'Call of the Grave',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'97077563',name:'Call of the Haunted',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'97077564',name:'Call of the Haunted',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'04861205',name:'Call of the Mummy',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'45133463',name:'Call of the Reaper',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'51773900',name:'Calming Magic',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -938,8 +925,6 @@ const DEFAULT_CARD_POOL = [
 {id:'28890974',name:'Celestial Transformation',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'84491298',name:'Cell Explosion Virus',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'91152256',name:'Celtic Guardian',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
-{id:'91152257',name:'Celtic Guardian',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
-{id:'91152258',name:'Celtic Guardian',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'51394546',name:'Cemetary Bomb',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'01801154',name:'Centrifugal Field',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'20228463',name:'Ceremonial Bell',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
@@ -1087,7 +1072,6 @@ const DEFAULT_CARD_POOL = [
 {id:'74976215',name:'Cross-Sword Beetle',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'73853830',name:'Crusader of Endymion',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'57728570',name:'Crush Card Virus',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'57728571',name:'Crush Card Virus',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'39712330',name:'Cry Havoc!',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'23950192',name:'Cryomancer of the Ice Barrier',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'72881007',name:'Crystal Abundance',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -1122,10 +1106,8 @@ const DEFAULT_CARD_POOL = [
 {id:'68774379',name:'Cyber Barrier Dragon',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'10248389',name:'Cyber Blader',type:'ExtraMonster',atk:2100,fairy:false,status:'U',subtype:'Fusion'},
 {id:'70095154',name:'Cyber Dragon',type:'Monster',atk:2100,fairy:false,status:'S',subtype:null},
-{id:'70095155',name:'Cyber Dragon',type:'Monster',atk:2100,fairy:false,status:'S',subtype:null},
 {id:'05373478',name:'Cyber Dragon Zwei',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'01546123',name:'Cyber End Dragon',type:'ExtraMonster',atk:4000,fairy:false,status:'U',subtype:'Fusion'},
-{id:'01546124',name:'Cyber End Dragon',type:'ExtraMonster',atk:4000,fairy:false,status:'U',subtype:'Fusion'},
 {id:'91663373',name:'Cyber Esper',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'30655537',name:'Cyber Falcon',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'76763417',name:'Cyber Gymnast',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
@@ -1241,15 +1223,6 @@ const DEFAULT_CARD_POOL = [
 {id:'99789342',name:'Dark Magic Curtain',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'36996508',name:'Dark Magician',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
 {id:'38033121',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033122',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033123',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033124',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033125',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033126',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033127',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033128',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033129',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'38033130',name:'Dark Magician Girl',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'50725996',name:'Dark Magician Knight',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
 {id:'40737112',name:'Dark Magician of Chaos',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'97642679',name:'Dark Master - Zorc',type:'Monster',atk:2700,fairy:false,status:'U',subtype:null},
@@ -1259,10 +1232,6 @@ const DEFAULT_CARD_POOL = [
 {id:'31829185',name:'Dark Necrofear',type:'Monster',atk:2200,fairy:false,status:'U',subtype:null},
 {id:'38107923',name:'Dark Nephthys',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
 {id:'98502113',name:'Dark Paladin',type:'ExtraMonster',atk:2900,fairy:false,status:'U',subtype:'Fusion'},
-{id:'98502114',name:'Dark Paladin',type:'ExtraMonster',atk:2900,fairy:false,status:'U',subtype:'Fusion'},
-{id:'98502115',name:'Dark Paladin',type:'ExtraMonster',atk:2900,fairy:false,status:'U',subtype:'Fusion'},
-{id:'98502116',name:'Dark Paladin',type:'ExtraMonster',atk:2900,fairy:false,status:'U',subtype:'Fusion'},
-{id:'98502117',name:'Dark Paladin',type:'ExtraMonster',atk:2900,fairy:false,status:'U',subtype:'Fusion'},
 {id:'99261403',name:'Dark Rabbit',type:'Monster',atk:1100,fairy:false,status:'U',subtype:null},
 {id:'45462639',name:'Dark Red Enchanter',type:'Monster',atk:1700,fairy:false,status:'U',subtype:null},
 {id:'97021916',name:'Dark Resonator',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
@@ -1369,7 +1338,6 @@ const DEFAULT_CARD_POOL = [
 {id:'80744121',name:'Destiny HERO - Fear Monger',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'09411399',name:'Destiny HERO - Malicious',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'83965310',name:'Destiny HERO - Plasma',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
-{id:'83965311',name:'Destiny HERO - Plasma',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'15294090',name:'Destiny Mirage',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'35464895',name:'Destiny Signal',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'73481154',name:'Destroyer Golem',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
@@ -1385,12 +1353,10 @@ const DEFAULT_CARD_POOL = [
 {id:'89086566',name:'Detonate',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'20985997',name:'Detonator Circle "A"',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'19327348',name:'Dharc the Dark Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'19327349',name:'Dharc the Dark Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'96967123',name:'Dharma Cannon',type:'Monster',atk:900,fairy:false,status:'U',subtype:null},
 {id:'29424328',name:'Diabolos, King of the Abyss',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'19980975',name:'Diamond-Dust Cyclone',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'84257639',name:'Dian Keto the Cure Master',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'84257640',name:'Dian Keto the Cure Master',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'03549275',name:'Dice Jar',type:'Monster',atk:200,fairy:false,status:'U',subtype:null},
 {id:'83241722',name:'Dice Re-Roll',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'59905358',name:'Dice Try!',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -1479,7 +1445,6 @@ const DEFAULT_CARD_POOL = [
 {id:'78009994',name:'Dragonic Guard',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'43250041',name:'Draining Shield',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'80193355',name:'Dramatic Rescue',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'80193356',name:'Dramatic Rescue',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'04440873',name:'Drastic Drop Off',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'66973070',name:'Dreadscythe Harvester',type:'Monster',atk:2300,fairy:false,status:'U',subtype:null},
 {id:'13215230',name:'Dream Clown',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
@@ -1542,11 +1507,9 @@ const DEFAULT_CARD_POOL = [
 {id:'11502550',name:'Elemental HERO Air Neos',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'55171412',name:'Elemental HERO Aqua Neos',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'21844576',name:'Elemental HERO Avian',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
-{id:'21844577',name:'Elemental HERO Avian',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'59793705',name:'Elemental HERO Bladedge',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'79979666',name:'Elemental HERO Bubbleman',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'58932615',name:'Elemental HERO Burstinatrix',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
-{id:'58932616',name:'Elemental HERO Burstinatrix',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'80908502',name:'Elemental HERO Captain Gold',type:'Monster',atk:2100,fairy:false,status:'U',subtype:null},
 {id:'17032740',name:'Elemental HERO Chaos Neos',type:'ExtraMonster',atk:3000,fairy:false,status:'U',subtype:'Fusion'},
 {id:'84327329',name:'Elemental HERO Clayman',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
@@ -1555,7 +1518,6 @@ const DEFAULT_CARD_POOL = [
 {id:'31111109',name:'Elemental HERO Divine Neos',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'29343734',name:'Elemental HERO Electrum',type:'ExtraMonster',atk:2900,fairy:false,status:'U',subtype:'Fusion'},
 {id:'35809262',name:'Elemental HERO Flame Wingman',type:'ExtraMonster',atk:2100,fairy:false,status:'U',subtype:'Fusion'},
-{id:'35809263',name:'Elemental HERO Flame Wingman',type:'ExtraMonster',atk:2100,fairy:false,status:'U',subtype:'Fusion'},
 {id:'81566151',name:'Elemental HERO Flare Neos',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'16304628',name:'Elemental HERO Gaia',type:'ExtraMonster',atk:2200,fairy:false,status:'U',subtype:'Fusion'},
 {id:'85507811',name:'Elemental HERO Glow Neos',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
@@ -1572,9 +1534,6 @@ const DEFAULT_CARD_POOL = [
 {id:'89252153',name:'Elemental HERO Necroshade',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'05285665',name:'Elemental HERO Neo Bubbleman',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'89943723',name:'Elemental HERO Neos',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'89943724',name:'Elemental HERO Neos',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'89943725',name:'Elemental HERO Neos',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'89943726',name:'Elemental HERO Neos',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
 {id:'69884162',name:'Elemental HERO Neos Alius',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'37195861',name:'Elemental HERO Ocean',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'41436536',name:'Elemental HERO Phoenix Enforcer',type:'ExtraMonster',atk:2100,fairy:false,status:'U',subtype:'Fusion'},
@@ -1584,11 +1543,9 @@ const DEFAULT_CARD_POOL = [
 {id:'25366484',name:'Elemental HERO Shining Flare Wingman',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'88820235',name:'Elemental HERO Shining Phoenix Enforcer',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'20721928',name:'Elemental HERO Sparkman',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
-{id:'20721929',name:'Elemental HERO Sparkman',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'81197327',name:'Elemental HERO Steam Healer',type:'ExtraMonster',atk:1800,fairy:false,status:'U',subtype:'Fusion'},
 {id:'49352945',name:'Elemental HERO Storm Neos',type:'ExtraMonster',atk:3000,fairy:false,status:'U',subtype:'Fusion'},
 {id:'40044918',name:'Elemental HERO Stratos',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
-{id:'40044919',name:'Elemental HERO Stratos',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'83121692',name:'Elemental HERO Tempest',type:'ExtraMonster',atk:2800,fairy:false,status:'U',subtype:'Fusion'},
 {id:'74711057',name:'Elemental HERO Terra Firma',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Fusion'},
 {id:'61204971',name:'Elemental HERO Thunder Giant',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Fusion'},
@@ -1633,8 +1590,6 @@ const DEFAULT_CARD_POOL = [
 {id:'62878208',name:'Equip Shot',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'54974237',name:'Eradicator Epidemic Virus',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'74364659',name:'Eria the Water Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'74364660',name:'Eria the Water Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'74364661',name:'Eria the Water Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'31550470',name:'Escape from the Dark Dimension',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'35787450',name:'Eternal Dread',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'95051344',name:'Eternal Rest',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -1662,9 +1617,6 @@ const DEFAULT_CARD_POOL = [
 {id:'74131780',name:'Exiled Force',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'12600382',name:'Exodia Necross',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'33396948',name:'Exodia the Forbidden One',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
-{id:'33396949',name:'Exodia the Forbidden One',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
-{id:'33396950',name:'Exodia the Forbidden One',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
-{id:'33396951',name:'Exodia the Forbidden One',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'20586572',name:'Exploder Dragon',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'40529384',name:'Exploder Dragonwing',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Synchro'},
 {id:'33413279',name:'Explosive Magician',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Synchro'},
@@ -1690,13 +1642,9 @@ const DEFAULT_CARD_POOL = [
 {id:'32919136',name:'Falling Down',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'89731911',name:'Familiar Knight',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'31887905',name:'Familiar-Possessed - Aussa',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
-{id:'31887906',name:'Familiar-Possessed - Aussa',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
 {id:'68881649',name:'Familiar-Possessed - Eria',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
-{id:'68881650',name:'Familiar-Possessed - Eria',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
 {id:'04376658',name:'Familiar-Possessed - Hiita',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
-{id:'04376659',name:'Familiar-Possessed - Hiita',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
 {id:'31764353',name:'Familiar-Possessed - Wynn',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
-{id:'31764354',name:'Familiar-Possessed - Wynn',type:'Monster',atk:1850,fairy:false,status:'U',subtype:null},
 {id:'77910045',name:'Fatal Abacus',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'68396778',name:'Faustian Bargain',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'34193084',name:'Fear from the Dark',type:'Monster',atk:1700,fairy:false,status:'U',subtype:null},
@@ -1711,7 +1659,6 @@ const DEFAULT_CARD_POOL = [
 {id:'07153114',name:'Field Barrier',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'89529919',name:'Field-Commander Rahz',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'81172176',name:'Fiend Comedian',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'81172177',name:'Fiend Comedian',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'02863439',name:'Fiend Reflection #2',type:'Monster',atk:1100,fairy:false,status:'U',subtype:null},
 {id:'26566878',name:'Fiend Scorpion',type:'Monster',atk:900,fairy:false,status:'U',subtype:null},
 {id:'66235877',name:'Fiend Skull Dragon',type:'ExtraMonster',atk:2000,fairy:false,status:'U',subtype:'Fusion'},
@@ -1725,7 +1672,6 @@ const DEFAULT_CARD_POOL = [
 {id:'95308449',name:'Final Countdown',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'18591904',name:'Final Destiny',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'73134081',name:'Final Flame',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'73134082',name:'Final Flame',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'60369732',name:'Final Ritual of the Ancients',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'92595643',name:'Fine',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'78275321',name:'Fire Ant Ascator',type:'Monster',atk:700,fairy:false,status:'U',subtype:null},
@@ -1744,7 +1690,6 @@ const DEFAULT_CARD_POOL = [
 {id:'93369354',name:'Fishborg Blaster',type:'Monster',atk:100,fairy:false,status:'U',subtype:null},
 {id:'66788016',name:'Fissure',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'99267150',name:'Five-Headed Dragon',type:'ExtraMonster',atk:5000,fairy:false,status:'U',subtype:'Fusion'},
-{id:'99267151',name:'Five-Headed Dragon',type:'ExtraMonster',atk:5000,fairy:false,status:'U',subtype:'Fusion'},
 {id:'60862676',name:'Flame Cerebrus',type:'Monster',atk:2100,fairy:false,status:'U',subtype:null},
 {id:'42599677',name:'Flame Champion',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'12883044',name:'Flame Dancer',type:'Monster',atk:550,fairy:false,status:'U',subtype:null},
@@ -1754,7 +1699,6 @@ const DEFAULT_CARD_POOL = [
 {id:'41089128',name:'Flame Ruler',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'79444933',name:'Flame Spirit Ignis',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'45231177',name:'Flame Swordsman',type:'ExtraMonster',atk:1800,fairy:false,status:'U',subtype:'Fusion'},
-{id:'45231178',name:'Flame Swordsman',type:'ExtraMonster',atk:1800,fairy:false,status:'U',subtype:'Fusion'},
 {id:'02830619',name:'Flame Viper',type:'Monster',atk:400,fairy:false,status:'U',subtype:null},
 {id:'40189917',name:'Flamvell Commando',type:'Monster',atk:2200,fairy:false,status:'U',subtype:null},
 {id:'60718396',name:'Flamvell Counter',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -1781,7 +1725,6 @@ const DEFAULT_CARD_POOL = [
 {id:'06614221',name:'Fog King',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'98252586',name:'Follow Wind',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'81439173',name:'Foolish Burial',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'81439174',name:'Foolish Burial',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'83778600',name:'Foolish Revival',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'25789292',name:'Forbidden Chalice',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'43340443',name:'Forced Back',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -1850,7 +1793,6 @@ const DEFAULT_CARD_POOL = [
 {id:'51355346',name:'Gaia Soul the Combustible Collective',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'66889139',name:'Gaia the Dragon Champion',type:'ExtraMonster',atk:2600,fairy:false,status:'U',subtype:'Fusion'},
 {id:'06368038',name:'Gaia The Fierce Knight',type:'Monster',atk:2300,fairy:false,status:'U',subtype:null},
-{id:'06368039',name:'Gaia The Fierce Knight',type:'Monster',atk:2300,fairy:false,status:'U',subtype:null},
 {id:'16229315',name:'Gale Dogra',type:'Monster',atk:650,fairy:false,status:'U',subtype:null},
 {id:'77491079',name:'Gale Lizard',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'30915572',name:'Gallis the Star Beast',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
@@ -1874,7 +1816,6 @@ const DEFAULT_CARD_POOL = [
 {id:'05818798',name:'Gazelle the King of Mythical Beasts',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'30190809',name:'Gear Golem the Moving Fortress',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'00423705',name:'Gearfried the Iron Knight',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
-{id:'00423706',name:'Gearfried the Iron Knight',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'57046845',name:'Gearfried the Swordmaster',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'37694547',name:'Geartown',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'11662742',name:'Gellenduo',type:'Monster',atk:1700,fairy:true,status:'U',subtype:null},
@@ -1882,7 +1823,6 @@ const DEFAULT_CARD_POOL = [
 {id:'18096222',name:'Gemini Booster',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'81601517',name:'Gemini Counter',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'69140098',name:'Gemini Elf',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
-{id:'69140099',name:'Gemini Elf',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'67688478',name:'Gemini Imps',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'26254876',name:'Gemini Lancer',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'91798373',name:'Gemini Scorpion',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
@@ -1908,7 +1848,7 @@ const DEFAULT_CARD_POOL = [
 {id:'58831685',name:'Giant Red Seasnake',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'13039848',name:'Giant Soldier of Stone',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'80723580',name:'Giant Trap Hole',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'42703248',name:'Giant Trunade',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
+{id:'42703248',name:'Giant Trunade',type:'Spell',atk:null,fairy:false,status:'L',subtype:null},
 {id:'96981563',name:'Giant Turtle Who Feeds on Flames',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'39526584',name:'Gift Card',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'98792570',name:'Gift of the Martyr',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -1924,7 +1864,6 @@ const DEFAULT_CARD_POOL = [
 {id:'45894482',name:'Gilasaurus',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'69933858',name:'Gilford the Legend',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'36354007',name:'Gilford the Lightning',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
-{id:'36354008',name:'Gilford the Lightning',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'51828629',name:'Giltia the D. Knight',type:'ExtraMonster',atk:1850,fairy:false,status:'U',subtype:'Fusion'},
 {id:'84620194',name:'Girochin Kuwagata',type:'Monster',atk:1700,fairy:false,status:'U',subtype:null},
 {id:'55465441',name:'Give and Take',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -1989,7 +1928,6 @@ const DEFAULT_CARD_POOL = [
 {id:'42868711',name:'Gora Turtle of Illusion',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'52648457',name:'Gorgon\'s Eye',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'44330098',name:'Gorz the Emissary of Darkness',type:'Monster',atk:2700,fairy:false,status:'L',subtype:null},
-{id:'44330100',name:'Gorz the Emissary of Darkness',type:'Monster',atk:2700,fairy:false,status:'L',subtype:null},
 {id:'13504844',name:'Gottoms\' Emergency Call',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'07391448',name:'Goyo Guardian',type:'ExtraMonster',atk:2800,fairy:false,status:'L',subtype:'Synchro'},
 {id:'53334471',name:'Gozen Match',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -2081,7 +2019,6 @@ const DEFAULT_CARD_POOL = [
 {id:'55321970',name:'Gust Fan',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'09817927',name:'Gyaku-Gire Panda',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'31122090',name:'Gyakutenno Megami',type:'Monster',atk:1800,fairy:true,status:'U',subtype:null},
-{id:'31122091',name:'Gyakutenno Megami',type:'Monster',atk:1800,fairy:true,status:'U',subtype:null},
 {id:'18325492',name:'Gyroid',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'74825788',name:'H - Heated Heart',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'28357177',name:'Hade-Hane',type:'Monster',atk:900,fairy:false,status:'U',subtype:null},
@@ -2111,8 +2048,6 @@ const DEFAULT_CARD_POOL = [
 {id:'12206212',name:'Harpie Lady Sisters',type:'Monster',atk:1950,fairy:false,status:'U',subtype:null},
 {id:'75064463',name:'Harpie Queen',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'18144506',name:'Harpie\'s Feather Duster',type:'Spell',atk:null,fairy:false,status:'F',subtype:null},
-{id:'18144507',name:'Harpie\'s Feather Duster',type:'Spell',atk:null,fairy:false,status:'F',subtype:null},
-{id:'18144508',name:'Harpie\'s Feather Duster',type:'Spell',atk:null,fairy:false,status:'F',subtype:null},
 {id:'06924874',name:'Harpie\'s Pet Baby Dragon',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'52040216',name:'Harpie\'s Pet Dragon',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'75782277',name:'Harpies\' Hunting Ground',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -2159,8 +2094,6 @@ const DEFAULT_CARD_POOL = [
 {id:'10248192',name:'Hieroglyph Lithograph',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'54579801',name:'High Tide Gyojin',type:'Monster',atk:1650,fairy:false,status:'U',subtype:null},
 {id:'00759393',name:'Hiita the Fire Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'00759394',name:'Hiita the Fire Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'00759395',name:'Hiita the Fire Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'75745607',name:'Hino-Kagu-Tsuchi',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'46130346',name:'Hinotama',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'96851799',name:'Hinotama Soul',type:'Monster',atk:600,fairy:false,status:'U',subtype:null},
@@ -2168,7 +2101,6 @@ const DEFAULT_CARD_POOL = [
 {id:'76184692',name:'Hitotsu-Me Giant',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'40410110',name:'Homunculus the Alchemic Being',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'37742478',name:'Honest',type:'Monster',atk:1100,fairy:true,status:'S',subtype:null},
-{id:'37742479',name:'Honest',type:'Monster',atk:1100,fairy:true,status:'S',subtype:null},
 {id:'98069388',name:'Horn of Heaven',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'38552107',name:'Horn of Light',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'64047146',name:'Horn of the Unicorn',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -2185,7 +2117,6 @@ const DEFAULT_CARD_POOL = [
 {id:'46821314',name:'Humanoid Slime',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'05600127',name:'Humanoid Worm Drake',type:'ExtraMonster',atk:2200,fairy:false,status:'U',subtype:'Fusion'},
 {id:'28306253',name:'Hungry Burger',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'30243636',name:'Hungry Burger',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'96005454',name:'Hunter Dragon',type:'Monster',atk:1700,fairy:false,status:'U',subtype:null},
 {id:'51962254',name:'Hunter Owl',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'80141480',name:'Hunter Spider',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
@@ -2211,7 +2142,6 @@ const DEFAULT_CARD_POOL = [
 {id:'32485518',name:'Immortal Ruler',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'96631852',name:'Impenetrable Formation',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'09995766',name:'Imperial Custom',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'09995767',name:'Imperial Custom',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'30459350',name:'Imperial Iron Wall',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'61740673',name:'Imperial Order',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'52248570',name:'Imprisoned Queen Archfiend',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
@@ -2297,7 +2227,6 @@ const DEFAULT_CARD_POOL = [
 {id:'43697559',name:'Jetroid',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'90020065',name:'Jigen Bakudan',type:'Monster',atk:200,fairy:false,status:'U',subtype:null},
 {id:'77585513',name:'Jinzo',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
-{id:'77585514',name:'Jinzo',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
 {id:'32809211',name:'Jinzo #7',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'35803249',name:'Jinzo - Lord',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'09418534',name:'Jinzo - Returner',type:'Monster',atk:600,fairy:false,status:'U',subtype:null},
@@ -2314,9 +2243,6 @@ const DEFAULT_CARD_POOL = [
 {id:'37745919',name:'Junk Box',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'63977008',name:'Junk Synchron',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'60800381',name:'Junk Warrior',type:'ExtraMonster',atk:2300,fairy:false,status:'U',subtype:'Synchro'},
-{id:'60800382',name:'Junk Warrior',type:'ExtraMonster',atk:2300,fairy:false,status:'U',subtype:'Synchro'},
-{id:'60800383',name:'Junk Warrior',type:'ExtraMonster',atk:2300,fairy:false,status:'U',subtype:'Synchro'},
-{id:'60800384',name:'Junk Warrior',type:'ExtraMonster',atk:2300,fairy:false,status:'U',subtype:'Synchro'},
 {id:'10080320',name:'Jurassic World',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'24068492',name:'Just Desserts',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'62271284',name:'Justi-Break',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -2386,18 +2312,14 @@ const DEFAULT_CARD_POOL = [
 {id:'82642348',name:'Kryuel',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'56283725',name:'Kumootoko',type:'Monster',atk:700,fairy:false,status:'U',subtype:null},
 {id:'37390589',name:'Kunai with Chain',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'37390590',name:'Kunai with Chain',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'56514812',name:'Kunoichi',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'85705804',name:'Kurama',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'57666212',name:'Kuraz the Light Monarch',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
 {id:'40640057',name:'Kuriboh',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
-{id:'40640058',name:'Kuriboh',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
-{id:'40640059',name:'Kuriboh',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
 {id:'47432275',name:'Kuribon',type:'Monster',atk:300,fairy:true,status:'U',subtype:null},
 {id:'95144193',name:'Kwagar Hercules',type:'ExtraMonster',atk:1900,fairy:false,status:'U',subtype:'Fusion'},
 {id:'88240808',name:'Kycoo the Ghost Destroyer',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'97590747',name:'La Jinn the Mystical Genie of the Lamp',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
-{id:'97590748',name:'La Jinn the Mystical Genie of the Lamp',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'66526672',name:'Labyrinth of Nightmare',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'99551425',name:'Labyrinth Tank',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Fusion'},
 {id:'67284908',name:'Labyrinth Wall',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
@@ -2410,12 +2332,10 @@ const DEFAULT_CARD_POOL = [
 {id:'94675535',name:'Larvas',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'77007920',name:'Laser Cannon Armor',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'90330453',name:'Last Day of Witch',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'90330454',name:'Last Day of Witch',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'97970833',name:'Last Resort',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'28566710',name:'Last Turn',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'85602018',name:'Last Will',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'87322377',name:'Launcher Spider',type:'Monster',atk:2200,fairy:false,status:'U',subtype:null},
-{id:'87322378',name:'Launcher Spider',type:'Monster',atk:2200,fairy:false,status:'U',subtype:null},
 {id:'20394040',name:'Lava Battleguard',type:'Monster',atk:1550,fairy:false,status:'U',subtype:null},
 {id:'41741922',name:'Lava Dragon',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'00102380',name:'Lava Golem',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
@@ -2473,7 +2393,6 @@ const DEFAULT_CARD_POOL = [
 {id:'00027551',name:'Limit Reverse',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'92450185',name:'Limiter Overload',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'23171610',name:'Limiter Removal',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'23171611',name:'Limiter Removal',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'29307554',name:'Lineage of Destruction',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'64238008',name:'Linear Accelerator Cannon',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'93108297',name:'Liquid Beast',type:'Monster',atk:950,fairy:false,status:'U',subtype:null},
@@ -2595,7 +2514,6 @@ const DEFAULT_CARD_POOL = [
 {id:'87514539',name:'Marionette Mite',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'45247637',name:'Mark of the Rose',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'31305911',name:'Marshmallon',type:'Monster',atk:300,fairy:true,status:'U',subtype:null},
-{id:'31305912',name:'Marshmallon',type:'Monster',atk:300,fairy:true,status:'U',subtype:null},
 {id:'66865880',name:'Marshmallon Glasses',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'71466592',name:'Maryokutai',type:'Monster',atk:900,fairy:false,status:'U',subtype:null},
 {id:'44287299',name:'Masaki the Legendary Swordsman',type:'Monster',atk:1100,fairy:false,status:'U',subtype:null},
@@ -2654,7 +2572,6 @@ const DEFAULT_CARD_POOL = [
 {id:'07200041',name:'Metal Shooter',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'07369217',name:'Metallizing Parasite - Lunatite',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'68540058',name:'Metalmorph',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'68540059',name:'Metalmorph',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'33114323',name:'Metalsilver Armor',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'46411259',name:'Metamorphosis',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'64271667',name:'Meteor Dragon',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
@@ -2670,7 +2587,6 @@ const DEFAULT_CARD_POOL = [
 {id:'47986555',name:'Millennium Golem',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'82482194',name:'Millennium Scorpion',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'32012841',name:'Millennium Shield',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
-{id:'32012842',name:'Millennium Shield',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'07489323',name:'Milus Radiant',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
 {id:'32539892',name:'Minar',type:'Monster',atk:850,fairy:false,status:'U',subtype:null},
 {id:'37520316',name:'Mind Control',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -2731,7 +2647,6 @@ const DEFAULT_CARD_POOL = [
 {id:'36121917',name:'Monster Egg',type:'Monster',atk:600,fairy:false,status:'U',subtype:null},
 {id:'43040603',name:'Monster Gate',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'83764718',name:'Monster Reborn',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'83764719',name:'Monster Reborn',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'93108433',name:'Monster Recovery',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'74848038',name:'Monster Reincarnation',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'23303072',name:'Montage Dragon',type:'Monster',atk:null,fairy:false,status:'U',subtype:null},
@@ -2797,7 +2712,6 @@ const DEFAULT_CARD_POOL = [
 {id:'74591968',name:'Mystic Swordsman LV4',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'60482781',name:'Mystic Swordsman LV6',type:'Monster',atk:2300,fairy:false,status:'U',subtype:null},
 {id:'83011277',name:'Mystic Tomato',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
-{id:'83011278',name:'Mystic Tomato',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'48356796',name:'Mystical Cards of Light',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'15025844',name:'Mystical Elf',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'98745000',name:'Mystical Knight of Jackal',type:'Monster',atk:2700,fairy:false,status:'U',subtype:null},
@@ -2891,7 +2805,6 @@ const DEFAULT_CARD_POOL = [
 {id:'82340056',name:'Offering to the Immortals',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'93217231',name:'Offering to the Snake Deity',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'19230407',name:'Offerings to the Doomed',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'19230408',name:'Offerings to the Doomed',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'45121025',name:'Ogre of the Black Shadow',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'82670878',name:'Ogre of the Scarlet Sorrow',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'31768112',name:'Oilman',type:'Monster',atk:400,fairy:false,status:'U',subtype:null},
@@ -2904,7 +2817,6 @@ const DEFAULT_CARD_POOL = [
 {id:'40391316',name:'Ojama Knight',type:'ExtraMonster',atk:0,fairy:false,status:'U',subtype:'Fusion'},
 {id:'37132349',name:'Ojama Red',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'29843091',name:'Ojama Trio',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'29843095',name:'Ojama Trio',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'42941100',name:'Ojama Yellow',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'24643836',name:'Ojamagic',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'98259197',name:'Ojamuscle',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -2912,7 +2824,6 @@ const DEFAULT_CARD_POOL = [
 {id:'04857085',name:'Omega Goggles',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'56995655',name:'Ominous Fortunetelling',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'02295440',name:'One for One',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'02295441',name:'One for One',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'33064647',name:'One-Eyed Shield Dragon',type:'Monster',atk:700,fairy:false,status:'U',subtype:null},
 {id:'66927994',name:'Oni Tank T-34',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'58861941',name:'Ooguchi',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
@@ -2932,7 +2843,6 @@ const DEFAULT_CARD_POOL = [
 {id:'71519605',name:'Oshaleon',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'60946968',name:'Otherworld - The "A" Zone',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'39751093',name:'Otohime',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
-{id:'39751094',name:'Otohime',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'11548522',name:'Outstanding Dog Marron',type:'Monster',atk:100,fairy:false,status:'U',subtype:null},
 {id:'72204747',name:'Over Destiny',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'23282832',name:'Over Limit',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -2953,11 +2863,9 @@ const DEFAULT_CARD_POOL = [
 {id:'94585852',name:'Pandemonium',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'75375465',name:'Pandemonium Watchbear',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'42035044',name:'Panther Warrior',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
-{id:'42035045',name:'Panther Warrior',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'79707116',name:'Paralyzing Chain',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'50152549',name:'Paralyzing Potion',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'27911549',name:'Parasite Paracide',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'27911550',name:'Parasite Paracide',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'87978805',name:'Parasitic Ticky',type:'Monster',atk:null,fairy:false,status:'U',subtype:null},
 {id:'62762898',name:'Parrot Dragon',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'52228131',name:'Parry',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -3019,9 +2927,6 @@ const DEFAULT_CARD_POOL = [
 {id:'73578229',name:'Pole Position',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'91078716',name:'Pollinosis',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'24094653',name:'Polymerization',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'24094654',name:'Polymerization',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'27847700',name:'Polymerization',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'74335036',name:'Polymerization',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'61840587',name:'Portable Battery Pack',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'52860176',name:'Possessed Dark Soul',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'67169062',name:'Pot of Avarice',type:'Spell',atk:null,fairy:false,status:'L',subtype:null},
@@ -3115,7 +3020,6 @@ const DEFAULT_CARD_POOL = [
 {id:'37829468',name:'Rai-Jin',type:'Monster',atk:null,fairy:false,status:'U',subtype:null},
 {id:'63223467',name:'Rai-Mei',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'12580477',name:'Raigeki',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'12580478',name:'Raigeki',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'04178474',name:'Raigeki Break',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'56260110',name:'Raimei',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'66719324',name:'Rain of Mercy',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -3162,10 +3066,8 @@ const DEFAULT_CARD_POOL = [
 {id:'38199696',name:'Red Medicine',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'68722455',name:'Red Ogre',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'64335804',name:'Red-Eyes Black Metal Dragon',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
-{id:'64335805',name:'Red-Eyes Black Metal Dragon',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'96561011',name:'Red-Eyes Darkness Dragon',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
 {id:'88264978',name:'Red-Eyes Darkness Metal Dragon',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
-{id:'88264979',name:'Red-Eyes Darkness Metal Dragon',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'67300516',name:'Red-Eyes Wyvern',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'05186893',name:'Red-Eyes Zombie Dragon',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
 {id:'02851070',name:'Reflect Bounder',type:'Monster',atk:1700,fairy:false,status:'U',subtype:null},
@@ -3177,8 +3079,6 @@ const DEFAULT_CARD_POOL = [
 {id:'10118318',name:'Reinforce Truth',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'80102359',name:'Reinforced Human Psychic Borg',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'32807846',name:'Reinforcement of the Army',type:'Spell',atk:null,fairy:false,status:'L',subtype:null},
-{id:'32807847',name:'Reinforcement of the Army',type:'Spell',atk:null,fairy:false,status:'L',subtype:null},
-{id:'32807848',name:'Reinforcement of the Army',type:'Spell',atk:null,fairy:false,status:'L',subtype:null},
 {id:'17814387',name:'Reinforcements',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'74845897',name:'Rekindling',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'26956670',name:'Release from Stone',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -3205,7 +3105,6 @@ const DEFAULT_CARD_POOL = [
 {id:'16886617',name:'Reptilianne Vaskii',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'42303365',name:'Reptilianne Viper',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'14878871',name:'Rescue Cat',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
-{id:'14878872',name:'Rescue Cat',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
 {id:'24311595',name:'Rescueroid',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'62420419',name:'Reshef the Dark Being',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
 {id:'08951260',name:'Respect Play',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -3231,7 +3130,6 @@ const DEFAULT_CARD_POOL = [
 {id:'39180960',name:'Rigorous Reaver',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'58641905',name:'Ring of Defense',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'83555666',name:'Ring of Destruction',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'83555667',name:'Ring of Destruction',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'20436034',name:'Ring of Magnetism',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'38815069',name:'Rinyan, Lightsworn Rogue',type:'Monster',atk:100,fairy:false,status:'U',subtype:null},
 {id:'34016756',name:'Riryoku',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -3362,7 +3260,6 @@ const DEFAULT_CARD_POOL = [
 {id:'63394872',name:'Senet Switch',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'76232340',name:'Sengenjin',type:'Monster',atk:2750,fairy:false,status:'U',subtype:null},
 {id:'23401839',name:'Senju of the Thousand Hands',type:'Monster',atk:1400,fairy:true,status:'U',subtype:null},
-{id:'23401840',name:'Senju of the Thousand Hands',type:'Monster',atk:1400,fairy:true,status:'U',subtype:null},
 {id:'60391791',name:'Senri Eye',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'85448931',name:'Sentinel of the Seas',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'49398568',name:'Serial Spell',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -3416,7 +3313,6 @@ const DEFAULT_CARD_POOL = [
 {id:'40867519',name:'Silent Insect',type:'Monster',atk:200,fairy:false,status:'U',subtype:null},
 {id:'73665146',name:'Silent Magician LV4',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'72443568',name:'Silent Magician LV8',type:'Monster',atk:3500,fairy:false,status:'U',subtype:null},
-{id:'72443569',name:'Silent Magician LV8',type:'Monster',atk:3500,fairy:false,status:'U',subtype:null},
 {id:'18235577',name:'Silent Strider',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
 {id:'01995985',name:'Silent Swordsman LV3',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
 {id:'74388798',name:'Silent Swordsman LV5',type:'Monster',atk:2300,fairy:false,status:'U',subtype:null},
@@ -3452,7 +3348,6 @@ const DEFAULT_CARD_POOL = [
 {id:'05265750',name:'Skull Mariner',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'10202894',name:'Skull Red Bird',type:'Monster',atk:1550,fairy:false,status:'U',subtype:null},
 {id:'32274490',name:'Skull Servant',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
-{id:'32274491',name:'Skull Servant',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
 {id:'64306248',name:'Skull-Mark Ladybug',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'95288024',name:'Sky Dragon',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'11458071',name:'Sky Scourge Enrise',type:'Monster',atk:2400,fairy:true,status:'U',subtype:null},
@@ -3500,7 +3395,6 @@ const DEFAULT_CARD_POOL = [
 {id:'95026693',name:'Soul of Fire',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'77527210',name:'Soul of Purity and Light',type:'Monster',atk:2000,fairy:true,status:'U',subtype:null},
 {id:'47852924',name:'Soul of the Pure',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'47852925',name:'Soul of the Pure',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'05758500',name:'Soul Release',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'92924317',name:'Soul Resurrection',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'78864369',name:'Soul Reversal',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -3538,7 +3432,6 @@ const DEFAULT_CARD_POOL = [
 {id:'29735721',name:'Spell Vanishing',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'10069180',name:'Spell-Stopping Statute',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'18807108',name:'Spellbinding Circle',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'18807109',name:'Spellbinding Circle',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'82693042',name:'Sphere of Chaos',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'52121290',name:'Spherous Lady',type:'Monster',atk:400,fairy:false,status:'U',subtype:null},
 {id:'51402177',name:'Sphinx Teleia',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
@@ -3584,10 +3477,7 @@ const DEFAULT_CARD_POOL = [
 {id:'67196946',name:'Star Blast',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'08201910',name:'Star Boy',type:'Monster',atk:550,fairy:false,status:'U',subtype:null},
 {id:'44508094',name:'Stardust Dragon',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Synchro'},
-{id:'44508095',name:'Stardust Dragon',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Synchro'},
-{id:'44508096',name:'Stardust Dragon',type:'ExtraMonster',atk:2500,fairy:false,status:'U',subtype:'Synchro'},
 {id:'61257789',name:'Stardust Dragon/Assault Mode',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
-{id:'61257790',name:'Stardust Dragon/Assault Mode',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'68543408',name:'Stardust Xiaolong',type:'Monster',atk:100,fairy:false,status:'U',subtype:null},
 {id:'58120309',name:'Starlight Road',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'65810489',name:'Statue of the Wicked',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -3630,10 +3520,6 @@ const DEFAULT_CARD_POOL = [
 {id:'23516703',name:'Summon Limit',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'89493368',name:'Summon Reactor ・SK',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'70781052',name:'Summoned Skull',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'70781053',name:'Summoned Skull',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'70781054',name:'Summoned Skull',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'70781055',name:'Summoned Skull',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
-{id:'70781057',name:'Summoned Skull',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
 {id:'00423585',name:'Summoner Monk',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'14644902',name:'Summoner of Illusions',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'79816536',name:'Summoner\'s Art',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -3708,7 +3594,6 @@ const DEFAULT_CARD_POOL = [
 {id:'71983925',name:'Talisman of Spell Sealing',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'19312169',name:'Talisman of Trap Sealing',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'90740329',name:'Taunt',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'90740330',name:'Taunt',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'68392533',name:'Telekinetic Charging Cell',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'28741524',name:'Telekinetic Power Well',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'84847656',name:'Telekinetic Shocker',type:'Monster',atk:1700,fairy:false,status:'U',subtype:null},
@@ -3761,7 +3646,6 @@ const DEFAULT_CARD_POOL = [
 {id:'42829885',name:'The Forceful Sentry',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'29826127',name:'The Forces of Darkness',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'84080938',name:'The Forgiving Maiden',type:'Monster',atk:850,fairy:true,status:'U',subtype:null},
-{id:'84080939',name:'The Forgiving Maiden',type:'Monster',atk:850,fairy:true,status:'U',subtype:null},
 {id:'18710707',name:'The Furious Sea King',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'05915629',name:'The Gift of Greed',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'84136000',name:'The Grave of Enkindling',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -3821,7 +3705,6 @@ const DEFAULT_CARD_POOL = [
 {id:'65079854',name:'Thorn of Malice',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'70780151',name:'Thought Ruler Archfiend',type:'ExtraMonster',atk:2700,fairy:false,status:'U',subtype:'Synchro'},
 {id:'41462083',name:'Thousand Dragon',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Fusion'},
-{id:'41462084',name:'Thousand Dragon',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Fusion'},
 {id:'05703682',name:'Thousand Energy',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'63391643',name:'Thousand Knives',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'33977496',name:'Thousand Needles',type:'Monster',atk:1000,fairy:false,status:'U',subtype:null},
@@ -3836,17 +3719,14 @@ const DEFAULT_CARD_POOL = [
 {id:'31786629',name:'Thunder Dragon',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'15510988',name:'Thunder Kid',type:'Monster',atk:700,fairy:false,status:'U',subtype:null},
 {id:'71564252',name:'Thunder King Rai-Oh',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
-{id:'71564253',name:'Thunder King Rai-Oh',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'70797118',name:'Thunder Nyan Nyan',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'91781589',name:'Thunder of Ruler',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'49791927',name:'Tiger Axe',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
-{id:'49791928',name:'Tiger Axe',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'10097168',name:'Tiger Dragon',type:'Monster',atk:2400,fairy:false,status:'U',subtype:null},
 {id:'80987696',name:'Time Machine',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'94068856',name:'Time Passage',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'35316708',name:'Time Seal',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'71625222',name:'Time Wizard',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'71625223',name:'Time Wizard',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'44913552',name:'Timeater',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'40350910',name:'Timidity',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'83675475',name:'Token Feastevil',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
@@ -3865,7 +3745,6 @@ const DEFAULT_CARD_POOL = [
 {id:'91842653',name:'Toon Summoned Skull',type:'Monster',atk:2500,fairy:false,status:'U',subtype:null},
 {id:'89997728',name:'Toon Table of Contents',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'15259703',name:'Toon World',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'15259704',name:'Toon World',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'83370323',name:'Torapart',type:'Monster',atk:600,fairy:false,status:'U',subtype:null},
 {id:'61068510',name:'Tornado',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'71283180',name:'Tornado Bird',type:'Monster',atk:1100,fairy:false,status:'U',subtype:null},
@@ -3879,7 +3758,6 @@ const DEFAULT_CARD_POOL = [
 {id:'58132856',name:'Toy Magician',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'38120068',name:'Trade-In',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'35686187',name:'Tragedy',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'35686188',name:'Tragedy',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'98777036',name:'Tragoedia',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'42348802',name:'Trakodon',type:'Monster',atk:1300,fairy:false,status:'U',subtype:null},
 {id:'25573054',name:'Transcendent Wings',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -3972,14 +3850,10 @@ const DEFAULT_CARD_POOL = [
 {id:'19877898',name:'Ultimate Insect LV7',type:'Monster',atk:2600,fairy:false,status:'U',subtype:null},
 {id:'32240937',name:'Ultimate Obedient Fiend',type:'Monster',atk:3500,fairy:false,status:'U',subtype:null},
 {id:'80604091',name:'Ultimate Offering',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'80604092',name:'Ultimate Offering',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'15894048',name:'Ultimate Tyranno',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
 {id:'22431243',name:'Ultra Evolution Pill',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'86229493',name:'Umbral Soul',type:'Monster',atk:2000,fairy:false,status:'U',subtype:null},
 {id:'02819435',name:'Umi',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'22702055',name:'Umi',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'26534688',name:'Umi',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
-{id:'34103656',name:'Umi',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'82999629',name:'Umiiruka',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'63465535',name:'Underground Arachnid',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Synchro'},
 {id:'57308711',name:'Unicycular',type:'Monster',atk:100,fairy:false,status:'U',subtype:null},
@@ -3998,7 +3872,6 @@ const DEFAULT_CARD_POOL = [
 {id:'99002135',name:'Urgent Synthesis',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'94634433',name:'Urgent Tuning',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'06007213',name:'Uria, Lord of Searing Flames',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
-{id:'06007214',name:'Uria, Lord of Searing Flames',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'48649353',name:'Ushi Oni',type:'Monster',atk:2150,fairy:false,status:'U',subtype:null},
 {id:'51638941',name:'V-Tiger Jet',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'01353770',name:'Valhalla, Hall of the Fallen',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
@@ -4042,7 +3915,6 @@ const DEFAULT_CARD_POOL = [
 {id:'64973456',name:'Viper\'s Rebirth',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'54591086',name:'Virus Cannon',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'56043446',name:'Viser Des',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'56043447',name:'Viser Des',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'81020140',name:'Volcanic Blaster',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'66436257',name:'Volcanic Counter',type:'Monster',atk:300,fairy:false,status:'U',subtype:null},
 {id:'32543380',name:'Volcanic Doomfire',type:'Monster',atk:3000,fairy:false,status:'U',subtype:null},
@@ -4058,7 +3930,6 @@ const DEFAULT_CARD_POOL = [
 {id:'20951752',name:'Voltanis the Adjudicator',type:'Monster',atk:2800,fairy:true,status:'U',subtype:null},
 {id:'93151201',name:'Voltic Kong',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'14898066',name:'Vorse Raider',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
-{id:'14898067',name:'Vorse Raider',type:'Monster',atk:1900,fairy:false,status:'U',subtype:null},
 {id:'07736719',name:'Vortex Trooper',type:'Monster',atk:0,fairy:false,status:'U',subtype:null},
 {id:'58859575',name:'VW-Tiger Catapult',type:'ExtraMonster',atk:2000,fairy:false,status:'U',subtype:'Fusion'},
 {id:'84243274',name:'VWXYZ-Dragon Catapult Cannon',type:'ExtraMonster',atk:3000,fairy:false,status:'U',subtype:'Fusion'},
@@ -4081,7 +3952,6 @@ const DEFAULT_CARD_POOL = [
 {id:'23424603',name:'Wasteland',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'87774234',name:'Watapon',type:'Monster',atk:200,fairy:true,status:'U',subtype:null},
 {id:'82616239',name:'Water Dragon',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
-{id:'85066822',name:'Water Dragon',type:'Monster',atk:2800,fairy:false,status:'U',subtype:null},
 {id:'49669730',name:'Water Hazard',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'93343894',name:'Water Magician',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'02483611',name:'Water Omotics',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
@@ -4107,7 +3977,6 @@ const DEFAULT_CARD_POOL = [
 {id:'68427465',name:'Wicked-Breaking Flamberge - Baou',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'42167046',name:'Widespread Dud',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'77754944',name:'Widespread Ruin',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
-{id:'77754945',name:'Widespread Ruin',type:'Trap',atk:null,fairy:false,status:'U',subtype:null},
 {id:'68815401',name:'Wild Fire',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'61166988',name:'Wild Nature\'s Release',type:'Spell',atk:null,fairy:false,status:'U',subtype:null},
 {id:'99865167',name:'Wind Effigy',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
@@ -4115,7 +3984,6 @@ const DEFAULT_CARD_POOL = [
 {id:'87796900',name:'Winged Dragon, Guardian of the Fortress #1',type:'Monster',atk:1400,fairy:false,status:'U',subtype:null},
 {id:'57405307',name:'Winged Dragon, Guardian of the Fortress #2',type:'Monster',atk:1200,fairy:false,status:'U',subtype:null},
 {id:'57116033',name:'Winged Kuriboh',type:'Monster',atk:300,fairy:true,status:'U',subtype:null},
-{id:'57116034',name:'Winged Kuriboh',type:'Monster',atk:300,fairy:true,status:'U',subtype:null},
 {id:'98585345',name:'Winged Kuriboh LV10',type:'Monster',atk:300,fairy:true,status:'U',subtype:null},
 {id:'33776734',name:'Winged Kuriboh LV9',type:'Monster',atk:null,fairy:true,status:'U',subtype:null},
 {id:'89258225',name:'Winged Minion',type:'Monster',atk:700,fairy:false,status:'U',subtype:null},
@@ -4150,8 +4018,6 @@ const DEFAULT_CARD_POOL = [
 {id:'06480253',name:'Wroughtweiler',type:'Monster',atk:800,fairy:false,status:'U',subtype:null},
 {id:'58996430',name:'Wulf, Lightsworn Beast',type:'Monster',atk:2100,fairy:false,status:'U',subtype:null},
 {id:'37744402',name:'Wynn the Wind Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'37744403',name:'Wynn the Wind Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
-{id:'37744404',name:'Wynn the Wind Charmer',type:'Monster',atk:500,fairy:false,status:'U',subtype:null},
 {id:'62651957',name:'X-Head Cannon',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
 {id:'90508760',name:'X-Saber Airbellum',type:'Monster',atk:1600,fairy:false,status:'U',subtype:null},
 {id:'23115241',name:'X-Saber Anu Piranha',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null},
@@ -4170,9 +4036,6 @@ const DEFAULT_CARD_POOL = [
 {id:'87292536',name:'XX-Saber Ragigura',type:'Monster',atk:200,fairy:false,status:'U',subtype:null},
 {id:'02111707',name:'XY-Dragon Cannon',type:'ExtraMonster',atk:2200,fairy:false,status:'U',subtype:'Fusion'},
 {id:'91998119',name:'XYZ-Dragon Cannon',type:'ExtraMonster',atk:2800,fairy:false,status:'U',subtype:'Fusion'},
-{id:'91998120',name:'XYZ-Dragon Cannon',type:'ExtraMonster',atk:2800,fairy:false,status:'U',subtype:'Fusion'},
-{id:'91998121',name:'XYZ-Dragon Cannon',type:'ExtraMonster',atk:2800,fairy:false,status:'U',subtype:'Fusion'},
-{id:'91998122',name:'XYZ-Dragon Cannon',type:'ExtraMonster',atk:2800,fairy:false,status:'U',subtype:'Fusion'},
 {id:'99724761',name:'XZ-Tank Cannon',type:'ExtraMonster',atk:2400,fairy:false,status:'U',subtype:'Fusion'},
 {id:'65622692',name:'Y-Dragon Head',type:'Monster',atk:1500,fairy:false,status:'U',subtype:null},
 {id:'29380133',name:'Yado Karu',type:'Monster',atk:900,fairy:false,status:'U',subtype:null},
@@ -4208,6 +4071,7 @@ const DEFAULT_CARD_POOL = [
 {id:'88472456',name:'Zombyra the Dark',type:'Monster',atk:2100,fairy:false,status:'U',subtype:null},
 {id:'86100785',name:'Zone Eater',type:'Monster',atk:250,fairy:false,status:'U',subtype:null},
 {id:'07459013',name:'Zure, Knight of Dark World',type:'Monster',atk:1800,fairy:false,status:'U',subtype:null}
+
 ];
 
 let CARD_POOL = [...DEFAULT_CARD_POOL];
@@ -4222,13 +4086,13 @@ function defaultData(){
       {name:'Archlord Kristya', qty:3, type:'Monster', role:'bomb', atk:2800, fairy:true, ns:false},
       {name:'Aurkus, Lightsworn Druid', qty:1, type:'Monster', role:'starter', atk:1200, fairy:false, ns:true},
       {name:'Card Trooper', qty:1, type:'Monster', role:'starter', atk:400, fairy:false, ns:true},
-      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', atk:2300, fairy:true, ns:false},
+      {name:'Celestia, Lightsworn Angel', qty:2, type:'Monster', role:'extender', role2:'removal', atk:2300, fairy:true, ns:false},
       {name:'Ehren, Lightsworn Monk', qty:1, type:'Monster', role:'starter', atk:1600, fairy:false, ns:true},
       {name:'Garoth, Lightsworn Warrior', qty:1, type:'Monster', role:'extender', atk:1850, fairy:false, ns:false},
       {name:'Hecatrice', qty:1, type:'Monster', role:'necessity', atk:1500, fairy:true, ns:false},
       {name:'Honest', qty:2, type:'Monster', role:'defense', atk:1100, fairy:true, ns:false},
       {name:'Jain, Lightsworn Paladin', qty:1, type:'Monster', role:'starter', atk:1800, fairy:false, ns:true},
-      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', atk:3000, fairy:false, ns:false},
+      {name:'Judgment Dragon', qty:2, type:'Monster', role:'bomb', role2:'removal', atk:3000, fairy:false, ns:false},
       {name:'Lumina, Lightsworn Summoner', qty:1, type:'Monster', role:'extender', atk:1000, fairy:false, ns:false},
       {name:'Lyla, Lightsworn Sorceress', qty:2, type:'Monster', role:'starter', atk:1700, fairy:false, ns:true},
       {name:'Necro Gardna', qty:1, type:'Monster', role:'defense', atk:600, fairy:false, ns:false},
@@ -4247,17 +4111,26 @@ function defaultData(){
       {name:'Threatening Roar', qty:2, type:'Trap', role:'defense', atk:null, fairy:false, ns:false},
     ],
     side: [
-      {name:'Book of Moon', qty:1, matchups:[], replaces:'', sideStatus:'both'},
-      {name:'Brain Control', qty:1, matchups:[], replaces:'', sideStatus:'both'},
-      {name:'Consecrated Light', qty:2, matchups:['Blackwing','Gladiator Beast'], replaces:'', sideStatus:'1st'},
-      {name:'Cyber Dragon', qty:2, matchups:['Machina'], replaces:'', sideStatus:'2nd'},
-      {name:'D.D. Crow', qty:2, matchups:['Blackwing','Frog','Machina'], replaces:'', sideStatus:'both'},
-      {name:'Gorz the Emissary of Darkness', qty:1, matchups:[], replaces:'', sideStatus:'2nd'},
-      {name:'Herald of Orange Light', qty:1, matchups:[], replaces:'', sideStatus:'both'},
-      {name:'Lightning Vortex', qty:1, matchups:['Gladiator Beast','Gigavise'], replaces:'', sideStatus:'2nd'},
-      {name:'Mystical Space Typhoon', qty:1, matchups:[], replaces:'', sideStatus:'both'},
-      {name:'Royal Decree', qty:2, matchups:[], replaces:'', sideStatus:'1st'},
-      {name:'Treacherous Trap Hole', qty:1, matchups:[], replaces:'', sideStatus:'1st'},
+      {name:'Book of Moon', qty:1, matchups:['Blackwing','LS Mirror','Frog','Machina','Gladiator Beast','Gigavise','Rogue','Hero Frog'], replaces:'', sideStatus:'both', role:'reactive'},
+      {name:'Brain Control', qty:1, matchups:['Vayu','Frog','Gladiator Beast','Blackwing','Machina','Rogue','LS Mirror'], replaces:'', sideStatus:'both', role:'removal'},
+      {name:'Consecrated Light', qty:2, matchups:['Blackwing','Vayu'], replaces:'', sideStatus:'1st', role:'removal'},
+      {name:'Cyber Dragon', qty:2, matchups:['Machina','Blackwing','Frog','Gladiator Beast','Gigavise','LS Mirror','Rogue','Hero Frog'], replaces:'Tragoedia', sideStatus:'2nd', role:'reactive'},
+      {name:'D.D. Crow', qty:2, matchups:['Blackwing','Frog','Machina','Vayu'], replaces:'', sideStatus:'both', role:'removal'},
+      {name:'Gorz the Emissary of Darkness', qty:1, matchups:['Vayu','Machina','Rogue'], replaces:'', sideStatus:'2nd', role:'defense'},
+      {name:'Herald of Orange Light', qty:1, matchups:[], replaces:'', sideStatus:'both', role:'defense'},
+      {name:'Herald of Purple Light', qty:1, matchups:[], replaces:'', sideStatus:'both', role:'defense'},
+      {name:'Lightning Vortex', qty:1, matchups:['Gladiator Beast','Gigavise','Blackwing','Frog','Machina','Rogue','LS Mirror','Hero Frog'], replaces:'', sideStatus:'2nd', role:'removal'},
+      {name:'Mystical Space Typhoon', qty:1, matchups:[], replaces:'', sideStatus:'both', role:'removal'},
+      {name:'Royal Decree', qty:2, matchups:['Blackwing'], replaces:'', sideStatus:'both', role:'defense'},
+      {name:'Treacherous Trap Hole', qty:1, matchups:[], replaces:'', sideStatus:'1st', role:'removal'},
+      {name:'Soul Release', qty:2, matchups:['Frog','Machina','LS Mirror','Hero Frog'], replaces:'', sideStatus:'both', role:'removal'},
+      {name:'Bottomless Trap Hole', qty:2, matchups:['Gladiator Beast','Blackwing','LS Mirror','Frog','Machina','Gigavise','Rogue','Hero Frog'], replaces:'Threatening Roar', sideStatus:'1st', role:'removal'},
+      {name:'Fossil Dyna Pachycephalo', qty:2, matchups:['Blackwing','Gladiator Beast'], replaces:'', sideStatus:'1st', role:'defense'},
+      {name:'Barrier Statue of the Heavens', qty:2, matchups:['Blackwing','Gladiator Beast','Frog','Machina','Gigavise','Hero Frog'], replaces:'', sideStatus:'1st', role:'defense'},
+      {name:'Imperial Iron Wall', qty:1, matchups:['LS Mirror'], replaces:'', sideStatus:'1st', role:'defense'},
+      {name:'Shadow-Imprisoning Mirror', qty:1, matchups:['Blackwing'], replaces:'', sideStatus:'1st', role:'defense'},
+      {name:'Mask of Restrict', qty:1, matchups:['Rogue'], replaces:'', sideStatus:'both', role:'defense'},
+      {name:'Giant Trunade', qty:1, matchups:[], replaces:'', sideStatus:'both', role:'removal'},
     ],
     extra: [
       {name:'Ally of Justice Catastor', qty:1, role:'remover'},
@@ -4274,7 +4147,268 @@ function defaultData(){
       {name:'Stardust Dragon', qty:1, role:'negator'},
       {name:'Tempest Magician', qty:1, role:'tech'},
       {name:'XX-Saber Gottoms', qty:1, role:'beater'},
-    ]
+    ],
+    matchupArchetype: {
+      'Gigavise': 'combo',
+      'Frog': 'combo',
+      'Blackwing': 'aggro',
+      'LS Mirror': 'aggro',
+      'Gladiator Beast': 'control',
+      'Machina': 'control',
+      'Hero Frog': 'control',
+    },
+    cardRatings: [
+      {name:'Bottomless Trap Hole', matchup:'Gladiator Beast', rating:'forte', note:"Colpisce ogni evocazione della loro catena di Gladiatori, uno dietro l'altro."},
+      {name:'Bottomless Trap Hole', matchup:'Blackwing', rating:'forte', note:"Banisce, non si aggira facilmente con la loro recursion via synchro."},
+      {name:'Valhalla, Hall of the Fallen', matchup:'Blackwing', rating:'scarsa', note:"Si prende rimozione da ogni cosa contro Blackwing, incluso Icarus Attack."},
+      {name:'Valhalla, Hall of the Fallen', matchup:'Vayu', rating:'scarsa', note:"Si prende di tutto anche qui, inclusa la loro Royal Oppression."},
+      {name:'Barrier Statue of the Heavens', matchup:'Blackwing', rating:'forte', note:"Blocca ogni loro Special Summon (sono DARK), non tocca i nostri (siamo LIGHT). Il floodgate più pulito che abbiamo."},
+      {name:'Barrier Statue of the Heavens', matchup:'Gladiator Beast', rating:'forte', note:"Ferma la catena di richiami Gladiator Beast, che sono quasi tutti EARTH/altri attributi non-LIGHT."},
+      {name:'Barrier Statue of the Heavens', matchup:'Frog', rating:'forte', note:"Blocca il loro loop di Special Summon (Treeborn Frog, Substitoad e affini sono WATER) — utile anche contro la variante OTK."},
+      {name:'Barrier Statue of the Heavens', matchup:'Machina', rating:'forte', note:"Ferma Machina Fortress e i richiami del piano Geartown OTK, che sono DARK."},
+      {name:'Fossil Dyna Pachycephalo', matchup:'Blackwing', rating:'forte', note:"Resetta il loro board di synchro e blocca ulteriori Special Summon — ma blocca anche i nostri (Kristya via Valhalla, i nostri synchro): usala quando il vantaggio di board conta più della tua prossima giocata."},
+      {name:'Fossil Dyna Pachycephalo', matchup:'Gladiator Beast', rating:'forte', note:"Stessa logica: reset totale, doppio taglio anche per noi — meglio quando sei già in vantaggio di risorse."},
+      {name:'Shadow-Imprisoning Mirror', matchup:'Blackwing', rating:'forte', note:"Storicamente segnalata come tech anti-Blackwing (loro mostri sono DARK). Attenzione: nega anche l'effetto dal cimitero del nostro Necro Gardna."},
+      {name:'Imperial Iron Wall', matchup:'LS Mirror', rating:'forte', note:"Protegge Kristya/Valhalla dal loro D.D. Crow, Caius o Bottomless — ma blocca anche i nostri stessi effetti di bando se li usiamo."},
+      {name:'Hecatrice', matchup:'Blackwing', rating:'scarsa', note:"Bersaglio facile di Icarus Attack, stesso motivo di Valhalla."},
+      {name:'Hecatrice', matchup:'Vayu', rating:'scarsa', note:"Si prende rimozione da ogni cosa, inclusa Royal Oppression."},
+      {name:'Hecatrice', matchup:'Gigavise', rating:'scarsa', note:"Non si può tenere contro i mazzi combo: troppo lenta/vulnerabile."},
+      {name:'Hecatrice', matchup:'Gladiator Beast', rating:'scarsa', note:"Non si può tenere contro GB e simili."},
+      {name:'Valhalla, Hall of the Fallen', matchup:'Gigavise', rating:'scarsa', note:"Non si può tenere contro i mazzi combo."},
+      {name:'Valhalla, Hall of the Fallen', matchup:'Gladiator Beast', rating:'scarsa', note:"Non si può tenere contro GB e simili."},
+      {name:'Mirror Force', matchup:'Frog', rating:'scarsa', note:"Fa schifo contro le varianti Frog."},
+      {name:'Mirror Force', matchup:'Gigavise', rating:'scarsa', note:"Fa schifo contro Gigavise."},
+      {name:'Mirror Force', matchup:'LS Mirror', rating:'scarsa', note:"Fa schifo nel mirror Lightsworn."},
+      {name:'Mirror Force', matchup:'Blackwing', rating:'scarsa', note:"Non ideale, ma non perché sia debole — semplicemente loro hanno già tanta removal propria, è ridondante."},
+      {name:'Tragoedia', matchup:'Rogue', rating:'scarsa', note:"Si sidda out di default contro la maggior parte dei mazzi rogue."},
+      {name:'Tragoedia', matchup:'Machina', rating:'scarsa', note:"Si sidda out di default."},
+      {name:'Tragoedia', matchup:'Vayu', rating:'scarsa', note:"Si sidda out di default."},
+      {name:'Tragoedia', matchup:'LS Mirror', rating:'scarsa', note:"Si sidda out di default nel mirror."},
+      {name:'Tragoedia', matchup:'Gigavise', rating:'forte', note:"Eccezione: decente da tenere contro Gigavise."},
+      {name:'Tragoedia', matchup:'Frog', rating:'forte', note:"Eccezione: decente contro le Frog che non giocano Vanity's Emptiness."},
+      {name:'Plaguespreader Zombie', matchup:'Vayu', rating:'scarsa', note:"Si toglie contro Vayu."},
+    ],
+    sidePlans: {
+      'Blackwing': {
+        confidence: 'confirmed',
+        first: {
+          in: [
+            {name:'Royal Decree', qty:2, checked:true, reason:"Ferma le loro trappole (Icarus Attack e simili non passano)."},
+            {name:'Mystical Space Typhoon', qty:1, checked:true, reason:"Blocca Black Whirlwind prima che macini per te."},
+            {name:'Lightning Vortex', qty:1, checked:true, reason:"Si attiva da mano, non serve settarla: niente tempo perso contro un mazzo veloce."},
+            {name:'Consecrated Light', qty:2, checked:true, reason:"Annulla gli effetti di tutti i mostri scoperti in campo, spegne il loro motore."},
+            {name:'Brain Control', qty:1, checked:false, reason:"Flex slot, se hai spazio: tempo/rimozione temporanea."},
+            {name:'Book of Moon', qty:1, checked:false, reason:"Flex slot, se hai spazio: disrupt su synchro/effetti."},
+            {name:'Barrier Statue of the Heavens', qty:2, checked:false, reason:"Blocca ogni loro Special Summon (DARK) senza toccare i nostri (LIGHT) — il floodgate più pulito per questo matchup."},
+            {name:'Fossil Dyna Pachycephalo', qty:2, checked:false, reason:"Reset totale del board se sei già in vantaggio — doppio taglio, blocca anche i nostri Special Summon."},
+            {name:'Shadow-Imprisoning Mirror', qty:1, checked:false, reason:"Nega i loro effetti DARK sul campo/cimitero — ma nega anche il nostro Necro Gardna."},
+          ],
+          out: [
+            {name:'Valhalla, Hall of the Fallen', qty:1, checked:true, reason:"Icarus Attack la stacca facilmente dalla mano: troppo rischiosa da tenere."},
+            {name:'Hecatrice', qty:1, checked:true, reason:"Stesso motivo di Valhalla: bersaglio facile di Icarus Attack."},
+            {name:'Card Trooper', qty:1, checked:false, reason:"Candidato extra: corpo debole, muore facilmente ai loro attacchi."},
+            {name:'Necro Gardna', qty:1, checked:false, reason:"Candidato extra, solo se porti dentro Shadow-Imprisoning Mirror (altrimenti si annullerebbe da solo)."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Royal Decree', qty:2, checked:true, reason:"Ferma le loro trappole (Icarus Attack e simili non passano)."},
+            {name:'Mystical Space Typhoon', qty:1, checked:true, reason:"Blocca Black Whirlwind prima che macini per te."},
+            {name:'Lightning Vortex', qty:1, checked:true, reason:"Si attiva da mano, non serve settarla."},
+            {name:'Consecrated Light', qty:2, checked:true, reason:"Annulla gli effetti di tutti i mostri scoperti in campo."},
+            {name:'Treacherous Trap Hole', qty:1, checked:true, reason:"Da secondo entra quasi sempre: risposta aggiuntiva ora che hai tempo per settarla."},
+            {name:'Brain Control', qty:1, checked:false, reason:"Flex slot se hai spazio."},
+            {name:'Book of Moon', qty:1, checked:false, reason:"Flex slot se hai spazio."},
+            {name:'Barrier Statue of the Heavens', qty:2, checked:false, reason:"Blocca ogni loro Special Summon (DARK) senza toccare i nostri (LIGHT)."},
+            {name:'Fossil Dyna Pachycephalo', qty:2, checked:false, reason:"Reset totale — utile da secondo quando hai già tempo per settarla e stabilizzare."},
+          ],
+          out: [
+            {name:'Valhalla, Hall of the Fallen', qty:1, checked:true, reason:"Bersaglio facile di Icarus Attack."},
+            {name:'Hecatrice', qty:1, checked:true, reason:"Bersaglio facile di Icarus Attack."},
+            {name:'Mirror Force', qty:1, checked:true, reason:"Da secondo escono tutte le trappole del main, sostituite dal pacchetto di side."},
+            {name:'Threatening Roar', qty:2, checked:true, reason:"Da secondo escono tutte le trappole del main."},
+            {name:'Beckoning Light', qty:1, checked:true, reason:"Da secondo escono tutte le trappole del main."},
+            {name:'Royal Oppression', qty:1, checked:true, reason:"Da secondo escono tutte le trappole del main."},
+          ]
+        }
+      },
+      'Vayu': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'Consecrated Light', qty:2, checked:false, reason:"Bozza: spegne gli effetti dei loro synchro/effect monster scoperti."},
+          ],
+          out: [
+            {name:'Herald of Orange Light', qty:1, checked:false, reason:"Bozza: già discusso in chat — troppo lenta, serve aggredire subito contro Vayu."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Consecrated Light', qty:2, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza: risposta aggiuntiva da secondo."},
+          ],
+          out: [
+            {name:'Herald of Orange Light', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'LS Mirror': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'Royal Decree', qty:2, checked:false, reason:"Bozza: nel mirror negare Mirror Force/Torrential avversari è spesso decisivo."},
+            {name:'Soul Release', qty:2, checked:false, reason:"Bozza: nel mirror il cimitero avversario alimenta Beckoning Light e Monster Reincarnation — svuotarlo toglie recursion."},
+          ],
+          out: [
+            {name:'Mirror Force', qty:1, checked:false, reason:"Bozza: simmetrica, nel mirror colpisce anche il tuo board di Fate."},
+            {name:'Monster Reincarnation', qty:1, checked:false, reason:"Bozza: candidato extra per bilanciare Soul Release — meno utile se anche l'avversario sida via i suoi bersagli."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Royal Decree', qty:2, checked:false, reason:"Bozza."},
+            {name:'Soul Release', qty:2, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+          ],
+          out: [
+            {name:'Mirror Force', qty:1, checked:false, reason:"Bozza."},
+            {name:'Monster Reincarnation', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'Frog': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'D.D. Crow', qty:2, checked:false, reason:"Bozza: disturba il loro loop dal cimitero (Treeborn Frog e affini)."},
+            {name:'Soul Release', qty:2, checked:false, reason:"Bozza: Treeborn Frog e Ronintoadin vivono di cimitero — bandirli spegne il loop alla radice."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza: mandare carte al cimitero aiuta un mazzo che vive di cimitero — stesso principio discusso per Celestia vs Blackwing."},
+            {name:'Monster Reincarnation', qty:1, checked:false, reason:"Bozza: candidato extra per bilanciare Soul Release."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'D.D. Crow', qty:2, checked:false, reason:"Bozza."},
+            {name:'Soul Release', qty:2, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+            {name:'Monster Reincarnation', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'Machina': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'Cyber Dragon', qty:2, checked:false, reason:"Bozza: colpisce forte i loro corpi LIGHT/DARK di macchina, tema già presente in side."},
+            {name:'Soul Release', qty:2, checked:false, reason:"Bozza: Machina Fortress e il piano Geartown OTK tornano dal cimitero — bandirle toglie la seconda ondata."},
+          ],
+          out: [
+            {name:'Necro Gardna', qty:1, checked:false, reason:"Bozza: risposta lenta contro un piano che punta a OTK con Geartown."},
+            {name:'Monster Reincarnation', qty:1, checked:false, reason:"Bozza: candidato extra per bilanciare Soul Release."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Cyber Dragon', qty:2, checked:false, reason:"Bozza."},
+            {name:'Soul Release', qty:2, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+          ],
+          out: [
+            {name:'Necro Gardna', qty:1, checked:false, reason:"Bozza."},
+            {name:'Monster Reincarnation', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'Gladiator Beast': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'Lightning Vortex', qty:1, checked:false, reason:"Bozza: risposta immediata da mano a un board Gladiator già stabilito."},
+            {name:'Barrier Statue of the Heavens', qty:2, checked:false, reason:"Blocca la loro catena di richiami (quasi tutti non-LIGHT) senza toccare i nostri."},
+            {name:'Bottomless Trap Hole', qty:2, checked:false, reason:"Banisce ogni loro evocazione, uno dietro l'altro."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Lightning Vortex', qty:1, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+            {name:'Barrier Statue of the Heavens', qty:2, checked:false, reason:"Blocca la loro catena di richiami senza toccare i nostri."},
+            {name:'Bottomless Trap Hole', qty:2, checked:false, reason:"Banisce ogni loro evocazione."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'Gigavise': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'Lightning Vortex', qty:1, checked:false, reason:"Bozza: mass removal immediata contro un board largo."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Lightning Vortex', qty:1, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'Rogue': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'Gorz the Emissary of Darkness', qty:1, checked:false, reason:"Bozza: risposta generica ad ampio impatto contro piani non testati/imprevedibili."},
+          ],
+          out: [
+            {name:'Card Trooper', qty:1, checked:false, reason:"Bozza."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'Gorz the Emissary of Darkness', qty:1, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+          ],
+          out: [
+            {name:'Card Trooper', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+      'Hero Frog': {
+        confidence: 'draft',
+        first: {
+          in: [
+            {name:'D.D. Crow', qty:2, checked:false, reason:"Bozza: stessa logica di Frog puro, disturba il loop dal cimitero."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+          ]
+        },
+        second: {
+          in: [
+            {name:'D.D. Crow', qty:2, checked:false, reason:"Bozza."},
+            {name:'Treacherous Trap Hole', qty:1, checked:false, reason:"Bozza."},
+          ],
+          out: [
+            {name:'Foolish Burial', qty:1, checked:false, reason:"Bozza."},
+          ]
+        }
+      },
+    }
   };
 }
 
@@ -4283,6 +4417,9 @@ let activeTab = 'main';
 let activeSideFilter = 'all';
 let patQuery = '';
 let patChapterFilter = 'all';
+let sidePlanMatchup = 'Blackwing';
+let sidePlanScenario = 'first';
+let sidePlanVisible = false;
 
 async function load(){
   try{
@@ -4295,6 +4432,18 @@ async function load(){
     const raw = localStorage.getItem(STORAGE_KEY);
     DATA = raw ? JSON.parse(raw) : defaultData();
     if(!DATA.matchups) DATA.matchups = defaultData().matchups;
+    if(!DATA.cardRatings) DATA.cardRatings = defaultData().cardRatings;
+    if(!DATA.matchupArchetype) DATA.matchupArchetype = defaultData().matchupArchetype;
+    if(!DATA.side.find(c=>c.name==='Bottomless Trap Hole')){
+      const bth = defaultData().side.find(c=>c.name==='Bottomless Trap Hole');
+      if(bth) DATA.side.push(bth);
+    }
+    if(!DATA.sidePlans) DATA.sidePlans = defaultData().sidePlans;
+    else {
+      // aggiunge eventuali nuovi matchup di default senza sovrascrivere piani già salvati dall'utente
+      const defaults = defaultData().sidePlans;
+      Object.keys(defaults).forEach(m=>{ if(!DATA.sidePlans[m]) DATA.sidePlans[m] = defaults[m]; });
+    }
   }catch(e){
     DATA = defaultData();
   }
@@ -4327,8 +4476,33 @@ function sumQty(list){ return list.reduce((a,c)=>a+Number(c.qty||0),0); }
 function computeRoleCounts(){
   const counts = {};
   ROLES.forEach(r=>counts[r.id]=0);
-  DATA.main.forEach(c=>{ counts[c.role] = (counts[c.role]||0) + Number(c.qty||0); });
+  DATA.main.forEach(c=>{
+    counts[c.role] = (counts[c.role]||0) + Number(c.qty||0);
+    if(c.role2){ counts[c.role2] = (counts[c.role2]||0) + Number(c.qty||0); }
+  });
   return counts;
+}
+
+// Mostri del main che NON possono essere evocati normalmente (Special Summon-only, testo "Cannot be Normal Summoned/Set")
+// Mostri che, per testo o per uso pratico, non contano come corpo affidabile da Evocazione Normale:
+// Kristya e Wulf non possono proprio essere Normal Summoned; Necro Gardna tecnicamente può,
+// ma in pratica quasi non si gioca mai così — resta escluso dal conteggio "sicurezza normali" su indicazione diretta.
+const SPECIAL_SUMMON_ONLY = ['Archlord Kristya', 'Wulf, Lightsworn Beast', 'Necro Gardna'];
+
+function isNormalSummonable(cardName){
+  return !SPECIAL_SUMMON_ONLY.includes(cardName);
+}
+
+function countRemainingNormalSummonable(outNames){
+  // outNames: array di nomi carta che verrebbero sidate fuori dal main
+  let count = 0;
+  DATA.main.forEach(c=>{
+    if(c.type!=='Monster') return;
+    if(!isNormalSummonable(c.name)) return;
+    const outQty = outNames.filter(n=>n===c.name).length;
+    count += Math.max(0, Number(c.qty||0) - outQty);
+  });
+  return count;
 }
 
 function computeCustomRules(){
@@ -4562,7 +4736,7 @@ function render(){
       <div class="section-title">Carte</div>
       <table>
         <thead><tr>
-          <th style="width:24%">Nome</th><th>Qtà</th><th>Tipo</th><th>Ruolo</th><th>ATK</th><th>Fata</th><th>NS</th><th>Banlist</th><th></th>
+          <th style="width:28%">Nome</th><th>Qtà</th><th>Tipo</th><th style="width:130px">Ruolo</th><th style="width:80px">ATK</th><th>Fata</th><th>NS</th><th>Banlist</th><th></th>
         </tr></thead>
         <tbody id="main-tbody"></tbody>
       </table>
@@ -4599,7 +4773,7 @@ function render(){
 
       <table>
         <thead><tr>
-          <th style="width:20%">Nome</th><th>Qtà</th><th>Andamento</th><th>Matchup</th><th style="width:22%">Sostituisce (main)</th><th></th>
+          <th style="width:22%">Nome</th><th>Qtà</th><th style="width:110px">Ruolo</th><th>Andamento</th><th>Matchup</th><th style="width:16%">Sostituisce (main)</th><th></th>
         </tr></thead>
         <tbody id="side-tbody"></tbody>
       </table>
@@ -4614,6 +4788,36 @@ function render(){
           </tbody>
         </table>
       </div>
+
+      <div class="section-title" style="margin-top:40px;">Valutazioni carta per matchup</div>
+      <p style="font-size:12.5px; color:var(--ink-soft); margin:-4px 0 12px; line-height:1.5;">
+        Etichetta rapida: questa carta è forte o scarsa contro un matchup specifico, e perché. Compare come badge sotto il nome carta nelle tabelle Main e Side.
+      </p>
+      <table>
+        <thead><tr><th style="width:22%">Carta</th><th style="width:16%">Matchup</th><th style="width:12%">Valutazione</th><th>Nota</th><th></th></tr></thead>
+        <tbody id="ratings-tbody"></tbody>
+      </table>
+      <button class="add-row" id="add-rating">+ aggiungi valutazione</button>
+
+      <div class="section-title" style="margin-top:40px;">Piani di Sideboard — Going 1st / Going 2nd</div>
+      ${!sidePlanVisible ? `
+        <button class="add-row" id="gen-sideplan-btn">⚙ Genera piano 1st/2nd</button>
+      ` : `
+        <p style="font-size:12.5px; color:var(--ink-soft); margin:8px 0 16px; line-height:1.5;">
+          Per ogni matchup, spunta le carte che porti dentro (dalla side) e quelle che sidi fuori (dal main).
+          Il validatore controlla in tempo reale: bilancio IN/OUT, tetto di scambi (regola tua: max 8),
+          pavimento di mostri Normal Summon-abili sicuri (regola tua: min 10), e come si spostano i ratio Mostro/Magia/Trappola e le categorie di ruolo.
+          I piani con bollino <strong>bozza</strong> sono ipotesi mie da confermare o correggere — solo Blackwing è costruito sul tuo ragionamento diretto.
+        </p>
+        <div class="side-filter-bar" style="margin-bottom:10px;">
+          ${Object.keys(DATA.sidePlans||{}).map(m=>`<button class="sideplan-matchup-btn ${sidePlanMatchup===m?'active '+matchupClass(m):''}" data-matchup="${m}">${m}</button>`).join('')}
+        </div>
+        <div class="side-filter-bar" style="margin-bottom:20px;">
+          <button class="sideplan-scenario-btn ${sidePlanScenario==='first'?'active':''}" data-scenario="first">Going 1st</button>
+          <button class="sideplan-scenario-btn ${sidePlanScenario==='second'?'active':''}" data-scenario="second">Going 2nd</button>
+        </div>
+        <div id="sideplan-content"></div>
+      `}
     </div>
 
     <!-- TAB EXTRA -->
@@ -4648,6 +4852,29 @@ function render(){
         ${PAT_CHAPTERS.map(ch=>`<button class="pat-chapter-btn ${patChapterFilter===ch.num?'active':''}" data-chapter="${ch.num}">${ch.num}. ${ch.name}</button>`).join('')}
       </div>
       <div id="pat-results"></div>
+
+      <div class="section-title" style="margin-top:36px;">Calcolatrici (capitolo 22 — Probabilità)</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <div class="pool-manager-box" style="margin-top:0;">
+          <div style="font-family:'Fraunces',serif; font-size:15px; font-weight:600; margin-bottom:10px;">Calcolatrice ipergeometrica</div>
+          <p style="font-size:11.5px; color:var(--ink-soft); margin:-4px 0 12px;">Probabilità di pescare almeno N copie di una carta.</p>
+          <div class="pool-form">
+            <div class="form-group"><label>Carte nel mazzo</label><input type="number" id="hg-pop" value="40" min="1"></div>
+            <div class="form-group"><label>Copie della carta</label><input type="number" id="hg-succ" value="3" min="0"></div>
+            <div class="form-group"><label>Carte in mano</label><input type="number" id="hg-sample" value="6" min="1"></div>
+            <div class="form-group"><label>Copie desiderate (almeno)</label><input type="number" id="hg-target" value="1" min="0"></div>
+          </div>
+          <div id="hg-result" style="margin-top:14px; font-family:'Fraunces',serif; font-size:22px; font-weight:600;"></div>
+        </div>
+        <div class="pool-manager-box" style="margin-top:0;">
+          <div style="font-family:'Fraunces',serif; font-size:15px; font-weight:600; margin-bottom:10px;">Da % Game Win a % Match Win (Bo3)</div>
+          <p style="font-size:11.5px; color:var(--ink-soft); margin:-4px 0 12px;">Formula di Pat: m = −2g³ + 3g²</p>
+          <div class="pool-form">
+            <div class="form-group"><label>% vittorie sul singolo game</label><input type="number" id="mw-g" value="70" min="0" max="100" step="0.1"></div>
+          </div>
+          <div id="mw-result" style="margin-top:14px; font-family:'Fraunces',serif; font-size:22px; font-weight:600;"></div>
+        </div>
+      </div>
     </div>
 
     <!-- EXPORT UFFICIALE: replica del modulo cartaceo Konami -->
@@ -4722,7 +4949,9 @@ function render(){
   renderMainRows();
   renderSideRows();
   renderExtraRows();
+  renderRatingsRows();
   renderPatResults();
+  renderSidePlanContent();
   bindGlobal();
   generateKdeExport();
 }
@@ -4764,6 +4993,22 @@ function renderOfficialSheet(){
         <td style="vertical-align:top;padding:0;"><table>${rows(extra)}</table></td>
       </tr>
     </table>
+  </div>`;
+}
+
+function getRatingsForCard(name){
+  return (DATA.cardRatings||[]).filter(r=>r.name.toLowerCase()===(name||'').toLowerCase());
+}
+
+function ratingBadgesHtml(name){
+  const ratings = getRatingsForCard(name);
+  if(ratings.length===0) return '';
+  return `<div style="display:flex; gap:3px; flex-wrap:wrap; margin-top:3px;">
+    ${ratings.map(r=>{
+      const icon = r.rating==='forte' ? '▲' : '▼';
+      const color = r.rating==='forte' ? 'var(--stamp-green)' : 'var(--stamp-red)';
+      return `<span title="${(r.note||'').replace(/"/g,'&quot;')}" class="matchup-tag ${matchupClass(r.matchup)}" style="border:1px solid ${color}; display:inline-flex; align-items:center; gap:2px;"><span style="color:${color}; font-weight:700;">${icon}</span>${r.matchup}</span>`;
+    }).join('')}
   </div>`;
 }
 
@@ -4822,11 +5067,17 @@ function renderMainRows(){
       const rowClass = c.type==='Monster' ? 'type-monster' : (c.type==='Spell' ? 'type-spell' : 'type-trap');
       html += `
         <tr class="${rowClass}">
-          <td><input type="text" list="main-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field"></td>
+          <td><input type="text" list="main-datalist" value="${c.name}" data-idx="${i}" data-field="name" class="main-field">${ratingBadgesHtml(c.name)}</td>
           <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${i}" data-field="qty" class="main-field"></td>
           <td><select data-idx="${i}" data-field="type" class="main-field">${['Monster','Spell','Trap'].map(t=>`<option ${c.type===t?'selected':''}>${t}</option>`).join('')}</select></td>
-          <td><select data-idx="${i}" data-field="role" class="main-field role-select" style="color:${roleColor(c.role)}">${ROLES.map(r=>`<option value="${r.id}" ${c.role===r.id?'selected':''}>${r.label}</option>`).join('')}</select></td>
-          <td><input type="number" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" ${c.type!=='Monster'?'disabled':''}></td>
+          <td>
+            <select data-idx="${i}" data-field="role" class="main-field role-select" style="color:${roleColor(c.role)}">${ROLES.map(r=>`<option value="${r.id}" ${c.role===r.id?'selected':''}>${r.label}</option>`).join('')}</select>
+            <select data-idx="${i}" data-field="role2" class="main-field role-select" style="margin-top:2px; font-size:10px; color:${c.role2?roleColor(c.role2):'var(--ink-soft)'}">
+              <option value="" ${!c.role2?'selected':''}>+ ruolo secondario</option>
+              ${ROLES.filter(r=>r.id!=='other').map(r=>`<option value="${r.id}" ${c.role2===r.id?'selected':''}>+ ${r.label}</option>`).join('')}
+            </select>
+          </td>
+          <td><input type="number" value="${c.atk===null?'':c.atk}" data-idx="${i}" data-field="atk" class="main-field" style="width:70px" ${c.type!=='Monster'?'disabled':''}></td>
           <td class="center"><input type="checkbox" ${c.fairy?'checked':''} data-idx="${i}" data-field="fairy" class="main-field"></td>
           <td class="center"><input type="checkbox" ${c.ns?'checked':''} data-idx="${i}" data-field="ns" class="main-field"></td>
           <td>${legalityBadge(c)}</td>
@@ -4836,6 +5087,16 @@ function renderMainRows(){
     });
   });
   tbody.innerHTML = html;
+}
+
+function sideRowClass(name){
+  const poolCard = findInPool(name);
+  if(!poolCard) return '';
+  if(poolCard.type==='Monster') return 'type-monster';
+  if(poolCard.type==='Spell') return 'type-spell';
+  if(poolCard.type==='Trap') return 'type-trap';
+  if(poolCard.type==='ExtraMonster') return poolCard.subtype==='Fusion' ? 'type-fusion' : 'type-synchro';
+  return '';
 }
 
 function renderSideRows(){
@@ -4852,9 +5113,10 @@ function renderSideRows(){
   tbody.innerHTML = filtered.map((c,i)=>{
     const realIndex = DATA.side.indexOf(c);
     return `
-    <tr>
-      <td><input type="text" list="side-datalist" value="${c.name}" data-idx="${realIndex}" data-field="name" class="side-field"></td>
+    <tr class="${sideRowClass(c.name)}">
+      <td><input type="text" list="side-datalist" value="${c.name}" data-idx="${realIndex}" data-field="name" class="side-field">${ratingBadgesHtml(c.name)}</td>
       <td class="center"><input type="number" min="0" value="${c.qty}" data-idx="${realIndex}" data-field="qty" class="side-field"></td>
+      <td><select data-idx="${realIndex}" data-field="role" class="side-field" style="color:${roleColor(c.role||'other')}">${ROLES.map(r=>`<option value="${r.id}" ${(c.role||'other')===r.id?'selected':''}>${r.label}</option>`).join('')}</select></td>
       <td>
         <select data-idx="${realIndex}" data-field="sideStatus" class="side-field">
           <option value="both" ${c.sideStatus==='both'?'selected':''}>Sia 1st che 2nd</option>
@@ -4871,6 +5133,29 @@ function renderSideRows(){
       <td class="center"><button class="del-btn" data-idx="${realIndex}" data-list="side">✕</button></td>
     </tr>
   `}).join('');
+}
+
+function renderRatingsRows(){
+  const tbody = document.getElementById('ratings-tbody');
+  if(!tbody) return;
+  tbody.innerHTML = (DATA.cardRatings||[]).map((r,i)=>`
+    <tr>
+      <td><input type="text" list="side-datalist" value="${r.name}" data-idx="${i}" data-field="name" class="rating-field"></td>
+      <td>
+        <select data-idx="${i}" data-field="matchup" class="rating-field">
+          ${DATA.matchups.map(m=>`<option value="${m}" ${r.matchup===m?'selected':''}>${m}</option>`).join('')}
+        </select>
+      </td>
+      <td>
+        <select data-idx="${i}" data-field="rating" class="rating-field" style="color:${r.rating==='forte'?'var(--stamp-green)':'var(--stamp-red)'}">
+          <option value="forte" ${r.rating==='forte'?'selected':''}>▲ Forte</option>
+          <option value="scarsa" ${r.rating==='scarsa'?'selected':''}>▼ Scarsa</option>
+        </select>
+      </td>
+      <td><input type="text" value="${(r.note||'').replace(/"/g,'&quot;')}" data-idx="${i}" data-field="note" class="rating-field"></td>
+      <td class="center"><button class="del-btn" data-idx="${i}" data-list="cardRatings">✕</button></td>
+    </tr>
+  `).join('');
 }
 
 function renderExtraRows(){
@@ -4988,6 +5273,211 @@ function scoreNote(note, query){
   return 0;
 }
 
+function computeMainTypeCounts(){
+  const c = {Monster:0, Spell:0, Trap:0};
+  DATA.main.forEach(card=>{ c[card.type] = (c[card.type]||0) + Number(card.qty||0); });
+  return c;
+}
+
+function computeSideSwapImpact(matchup, scenario){
+  const plan = DATA.sidePlans[matchup] && DATA.sidePlans[matchup][scenario];
+  if(!plan) return null;
+
+  const inChecked = plan.in.filter(c=>c.checked);
+  const outChecked = plan.out.filter(c=>c.checked);
+  const inCount = inChecked.reduce((a,c)=>a+Number(c.qty||0),0);
+  const outCount = outChecked.reduce((a,c)=>a+Number(c.qty||0),0);
+
+  const outNamesExpanded = [];
+  outChecked.forEach(c=>{ for(let i=0;i<c.qty;i++) outNamesExpanded.push(c.name); });
+  const remainingNS = countRemainingNormalSummonable(outNamesExpanded);
+
+  // Ratio Mostro/Magia/Trappola post-swap
+  const baseTypes = computeMainTypeCounts();
+  const postTypes = {...baseTypes};
+  outChecked.forEach(c=>{
+    const poolCard = findInPool(c.name);
+    const t = poolCard ? (poolCard.type==='ExtraMonster'?'Monster':poolCard.type) : (DATA.main.find(m=>m.name===c.name)||{}).type;
+    if(t) postTypes[t] = (postTypes[t]||0) - Number(c.qty||0);
+  });
+  inChecked.forEach(c=>{
+    const poolCard = findInPool(c.name);
+    const t = poolCard ? (poolCard.type==='ExtraMonster'?'Monster':poolCard.type) : 'Monster';
+    postTypes[t] = (postTypes[t]||0) + Number(c.qty||0);
+  });
+
+  // Ruoli post-swap (considerando ruolo primario + secondario per le carte OUT già nel main)
+  const baseRoles = computeRoleCounts();
+  const postRoles = {...baseRoles};
+  outChecked.forEach(c=>{
+    const mainCard = DATA.main.find(m=>m.name===c.name);
+    if(mainCard){
+      postRoles[mainCard.role] = (postRoles[mainCard.role]||0) - Number(c.qty||0);
+      if(mainCard.role2) postRoles[mainCard.role2] = (postRoles[mainCard.role2]||0) - Number(c.qty||0);
+    }
+  });
+  inChecked.forEach(c=>{
+    const sideCard = DATA.side.find(s=>s.name===c.name);
+    const role = sideCard ? sideCard.role : 'other';
+    postRoles[role] = (postRoles[role]||0) + Number(c.qty||0);
+  });
+
+  return { inCount, outCount, balance: inCount-outCount, remainingNS, postTypes, baseTypes, postRoles, baseRoles };
+}
+
+function renderSidePlanContent(){
+  const container = document.getElementById('sideplan-content');
+  if(!container) return;
+  const plan = DATA.sidePlans[sidePlanMatchup] && DATA.sidePlans[sidePlanMatchup][sidePlanScenario];
+  if(!plan){ container.innerHTML = '<p style="color:var(--ink-soft); font-size:12.5px;">Nessun piano per questo matchup/scenario.</p>'; return; }
+
+  const impact = computeSideSwapImpact(sidePlanMatchup, sidePlanScenario);
+  const confidence = DATA.sidePlans[sidePlanMatchup].confidence;
+
+  const balanceOk = impact.balance === 0;
+  const swapOk = Math.max(impact.inCount, impact.outCount) <= 8;
+  const nsOk = impact.remainingNS >= 10;
+
+  const roleRows = ROLES.filter(r=>r.id!=='other').map(r=>{
+    const before = impact.baseRoles[r.id]||0, after = impact.postRoles[r.id]||0;
+    const inRange = r.min===null || (after>=r.min && after<=r.max);
+    const changed = before !== after;
+    return `<tr>
+      <td class="rowhead">${r.label}</td>
+      <td>${before}</td>
+      <td style="font-weight:${changed?'700':'400'}; color:${changed?(inRange?'var(--stamp-green)':'var(--stamp-red)'):'var(--ink)'}">${after}</td>
+      <td style="color:var(--ink-soft); font-size:10.5px;">${r.min===null?'—':(r.min===r.max?r.min:r.min+'–'+r.max)}</td>
+    </tr>`;
+  }).join('');
+
+  const typeRows = ['Monster','Spell','Trap'].map(t=>{
+    const before = impact.baseTypes[t]||0, after = impact.postTypes[t]||0;
+    const changed = before !== after;
+    return `<tr>
+      <td class="rowhead">${t==='Monster'?'Mostri':t==='Spell'?'Magie':'Trappole'}</td>
+      <td>${before}</td>
+      <td style="font-weight:${changed?'700':'400'}">${after}</td>
+    </tr>`;
+  }).join('');
+
+function archetypeInfo(matchup){
+  const type = (DATA.matchupArchetype||{})[matchup];
+  if(!type) return null;
+  const map = {
+    aggro: {label:'Aggro', color:'#A8402F', hint:"Serve interazione rapida, non risposte lente: se puoi, agisci prima che stabilizzi il board."},
+    control: {label:'Control', color:'#2F5A6B', hint:"Partita di logoramento risorse: la rimozione va dosata, non sprecata sul primo bersaglio disponibile."},
+    combo: {label:'Combo', color:'#7A5A9A', hint:"Serve disturbare il combo/setup, non solo rimuovere: i floodgate valgono più della rimozione puntuale qui."},
+  };
+  return map[type] ? {...map[type], type} : null;
+}
+
+  container.innerHTML = `
+    <div style="display:flex; gap:8px; align-items:center; margin-bottom:16px; flex-wrap:wrap;">
+      <span class="matchup-tag ${matchupClass(sidePlanMatchup)}">${sidePlanMatchup}</span>
+      ${(()=>{ const a = archetypeInfo(sidePlanMatchup); return a ? `<span title="${a.hint}" style="font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; padding:3px 8px; border-radius:10px; border:1px solid ${a.color}; color:${a.color};">${a.label}</span>` : ''; })()}
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; padding:3px 8px; border-radius:10px; background:${confidence==='confirmed'?'#DCE3C8':'#F0E4C8'}; color:${confidence==='confirmed'?'var(--stamp-green)':'var(--stamp-gold)'};">${confidence==='confirmed'?'Confermato':'Bozza — da rivedere'}</span>
+    </div>
+
+    <div class="stamps" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));">
+      <div class="stamp ${balanceOk?'':''}">
+        <div class="label">Bilancio IN / OUT</div>
+        <div class="value">${impact.inCount} / ${impact.outCount}</div>
+        <div class="mark ${balanceOk?'pass':'flag'}">${balanceOk?'OK':(impact.balance>0?'MANCA OUT':'MANCA IN')}</div>
+      </div>
+      <div class="stamp">
+        <div class="label">Scambi totali (max 8)</div>
+        <div class="value">${Math.max(impact.inCount, impact.outCount)}</div>
+        <div class="mark ${swapOk?'pass':'flag'}">${swapOk?'OK':'SOPRA'}</div>
+      </div>
+      <div class="stamp">
+        <div class="label">Mostri Normal-summon sicuri (min 10)</div>
+        <div class="value">${impact.remainingNS}</div>
+        <div class="mark ${nsOk?'pass':'flag'}">${nsOk?'OK':'SOTTO'}</div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:15px; margin:0 0 8px; color:var(--stamp-green);">Candidati IN (dalla side)</h3>
+        ${plan.in.map((c,i)=>`
+          <div style="display:flex; gap:8px; align-items:flex-start; padding:8px 0; border-bottom:1px dashed var(--rule);">
+            <input type="checkbox" ${c.checked?'checked':''} data-side="in" data-idx="${i}" class="sideplan-check" style="margin-top:3px;">
+            <div style="flex:1;">
+              <div style="font-size:13px; font-weight:600;">${c.qty}x ${c.name}</div>
+              <input type="text" value="${c.reason||''}" data-side="in" data-idx="${i}" class="sideplan-reason" style="width:100%; font-size:11.5px; color:var(--ink-soft); border:1px solid transparent; background:transparent; padding:2px 0;">
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:15px; margin:0 0 8px; color:var(--stamp-red);">Candidati OUT (dal main)</h3>
+        ${plan.out.map((c,i)=>`
+          <div style="display:flex; gap:8px; align-items:flex-start; padding:8px 0; border-bottom:1px dashed var(--rule);">
+            <input type="checkbox" ${c.checked?'checked':''} data-side="out" data-idx="${i}" class="sideplan-check" style="margin-top:3px;">
+            <div style="flex:1;">
+              <div style="font-size:13px; font-weight:600;">${c.qty}x ${c.name}</div>
+              <input type="text" value="${c.reason||''}" data-side="out" data-idx="${i}" class="sideplan-reason" style="width:100%; font-size:11.5px; color:var(--ink-soft); border:1px solid transparent; background:transparent; padding:2px 0;">
+            </div>
+          </div>
+        `).join('')}
+        <button class="add-row" id="sideplan-add-out" style="margin-top:8px; padding:5px 10px; font-size:11px;">+ candidato OUT</button>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:14px; margin:0 0 6px;">Ratio Mostro/Magia/Trappola dopo lo scambio</h3>
+        <table><thead><tr><th class="rowhead">Tipo</th><th>Prima</th><th>Dopo</th></tr></thead><tbody>${typeRows}</tbody></table>
+      </div>
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:14px; margin:0 0 6px;">Categorie di ruolo dopo lo scambio</h3>
+        <table><thead><tr><th class="rowhead">Ruolo</th><th>Prima</th><th>Dopo</th><th>Target</th></tr></thead><tbody>${roleRows}</tbody></table>
+      </div>
+    </div>
+  `;
+}
+
+function nCr(n, r){
+  if(r<0 || r>n || n<0) return 0;
+  r = Math.min(r, n-r);
+  let result = 1;
+  for(let i=0;i<r;i++){ result = result * (n-i) / (i+1); }
+  return result;
+}
+
+function hypergeomAtLeast(N, K, n, k){
+  if(k<=0) return 1;
+  if(K<0 || N<=0 || n<=0 || K>N || n>N) return 0;
+  let cumulativeBelow = 0;
+  const maxI = Math.min(k-1, n, K);
+  for(let i=0;i<=maxI;i++){ cumulativeBelow += nCr(K,i)*nCr(N-K,n-i); }
+  const total = nCr(N,n);
+  if(total===0) return 0;
+  return Math.max(0, Math.min(1, 1-(cumulativeBelow/total)));
+}
+
+function updateHypergeomCalc(){
+  const pop = Number(document.getElementById('hg-pop')?.value);
+  const succ = Number(document.getElementById('hg-succ')?.value);
+  const sample = Number(document.getElementById('hg-sample')?.value);
+  const target = Number(document.getElementById('hg-target')?.value);
+  const out = document.getElementById('hg-result');
+  if(!out) return;
+  if(!pop || sample<0 || succ<0 || target<0){ out.textContent = '—'; return; }
+  const p = hypergeomAtLeast(pop, succ, sample, target);
+  out.innerHTML = `${(p*100).toFixed(2)}% <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); font-weight:400;">di pescare almeno ${target} copia/e</span>`;
+}
+
+function updateMatchWinCalc(){
+  const gPct = Number(document.getElementById('mw-g')?.value);
+  const out = document.getElementById('mw-result');
+  if(!out) return;
+  if(isNaN(gPct)){ out.textContent = '—'; return; }
+  const g = gPct/100;
+  const m = -2*Math.pow(g,3) + 3*Math.pow(g,2);
+  out.innerHTML = `${(m*100).toFixed(1)}% <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); font-weight:400;">di vincere il match (Bo3)</span>`;
+}
+
 function renderPatAnswer(){
   const box = document.getElementById('pat-answer');
   if(!box) return;
@@ -5069,6 +5559,15 @@ function bindGlobal(){
   const askBtn = document.getElementById('pat-ask-btn');
   if(askBtn) askBtn.onclick = ()=>{ patQuery = document.getElementById('pat-search').value; renderPatResults(); };
 
+  ['hg-pop','hg-succ','hg-sample','hg-target'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.oninput = updateHypergeomCalc;
+  });
+  const mwG = document.getElementById('mw-g');
+  if(mwG) mwG.oninput = updateMatchWinCalc;
+  updateHypergeomCalc();
+  updateMatchWinCalc();
+
   document.querySelectorAll('.pat-example').forEach(b=>{
     b.onclick = ()=>{
       patQuery = b.dataset.example;
@@ -5087,6 +5586,41 @@ function bindGlobal(){
       renderPatResults();
     };
   });
+
+  const genBtn = document.getElementById('gen-sideplan-btn');
+  if(genBtn) genBtn.onclick = ()=>{ sidePlanVisible = true; render(); };
+
+  document.querySelectorAll('.sideplan-matchup-btn').forEach(b=>{
+    b.onclick = ()=>{ sidePlanMatchup = b.dataset.matchup; render(); };
+  });
+  document.querySelectorAll('.sideplan-scenario-btn').forEach(b=>{
+    b.onclick = ()=>{ sidePlanScenario = b.dataset.scenario; render(); };
+  });
+  document.querySelectorAll('.sideplan-check').forEach(el=>{
+    el.onchange = ()=>{
+      const side = el.dataset.side, idx = Number(el.dataset.idx);
+      DATA.sidePlans[sidePlanMatchup][sidePlanScenario][side][idx].checked = el.checked;
+      save(); renderSidePlanContent();
+    };
+  });
+  document.querySelectorAll('.sideplan-reason').forEach(el=>{
+    el.onchange = ()=>{
+      const side = el.dataset.side, idx = Number(el.dataset.idx);
+      DATA.sidePlans[sidePlanMatchup][sidePlanScenario][side][idx].reason = el.value;
+      save();
+    };
+  });
+  const addOutBtn = document.getElementById('sideplan-add-out');
+  if(addOutBtn) addOutBtn.onclick = ()=>{
+    const name = prompt('Nome della carta del main da aggiungere come candidato OUT:');
+    if(!name) return;
+    const mainCard = DATA.main.find(m=>m.name.toLowerCase()===name.trim().toLowerCase());
+    DATA.sidePlans[sidePlanMatchup][sidePlanScenario].out.push({
+      name: mainCard ? mainCard.name : name.trim(),
+      qty: 1, checked: false, reason: ''
+    });
+    save(); renderSidePlanContent();
+  };
 
   document.querySelectorAll('.side-filter-bar button[data-filter]').forEach(b=>{
     b.onclick = ()=>{ activeSideFilter = b.dataset.filter; renderSideRows(); document.querySelectorAll('.side-filter-bar button[data-filter]').forEach(x=>x.classList.remove('active')); b.classList.add('active'); };
@@ -5111,6 +5645,19 @@ function bindGlobal(){
       save(); render();
     };
   });
+
+  document.querySelectorAll('.rating-field').forEach(el=>{
+    el.onchange = ()=>{
+      const idx = Number(el.dataset.idx), field = el.dataset.field;
+      DATA.cardRatings[idx][field] = el.value;
+      save(); render();
+    };
+  });
+  const addRatingBtn = document.getElementById('add-rating');
+  if(addRatingBtn) addRatingBtn.onclick = ()=>{
+    DATA.cardRatings.push({name:'', matchup: DATA.matchups[0], rating:'forte', note:''});
+    save(); render();
+  };
 
   document.querySelectorAll('.main-field').forEach(el=>{
     el.onchange = ()=>{
